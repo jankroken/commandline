@@ -28,9 +28,10 @@ public class OptionSet {
 	}
 	
 	public void consumeOptions(PeekIterator<String> args) 
-		throws IllegalAccessException, InvocationTargetException
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		while (args.hasNext()) {
+			System.out.println("spec="+spec+" nextArg="+args.peek());
 			if (isSwitch(args.peek())) {
 				OptionSpecification optionSpecification = getOptionSpecification(args.peek());
 				if (optionSpecification == null) {

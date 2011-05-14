@@ -11,6 +11,7 @@ import commandline.annotations.LongSwitch;
 import commandline.annotations.Option;
 import commandline.annotations.ShortSwitch;
 import commandline.annotations.SingleArgument;
+import commandline.annotations.SubConfiguration;
 import commandline.annotations.Toggle;
 import commandline.util.AnnotationUtils;
 
@@ -34,6 +35,8 @@ public class OptionSpecificationFactory {
 				builder.addAllAvailableArguments();
 			} else if (annotation instanceof ArgumentsUntilDelimiter) {
 				builder.addUntilDelimiter(((ArgumentsUntilDelimiter)annotation).value());
+			} else if (annotation instanceof SubConfiguration) {
+				builder.addSubset(((SubConfiguration)annotation).value());
 			} else {
 				// todo
 			}

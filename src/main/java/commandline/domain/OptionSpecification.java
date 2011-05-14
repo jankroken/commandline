@@ -23,7 +23,7 @@ public class OptionSpecification {
 	}
 
 	public void activateAndConsumeArguments(Object spec, PeekIterator<String> args) 
-		throws InvocationTargetException, IllegalAccessException
+		throws InvocationTargetException, IllegalAccessException, InstantiationException
 	{
 		System.out.println("method="+method+" spec="+spec);
 		
@@ -51,6 +51,12 @@ public class OptionSpecification {
 				}
 				if (args.hasNext()) args.next();
 				method.invoke(spec,delimitedArguments);
+				break;
+			case SUB_SET:
+				Object subset = argumentConsumption.getSubsetClass().newInstance();
+				OptionSet subsetOptions = new OptionSet(subset,OptionSetLevel.SUB_GROUP);
+				subsetOptions.consumeOptions(args);
+				method.invoke(spec, subset);
 				break;
 			default:
 				throw new RuntimeException("Not implemented: "+argumentConsumption.getType());

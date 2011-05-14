@@ -36,9 +36,14 @@ public class OptionSpecificationBuilder {
 	public void addUntilDelimiter(String delimiter) {
 		argumentConsumptionBuilder.addUntilDelimiter(delimiter);
 	}
+	
+	public void addSubset(Class<? extends Object> clazz) {
+		argumentConsumptionBuilder.addSubSet(clazz);
+	}
 
 	public OptionSpecification getOptionSpecification() {
 		Switch _switch = new Switch(longSwitch,shortSwitch);
+		System.out.println("Option:"+method);
 		ArgumentConsumption argumentConsumption = argumentConsumptionBuilder.getArgumentConsumption();
 		OptionSpecification specification = new OptionSpecification(method,_switch,argumentConsumption);
 		return specification;

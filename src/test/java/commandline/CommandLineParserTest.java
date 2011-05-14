@@ -33,7 +33,7 @@ public class CommandLineParserTest {
 	}
 	
 	@Test
-	public void testDelimerConfiguran() throws Exception {
+	public void testDelimiterConfiguran() throws Exception {
 		String[] args = new String[]{"--exec","ls","-l","*.txt",";","--logfile","hello.log"};
 		DelimiterConfiguration config = CommandLineParser.parse(DelimiterConfiguration.class, args);
 		List<String> command = config.getCommand();
@@ -41,4 +41,24 @@ public class CommandLineParserTest {
 		assertThat(command,hasItems("ls","-l","*.txt"));
 		assertThat(logfile,is("hello.log"));
 	}
+
+	@Test
+	public void testSubConfiguran() throws Exception {
+		String[] args = new String[]{"--verbose","--album","--name","Caustic Grip","--artist","Front Line Assembly","--year","1990","--available","--logfile","hello.log"};
+		SimpleSuperConfiguration config = CommandLineParser.parse(SimpleSuperConfiguration.class, args);
+		boolean verbose = config.getVerbose();
+		String logfile = config.getLogfile();
+		AlbumConfiguration album = config.getAlbum();
+		String albumName = album.getName();
+		String albumArtist = album.getArtist();
+		String albumYear = album.getYear();
+		boolean albumAvailable = album.isAvailable();
+		assertThat(logfile,is("hello.log"));
+		assertThat(verbose,is(true));
+		assertThat(albumName,is("Caustic Grip"));
+		assertThat(albumArtist,is("Front Line Assembly"));
+		assertThat(albumYear,is("1990"));
+		assertThat(albumAvailable,is(true));
+	}
+
 }
