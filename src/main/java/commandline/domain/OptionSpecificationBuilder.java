@@ -28,6 +28,14 @@ public class OptionSpecificationBuilder {
 	public void addSingleArgument() {
 		argumentConsumptionBuilder.addSingleArgument();
 	}
+	
+	public void addAllAvailableArguments() {
+		argumentConsumptionBuilder.addAllAvailable();
+	}
+	
+	public void addUntilDelimiter(String delimiter) {
+		argumentConsumptionBuilder.addUntilDelimiter(delimiter);
+	}
 
 	public OptionSpecification getOptionSpecification() {
 		Switch _switch = new Switch(longSwitch,shortSwitch);

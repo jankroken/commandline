@@ -21,6 +21,7 @@ public class ArgumentConsumptionBuilder {
 	
 	public void addUntilDelimiter(String delimiter) {
 		until_delimiter = true;
+		this.delimiter = delimiter;
 	}
 	
 	public void addAllAvailable() {
@@ -28,6 +29,7 @@ public class ArgumentConsumptionBuilder {
 	}
 	
 	public void addSubSet(Class subsetClass) {
+		this.sub_set = true;
 		this.subsetClass = subsetClass;
 	}
 	

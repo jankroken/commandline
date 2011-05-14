@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import commandline.annotations.AllAvailableArguments;
+import commandline.annotations.ArgumentsUntilDelimiter;
 import commandline.annotations.LongSwitch;
 import commandline.annotations.Option;
 import commandline.annotations.ShortSwitch;
@@ -28,6 +30,10 @@ public class OptionSpecificationFactory {
 				builder.addToggle(((Toggle)annotation).value());
 			} else if (annotation instanceof SingleArgument) {
 				builder.addSingleArgument();
+			} else if (annotation instanceof AllAvailableArguments) {
+				builder.addAllAvailableArguments();
+			} else if (annotation instanceof ArgumentsUntilDelimiter) {
+				builder.addUntilDelimiter(((ArgumentsUntilDelimiter)annotation).value());
 			} else {
 				// todo
 			}

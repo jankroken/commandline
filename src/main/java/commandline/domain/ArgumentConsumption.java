@@ -12,6 +12,7 @@ public class ArgumentConsumption {
 	
 	public ArgumentConsumption(ArgumentConsumptionType type, String delimiter) {
 		this.type = type;
+		System.out.println("delimiter="+delimiter);
 		this.delimiter = delimiter;
 	}
 	
