@@ -36,4 +36,8 @@ public class ArgumentConsumption {
 	public Class<? extends Object> getSubsetClass() {
 		return subsetClass;
 	}
+
+	public boolean getToggleValue() {
+		return toggleValue;
+	}
 }

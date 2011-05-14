@@ -1,5 +1,6 @@
 package commandline.domain;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import commandline.util.PeekIterator;
@@ -7,11 +8,13 @@ import commandline.util.PeekIterator;
 public class OptionSet {
 	private List<OptionSpecification> options;
 	private OptionSetLevel optionSetLevel;
-	private Class<? extends Object> clazz;
+	private Object spec;
 	
-	public OptionSet(Class<? extends Object> clazz, OptionSetLevel optionSetLevel) {
-		this.clazz = clazz;
-		options = OptionSpecificationFactory.getOptionSpecifications(clazz);
+	public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
+		this.spec = spec;
+		System.out.println("spec: "+spec);
+		options = OptionSpecificationFactory.getOptionSpecifications(spec.getClass());
+		System.out.println("Option count: "+options.size());
 		this.optionSetLevel = optionSetLevel;
 	}
 	
@@ -24,7 +27,9 @@ public class OptionSet {
 		return null;
 	}
 	
-	public void consumeOptions(PeekIterator<String> args) {
+	public void consumeOptions(PeekIterator<String> args) 
+		throws IllegalAccessException, InvocationTargetException
+	{
 		while (args.hasNext()) {
 			if (isSwitch(args.peek())) {
 				OptionSpecification optionSpecification = getOptionSpecification(args.peek());
@@ -38,7 +43,7 @@ public class OptionSet {
 					}
 				} else {
 					args.next();
-					optionSpecification.activateAndConsumeArguments(args);
+					optionSpecification.activateAndConsumeArguments(spec,args);
 				}
 			} else {
 				if (handlesLooseArguments()) {

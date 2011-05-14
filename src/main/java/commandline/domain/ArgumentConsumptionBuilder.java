@@ -33,6 +33,7 @@ public class ArgumentConsumptionBuilder {
 	
 	public ArgumentConsumption getArgumentConsumption() {
 		int argumentConsumptionTypeCounter = 0;
+		if (no_arguments) argumentConsumptionTypeCounter++;
 		if (single_argument) argumentConsumptionTypeCounter++;
 		if (until_delimiter) argumentConsumptionTypeCounter++;
 		if (all_available) argumentConsumptionTypeCounter++;

@@ -17,6 +17,7 @@ public class Switch {
 	}
 	
 	public boolean matches(String _switch) {
+		System.out.println("Checking "+_switch+" against ["+longSwitch+','+shortSwitch+"]");
 		return (_switch.equals(longSwitch) || _switch.equals(shortSwitch));
 	}
 }

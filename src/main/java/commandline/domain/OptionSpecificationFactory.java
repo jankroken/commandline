@@ -17,6 +17,7 @@ public class OptionSpecificationFactory {
 	
 	public static OptionSpecification getOptionSpecification(Method method) {
 		OptionSpecificationBuilder builder = new OptionSpecificationBuilder();
+		builder.addMethod(method);
 		for (Annotation annotation : method.getAnnotations()) {
 			if (annotation instanceof Option) {
 			} else if (annotation instanceof LongSwitch) {
