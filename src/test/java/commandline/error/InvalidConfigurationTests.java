@@ -37,5 +37,11 @@ public class InvalidConfigurationTests {
 		String[] args = new String[]{};
 		MultipleConsumptionsConfiguration config = CommandLineParser.parse(MultipleConsumptionsConfiguration.class, args);
 	}
+	
+	@Test(expected=InvalidOptionSpecificationException.class)
+	public void testInvalidType() throws Exception {
+		String[] args = new String[]{"--filename","hello.txt"};
+		InvalidTypeConfiguration config = CommandLineParser.parse(InvalidTypeConfiguration.class, args);
+	}
 
 }

@@ -58,7 +58,6 @@ public class OptionSpecificationBuilder {
 	
 	public OptionSpecification getOptionSpecification() {
 		Switch _switch = new Switch(longSwitch,shortSwitch);
-		System.out.println("Option:"+method);
 		ArgumentConsumption argumentConsumption = argumentConsumptionBuilder.getArgumentConsumption();
 		OptionSpecification specification = new OptionSpecification(spec,method,_switch,argumentConsumption, required, occurences);
 		return specification;

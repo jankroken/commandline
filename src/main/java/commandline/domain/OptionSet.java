@@ -12,9 +12,7 @@ public class OptionSet {
 	
 	public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
 		this.spec = spec;
-		System.out.println("spec: "+spec);
 		options = OptionSpecificationFactory.getOptionSpecifications(spec,spec.getClass());
-		System.out.println("Option count: "+options.size());
 		this.optionSetLevel = optionSetLevel;
 	}
 	
@@ -31,7 +29,6 @@ public class OptionSet {
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		while (args.hasNext()) {
-			System.out.println("spec="+spec+" nextArg="+args.peek());
 			if (isSwitch(args.peek())) {
 				OptionSpecification optionSpecification = getOptionSpecification(args.peek());
 				if (optionSpecification == null) {

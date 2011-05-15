@@ -1,10 +1,10 @@
 package commandline.domain;
 
 public class ArgumentConsumption {
-	ArgumentConsumptionType type;
-	String delimiter;
-	boolean toggleValue;
-	Class<? extends Object> subsetClass;
+	private ArgumentConsumptionType type;
+	private String delimiter;
+	private boolean toggleValue;
+	private Class<? extends Object> subsetClass;
 	
 	public ArgumentConsumption(ArgumentConsumptionType type) {
 		this.type = type;
