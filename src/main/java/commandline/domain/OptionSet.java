@@ -8,10 +8,8 @@ import commandline.util.PeekIterator;
 public class OptionSet {
 	private List<OptionSpecification> options;
 	private OptionSetLevel optionSetLevel;
-	private Object spec;
 	
 	public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
-		this.spec = spec;
 		options = OptionSpecificationFactory.getOptionSpecifications(spec,spec.getClass());
 		this.optionSetLevel = optionSetLevel;
 	}

@@ -1,12 +1,13 @@
 package commandline.util;
 
 import org.junit.Test;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 public class StringUtilTest {
 	@Test
 	public void testPrintableList() {
 		String[] input = new String[]{"hello","world"};
-		String expected = "[hello,world]";
-		String result = StringUtils.printableList(input);
+		assertThat(StringUtils.printableList(input),is("[hello,world]"));
 	}
 }

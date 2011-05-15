@@ -6,9 +6,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import commandline.annotations.SubConfiguration;
-import commandline.error.InvalidConfigurationTests;
 import commandline.util.PeekIterator;
 
 public class OptionSpecification {
@@ -33,7 +30,7 @@ public class OptionSpecification {
 	
 	public void validate() {
 		if (_switch == null || (_switch.getShortSwitch() == null && _switch.getLongSwitch() == null)) {
-			throw new InvalidOptionSpecificationException("Option specified without switchess");
+			throw createInvalidOptionSpecificationException("Option specified without switchess");
 		}
 		validateType();
 	}
@@ -41,18 +38,15 @@ public class OptionSpecification {
 	private void validateType() {
 		Type[] types = method.getGenericParameterTypes(); 
 		if (types == null || types.length != 1) {
-			throw new InvalidOptionSpecificationException("Wrong number of arguments, expecting exactly one");
-		}
+			throw createInvalidOptionSpecificationException("Wrong number of arguments, expecting exactly one");
+ 		}
 		Type type = types[0];
-//		System.out.println("method="+method.getName()+" type: "+type+" type-as-class: "+(Class)type);
 		int listLevel = getListLevel();
 		verifyType(listLevel,getInnerArgumentType(),type,type);
 	}
 	
 	private void verifyType(int listLevel, Class<? extends Object> innerClass, Type type, Type fullType) {
 		if (listLevel > 0) {
-			System.out.println("List compare ["+clazz(type)+"] list=["+List.class+"]");
-			System.out.println("List compare clazz(:1) isAssigneableFrom(:2) => "+((clazz(type).isAssignableFrom(List.class))));
 			if (!((clazz(type)).isAssignableFrom(List.class))) {
 				wrongType(fullType);
 			} else {
@@ -60,9 +54,6 @@ public class OptionSpecification {
 				verifyType(listLevel-1,innerClass,innerType, fullType);
 			}
 		} else {
-			System.out.println("comparing innerType "+getInnerArgumentType()+" with actual class "+(Class)innerClass);
-			System.out.println("innerArgumentType: "+getInnerArgumentType()+" class="+getInnerArgumentType().getClass());
-			System.out.println("innerClass: "+innerClass+" class="+innerClass.getClass());
 			if (!box(clazz(type)).isAssignableFrom(innerClass)) {
 				wrongType(fullType);
 			}
@@ -75,7 +66,7 @@ public class OptionSpecification {
 		} else if (type instanceof Class) {
 			return (Class) type;
 		} else {
-			throw new RuntimeException("Don't know how to get the class from type "+type);
+			throw createInternalErrorException("Don't know how to get the class from type "+type);
 		}
 	}
 	
@@ -88,7 +79,7 @@ public class OptionSpecification {
 	}
 	
 	private void wrongType(Type type) {
-		throw new InvalidOptionSpecificationException("Wrong argument type, expected "+getExpectedTypeDescription()+" but found "+type);
+		throw createInvalidOptionSpecificationException("Wrong argument type, expected "+getExpectedTypeDescription()+" but found "+type);
 	}
 	
 	private String getExpectedTypeDescription() {
@@ -152,7 +143,9 @@ public class OptionSpecification {
 				handleArguments(argumentConsumption.getToggleValue());
 				break;
 			case SINGLE_ARGUMENT:
-				// TODO : check existence of argument
+				if (!args.hasNext() || isSwitch(args.peek())) {
+					throw createInvalidCommandLineException("Missing argument");
+				}
 				String argument = args.next();
 				handleArguments(argument);
 				break;
@@ -178,7 +171,7 @@ public class OptionSpecification {
 				handleArguments(subset);
 				break;
 			default:
-				throw new RuntimeException("Not implemented: "+argumentConsumption.getType());
+				throw createInternalErrorException("Not implemented: "+argumentConsumption.getType());
 		}
 	}
 	
@@ -195,16 +188,39 @@ public class OptionSpecification {
 			argumentBuffer.add(args);
 		}
 	}
+	
 
 	public void flush() 
 		throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
 	{
 		if (required && !activated) {
-			throw new  InvalidCommandLineException("Required argument not specified");
+			throw createInvalidCommandLineException("Required argument not specified");
 		}
 		if (occurences == Occurences.MULTIPLE) {
 			method.invoke(spec, argumentBuffer);
 		}
 	}
+	
+	private InvalidOptionSpecificationException createInvalidOptionSpecificationException(String description) {
+		return new InvalidOptionSpecificationException(getOptionId()+' '+description);
+	}
 
+	private InvalidCommandLineException createInvalidCommandLineException(String description) {
+		return new InvalidCommandLineException(getOptionId()+' '+description);
+	}
+	
+	private RuntimeException createInternalErrorException(String description) {
+		return new InternalErrorException(getOptionId()+' '+description);
+	}
+	
+	public String getOptionId() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[")
+		  .append(spec.getClass().getName())
+		  .append(":")
+		  .append(method.getName())
+		  .append("]");
+		return sb.toString();
+	}
+	
 }
