@@ -12,7 +12,8 @@ public class OptionSpecificationFactoryTest {
 
 	@Test
 	public void testOptionSpecificationFactory() {
-		List<OptionSpecification> specifications = OptionSpecificationFactory.getOptionSpecifications(SimpleConfiguration.class);
+		SimpleConfiguration conf = new SimpleConfiguration();
+		List<OptionSpecification> specifications = OptionSpecificationFactory.getOptionSpecifications(conf,conf.getClass());
 		assertEquals(specifications.size(),2);
 	}
 }

@@ -46,19 +46,39 @@ public class CommandLineParserTest {
 	public void testSubConfiguran() throws Exception {
 		String[] args = new String[]{"--verbose","--album","--name","Caustic Grip","--artist","Front Line Assembly","--year","1990","--available","--logfile","hello.log"};
 		SimpleSuperConfiguration config = CommandLineParser.parse(SimpleSuperConfiguration.class, args);
-		boolean verbose = config.getVerbose();
-		String logfile = config.getLogfile();
 		AlbumConfiguration album = config.getAlbum();
-		String albumName = album.getName();
-		String albumArtist = album.getArtist();
-		String albumYear = album.getYear();
-		boolean albumAvailable = album.isAvailable();
-		assertThat(logfile,is("hello.log"));
-		assertThat(verbose,is(true));
-		assertThat(albumName,is("Caustic Grip"));
-		assertThat(albumArtist,is("Front Line Assembly"));
-		assertThat(albumYear,is("1990"));
-		assertThat(albumAvailable,is(true));
+		assertThat(config.getLogfile(),is("hello.log"));
+		assertThat(config.getVerbose(),is(true));
+		assertThat(album.getName(),is("Caustic Grip"));
+		assertThat(album.getArtist(),is("Front Line Assembly"));
+		assertThat(album.getYear(),is("1990"));
+		assertThat(album.isAvailable(),is(true));
 	}
 
+	@Test
+	public void testMultipleSubConfiguran() throws Exception {
+		String[] args = new String[]{"--verbose",
+									 "--album","--name","Caustic Grip","--artist","Front Line Assembly","--year","1990","--available",
+									 "--album","--name","Scintilla","--artist","Stendeck","--year","2011","--available",
+									 "--logfile","hello.log"};
+		MultipleSubconfigsConfiguration config = CommandLineParser.parse(MultipleSubconfigsConfiguration.class, args);
+		boolean verbose = config.getVerbose();
+		List<AlbumConfiguration> albums = config.getAlbums();
+		assertThat(albums.size(),is(2));
+		AlbumConfiguration causticGrip = albums.get(0);
+		AlbumConfiguration scintilla = albums.get(1);
+		assertThat(causticGrip.getName(),is("Caustic Grip"));
+		assertThat(causticGrip.getArtist(),is("Front Line Assembly"));
+		assertThat(causticGrip.getYear(),is("1990"));
+		assertThat(causticGrip.isAvailable(),is(true));
+		assertThat(scintilla.getName(),is("Scintilla"));
+		assertThat(scintilla.getArtist(),is("Stendeck"));
+		assertThat(scintilla.getYear(),is("2011"));
+		assertThat(scintilla.isAvailable(),is(true));
+		
+		assertThat(config.getLogfile(),is("hello.log"));
+		assertThat(verbose,is(true));
+	}
+	
+	
 }

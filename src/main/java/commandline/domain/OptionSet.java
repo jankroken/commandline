@@ -13,7 +13,7 @@ public class OptionSet {
 	public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
 		this.spec = spec;
 		System.out.println("spec: "+spec);
-		options = OptionSpecificationFactory.getOptionSpecifications(spec.getClass());
+		options = OptionSpecificationFactory.getOptionSpecifications(spec,spec.getClass());
 		System.out.println("Option count: "+options.size());
 		this.optionSetLevel = optionSetLevel;
 	}
@@ -44,7 +44,7 @@ public class OptionSet {
 					}
 				} else {
 					args.next();
-					optionSpecification.activateAndConsumeArguments(spec,args);
+					optionSpecification.activateAndConsumeArguments(args);
 				}
 			} else {
 				if (handlesLooseArguments()) {
@@ -60,11 +60,19 @@ public class OptionSet {
 				}
 			}
 		}
-			
+		flush();
+	}
+	
+	private void flush() 
+		throws IllegalArgumentException, IllegalAccessException, InvocationTargetException
+	{
+		for (OptionSpecification option: options) {
+			option.flush();
+		}
 	}
 	
 	private void handleLooseArgument(String argument) {
-		
+		System.out.println("Loose argument not handled: "+argument);
 	}
 	
 	private boolean handlesLooseArguments() {
