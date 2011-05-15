@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import commandline.SimpleConfiguration;
 import commandline.annotations.Option;
+import commandline.happy.SimpleConfiguration;
 
 public class AnnotationUtilsTest {
 

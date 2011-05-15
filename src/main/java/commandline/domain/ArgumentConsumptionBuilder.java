@@ -28,7 +28,7 @@ public class ArgumentConsumptionBuilder {
 		all_available = true;
 	}
 	
-	public void addSubSet(Class subsetClass) {
+	public void addSubSet(Class<? extends Object> subsetClass) {
 		this.sub_set = true;
 		this.subsetClass = subsetClass;
 	}

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import commandline.SimpleConfiguration;
 import commandline.domain.OptionSpecification;
+import commandline.happy.SimpleConfiguration;
 import static org.junit.Assert.assertEquals;
 
 public class OptionSpecificationFactoryTest {

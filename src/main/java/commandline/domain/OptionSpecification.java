@@ -16,13 +16,20 @@ public class OptionSpecification {
 	private Object spec;
 	private ArrayList<Object> argumentBuffer = new ArrayList<Object>();
 	
-	public OptionSpecification(Object spec, Method method , Switch _switch, ArgumentConsumption argumentConsumption, boolean required2, Occurences occurences) {
+	public OptionSpecification(Object spec, Method method , Switch _switch, ArgumentConsumption argumentConsumption, boolean required, Occurences occurences) {
 		this.spec = spec;
 		this._switch = _switch;
 		this.method = method;
 		this.argumentConsumption = argumentConsumption;
 		this.required = required;
 		this.occurences = occurences;
+		validate();
+	}
+	
+	public void validate() {
+		if (_switch == null || (_switch.getShortSwitch() == null && _switch.getLongSwitch() == null)) {
+			throw new InvalidOptionSpecificationException("Option specified without switchess");
+		}
 	}
 	
 	public Switch getSwitch() {
