@@ -8,10 +8,12 @@ import commandline.util.PeekIterator;
 public class OptionSet {
 	private List<OptionSpecification> options;
 	private OptionSetLevel optionSetLevel;
+	private Object spec;
 	
 	public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
 		options = OptionSpecificationFactory.getOptionSpecifications(spec,spec.getClass());
 		this.optionSetLevel = optionSetLevel;
+		this.spec = spec;
 	}
 	
 	public OptionSpecification getOptionSpecification(String _switch) {
@@ -41,7 +43,7 @@ public class OptionSet {
 				if (optionSpecification == null) {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
-							throw new InvalidCommandLineException("Unrecognized switch: "+args.peek());
+							throw new UnrecognizedSwitchException(spec.getClass().getName(), args.peek());
 						case SUB_GROUP:
 							validateAndConsolidate();
 							return;
@@ -51,8 +53,9 @@ public class OptionSet {
 					optionSpecification.activateAndConsumeArguments(args);
 				}
 			} else {
-				if (handlesLooseArguments()) {
-					handleLooseArguments(args);
+				OptionSpecification looseArgsOptionSpecification = getLooseArgsOptionSpecification();
+				if (looseArgsOptionSpecification != null) {
+					looseArgsOptionSpecification.activateAndConsumeArguments(args);
 				} else {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
@@ -75,18 +78,7 @@ public class OptionSet {
 		}
 	}
 	
-	private void handleLooseArguments(PeekIterator<String> args) 
-		throws InvocationTargetException, IllegalAccessException, InstantiationException
-	{
-		getLooseArgsOptionSpecification().activateAndConsumeArguments(args);
-	}
-	
-	private boolean handlesLooseArguments() {
-		return true;
-	}
-	
 	public void validateAndConsolidate() {
-		
 	}
 	
 	private boolean isSwitch(String arg) {

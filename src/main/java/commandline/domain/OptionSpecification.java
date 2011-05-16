@@ -212,8 +212,8 @@ public class OptionSpecification {
 		}
 	}
 	
-	private InvalidOptionSpecificationException createInvalidOptionSpecificationException(String description) {
-		return new InvalidOptionSpecificationException(getOptionId()+' '+description);
+	private InvalidOptionConfigurationException createInvalidOptionSpecificationException(String description) {
+		return new InvalidOptionConfigurationException(getOptionId()+' '+description);
 	}
 
 	private InvalidCommandLineException createInvalidCommandLineException(String description) {

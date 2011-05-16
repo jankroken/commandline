@@ -7,5 +7,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+
+/**
+ * Indicates that the method is a setter for an option argument. Further annotations are needed to fully
+ * specify an option.
+ */
 public @interface Option {
 }

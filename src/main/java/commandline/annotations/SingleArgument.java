@@ -7,5 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+
+/**
+ * Indicates that the switch has a single argument of type String
+ */
 public @interface SingleArgument {
 }

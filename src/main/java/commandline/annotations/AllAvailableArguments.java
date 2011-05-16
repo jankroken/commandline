@@ -7,5 +7,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+
+/**
+ * Indicates that this option takes all available arguments, ended by either the end of the argument list,
+ * or by another switch.
+ */
 public @interface AllAvailableArguments {
 }

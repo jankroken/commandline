@@ -47,10 +47,10 @@ public class ArgumentConsumptionBuilder {
 		if (sub_set) argumentConsumptionTypeCounter++;
 		if (loose_args) argumentConsumptionTypeCounter++;
 		if (argumentConsumptionTypeCounter == 0) {
-			throw new InvalidOptionSpecificationException("No argument consumption type specified");
+			throw new InvalidOptionConfigurationException("No argument consumption type specified");
 		}
 		if (argumentConsumptionTypeCounter > 1) {
-			throw new InvalidOptionSpecificationException("Multiple argument consumption types specified");
+			throw new InvalidOptionConfigurationException("Multiple argument consumption types specified");
 		}
 		
 		if (no_arguments) {
