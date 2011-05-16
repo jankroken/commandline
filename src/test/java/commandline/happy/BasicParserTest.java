@@ -82,5 +82,13 @@ public class BasicParserTest {
 		assertThat(verbose,is(true));
 	}
 	
+	@Test
+	public void testLooseArguments() throws Exception {
+		String[] args = new String[]{"--verbose","zombies","ate","my","--logfile","hello.log","raptors"};
+		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args);
+		assertThat(config.getVerbose(),is(true));
+		assertThat(config.getLogfile(),is("hello.log"));
+		assertThat(config.getArgs(),hasItems("zombies","ate","my","raptors"));
+	}	
 	
 }

@@ -23,6 +23,15 @@ public class OptionSet {
 		return null;
 	}
 	
+	public OptionSpecification getLooseArgsOptionSpecification() {
+		for (OptionSpecification optionSpecification : options) {
+			if (optionSpecification.isLooseArgumentsSpecification()) {
+				return optionSpecification;
+			}
+		}
+		return null;
+	}
+	
 	public void consumeOptions(PeekIterator<String> args) 
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
@@ -43,7 +52,7 @@ public class OptionSet {
 				}
 			} else {
 				if (handlesLooseArguments()) {
-					handleLooseArgument(args.next());
+					handleLooseArguments(args);
 				} else {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
@@ -66,8 +75,10 @@ public class OptionSet {
 		}
 	}
 	
-	private void handleLooseArgument(String argument) {
-		System.out.println("Loose argument not handled: "+argument);
+	private void handleLooseArguments(PeekIterator<String> args) 
+		throws InvocationTargetException, IllegalAccessException, InstantiationException
+	{
+		getLooseArgsOptionSpecification().activateAndConsumeArguments(args);
 	}
 	
 	private boolean handlesLooseArguments() {

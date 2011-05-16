@@ -8,6 +8,7 @@ import java.util.List;
 import commandline.annotations.AllAvailableArguments;
 import commandline.annotations.ArgumentsUntilDelimiter;
 import commandline.annotations.LongSwitch;
+import commandline.annotations.LooseArguments;
 import commandline.annotations.Multiple;
 import commandline.annotations.Option;
 import commandline.annotations.Required;
@@ -44,8 +45,11 @@ public class OptionSpecificationFactory {
 				builder.addRequired();
 			} else if (annotation instanceof Multiple) {
 				builder.addOccurences(Occurences.MULTIPLE);
+			} else if (annotation instanceof LooseArguments) {
+				builder.addLooseArgs();
 			} else {
 				// todo
+				System.out.println("Unhandled annotation: "+annotation);
 			}
 		}
 		return builder.getOptionSpecification();

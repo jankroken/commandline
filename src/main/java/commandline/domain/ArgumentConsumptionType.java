@@ -5,5 +5,6 @@ public enum ArgumentConsumptionType {
 	SINGLE_ARGUMENT,
 	ALL_AVAILABLE,
 	UNTIL_DELIMITER,
-	SUB_SET
+	SUB_SET, 
+	LOOSE_ARGS
 }

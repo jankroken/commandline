@@ -28,9 +28,15 @@ public class OptionSpecification {
 		validate();
 	}
 	
+	public boolean isLooseArgumentsSpecification() {
+		return argumentConsumption.getType() == ArgumentConsumptionType.LOOSE_ARGS;
+	}
+	
 	public void validate() {
-		if (_switch == null || (_switch.getShortSwitch() == null && _switch.getLongSwitch() == null)) {
-			throw createInvalidOptionSpecificationException("Option specified without switchess");
+		if (argumentConsumption.getType() != ArgumentConsumptionType.LOOSE_ARGS) { 
+			if (_switch == null || (_switch.getShortSwitch() == null && _switch.getLongSwitch() == null)) {
+				throw createInvalidOptionSpecificationException("Option specified without switchess");
+			}
 		}
 		validateType();
 	}
@@ -125,6 +131,8 @@ public class OptionSpecification {
 				return String.class;
 			case UNTIL_DELIMITER:
 				return String.class;
+			case LOOSE_ARGS:
+				return String.class;
 			default:
 				throw new RuntimeException("Internal error");
 		}
@@ -169,6 +177,9 @@ public class OptionSpecification {
 				OptionSet subsetOptions = new OptionSet(subset,OptionSetLevel.SUB_GROUP);
 				subsetOptions.consumeOptions(args);
 				handleArguments(subset);
+				break;
+			case LOOSE_ARGS:
+				handleArguments(args.next());
 				break;
 			default:
 				throw createInternalErrorException("Not implemented: "+argumentConsumption.getType());

@@ -44,6 +44,10 @@ public class OptionSpecificationBuilder {
 		argumentConsumptionBuilder.addSubSet(clazz);
 	}
 	
+	public void addLooseArgs() {
+		argumentConsumptionBuilder.addLooseArgs();
+	}
+	
 	public void addRequired() {
 		required = true;
 	}

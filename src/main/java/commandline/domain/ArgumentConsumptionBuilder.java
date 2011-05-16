@@ -7,6 +7,7 @@ public class ArgumentConsumptionBuilder {
 	private boolean until_delimiter = false;
 	private boolean all_available = false;
 	private boolean sub_set = false;
+	private boolean loose_args = false;
 	private String delimiter = null;
 	private Class<? extends Object> subsetClass = null; 
 	
@@ -28,6 +29,10 @@ public class ArgumentConsumptionBuilder {
 		all_available = true;
 	}
 	
+	public void addLooseArgs() {
+		loose_args = true;
+	}
+	
 	public void addSubSet(Class<? extends Object> subsetClass) {
 		this.sub_set = true;
 		this.subsetClass = subsetClass;
@@ -40,6 +45,7 @@ public class ArgumentConsumptionBuilder {
 		if (until_delimiter) argumentConsumptionTypeCounter++;
 		if (all_available) argumentConsumptionTypeCounter++;
 		if (sub_set) argumentConsumptionTypeCounter++;
+		if (loose_args) argumentConsumptionTypeCounter++;
 		if (argumentConsumptionTypeCounter == 0) {
 			throw new InvalidOptionSpecificationException("No argument consumption type specified");
 		}
@@ -62,7 +68,10 @@ public class ArgumentConsumptionBuilder {
 		if (sub_set) {
 			return new ArgumentConsumption(ArgumentConsumptionType.SUB_SET,subsetClass);
 		}
-		throw new RuntimeException("Internal error: no matching argument consumption types");
+		if (loose_args) {
+			return new ArgumentConsumption(ArgumentConsumptionType.LOOSE_ARGS);
+		}
+		throw new InternalErrorException("Internal error: no matching argument consumption types");
 	}
 	
 }
