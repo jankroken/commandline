@@ -3,7 +3,7 @@ package commandline.domain;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.jankroken.commandline.util.PeekIterator;
+import commandline.util.PeekIterator;
 
 
 public class OptionSet {

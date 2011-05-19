@@ -2,10 +2,10 @@ package commandline;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.jankroken.commandline.util.ArrayIterator;
-import com.jankroken.commandline.util.PeekIterator;
 import commandline.domain.OptionSet;
 import commandline.domain.OptionSetLevel;
+import commandline.util.ArrayIterator;
+import commandline.util.PeekIterator;
 
 
 public class CommandLineParser {

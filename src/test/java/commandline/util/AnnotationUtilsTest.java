@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.jankroken.commandline.util.AnnotationUtils;
 import commandline.annotations.Option;
 import commandline.happy.SimpleConfiguration;
+import commandline.util.AnnotationUtils;
 
 import static org.junit.Assert.assertEquals;
 

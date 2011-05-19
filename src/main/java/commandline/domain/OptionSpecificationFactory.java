@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jankroken.commandline.util.AnnotationUtils;
 import commandline.annotations.AllAvailableArguments;
 import commandline.annotations.ArgumentsUntilDelimiter;
 import commandline.annotations.LongSwitch;
@@ -17,6 +16,7 @@ import commandline.annotations.ShortSwitch;
 import commandline.annotations.SingleArgument;
 import commandline.annotations.SubConfiguration;
 import commandline.annotations.Toggle;
+import commandline.util.AnnotationUtils;
 
 
 public class OptionSpecificationFactory {

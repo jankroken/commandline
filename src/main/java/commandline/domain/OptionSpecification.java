@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jankroken.commandline.util.PeekIterator;
+import commandline.util.PeekIterator;
 
 public class OptionSpecification {
 	private Method method;

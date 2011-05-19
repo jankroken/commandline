@@ -2,8 +2,8 @@ package commandline.util;
 
 import org.junit.Test;
 
-import com.jankroken.commandline.util.ArrayIterator;
-import com.jankroken.commandline.util.PeekIterator;
+import commandline.util.ArrayIterator;
+import commandline.util.PeekIterator;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
