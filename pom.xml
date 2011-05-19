@@ -2,9 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>commandline</groupId>
   <artifactId>commandline</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <name>commandline</name>
-  <description>Annotation based command line parser</description>
+  <description>An annotation based command line parser</description>
+  <url>http://github.com/jankroken/commandline/</url>
+  <inceptionYear>2011</inceptionYear>
+  
+  <developers>
+    <developer>
+      <name>Jan Kroken</name>
+    </developer>
+  </developers>
+  
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
