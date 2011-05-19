@@ -4,10 +4,13 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
+import com.jankroken.commandline.util.AnnotationUtils;
 import commandline.annotations.Option;
 import commandline.happy.SimpleConfiguration;
+
+import static org.junit.Assert.assertEquals;
+
 
 public class AnnotationUtilsTest {
 

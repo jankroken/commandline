@@ -10,6 +10,7 @@ import commandline.annotations.ShortSwitch;
 import commandline.annotations.SingleArgument;
 import commandline.annotations.Toggle;
 
+
 public class LooseArgsConfiguration {
 	
 	private String logfile;

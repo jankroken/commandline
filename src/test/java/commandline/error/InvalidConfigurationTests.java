@@ -5,6 +5,7 @@ import org.junit.Test;
 import commandline.CommandLineParser;
 import commandline.domain.InvalidOptionConfigurationException;
 
+
 public class InvalidConfigurationTests {
 
 	@Test(expected=InvalidOptionConfigurationException.class)

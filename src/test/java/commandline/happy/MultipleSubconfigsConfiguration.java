@@ -10,6 +10,7 @@ import commandline.annotations.SingleArgument;
 import commandline.annotations.SubConfiguration;
 import commandline.annotations.Toggle;
 
+
 public class MultipleSubconfigsConfiguration {
 	
 	private String logfile;

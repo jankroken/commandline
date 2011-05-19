@@ -5,7 +5,9 @@ import java.util.List;
 import org.junit.Test;
 
 import commandline.domain.OptionSpecification;
+import commandline.domain.OptionSpecificationFactory;
 import commandline.happy.SimpleConfiguration;
+
 import static org.junit.Assert.assertEquals;
 
 public class OptionSpecificationFactoryTest {

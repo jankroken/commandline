@@ -1,0 +1,173 @@
+<HTML>
+  <HEAD>
+    <TITLE>Commandline: Users Guide</TITLE>
+  </HEAD>
+  <BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#0000CC">
+    <H1>CommandLine: Users Guide</H1>
+  
+    <H2>What is Commandline</H2>
+    <P>
+    Commandline is a Java library to parse command line arguments. Most argument parsing
+    libraries are modelled after the GNU getopt library dominant in the unix C environment
+    (Apache commons-cli is a great library based on this model). In contrast, this library
+    is based on a mapping from the command line arguments onto objects, by using annotations.
+    </P>
+    <P>
+    The reason I wrote this library is that I think using an argument to object mapping in
+    most cases is easier and more obvious than parsing arguments the getopt way. Also, by
+    using sub configurations, this approach scales a lot better. Note however, that this
+    approach does not work for all cases. Specifically, this library
+    (and object mapping of arguments in general) does not maintain order of arguments. One
+    example of that is the unix 'find' command, where the command line arguments makes out
+    a domain specific language. An example of a command is 
+    
+    <PRE>
+      find . -name "*.txt" -o '(' -name "*.html" -a -amin 4 ')' -exec ls -l '{}' ';'
+    </PRE>
+    
+    The functionality that is currently supported is:
+    <UL>
+    <LI>Options with none, one or multiple arguments
+    <LI>Optional and mandatory options
+    <LI>Multiple instances of options, without mixing the arguments specified for each occurance
+    <LI>Option arguments with a delimiter (similar to the '-exec' option of 'find')
+    <LI>Option groups (and multiple occurences of option groups)
+    <LI>Support for arguments not connected to an option
+    <LI>A short and long representation of each switch/option
+    <LI>Unrecognized arguments will be caught and result in an exception
+    </UL>
+    
+    Functionality that is currently not supported is
+    
+    <UL>
+    <LI>Single letter switches that can be concatenated in one switch/option (as in 'ls -lSr')
+    <LI>Generating a help text</LI>
+    <LI>Built in validation, and automatic validation based on argument types of the annotated methods
+    </UL>
+    
+    <H2>Requirements and backwards compatibility</H2>
+    
+	This library is written with and tested on Java 6. Future versions might require Java 7 or 8,
+	but these requirements will be introduced with new major versions. What fun are new versions of
+	Java if one sticks to ancient ones for endless backwards compatibility? :)
+   
+    <H2>Using the library</H2>
+    
+    To use the library, you must create at least one class with a no argument constructor. Arguments
+    are added by annotating setter methods. The following example shows a configuration class with
+    two arguments, '-file' (with one argumment) and an optional '-debug'. These two arguments have the
+    short versions '-f' and '-d'.
+    
+    <H3>A simple example</H3>
+    
+    <PRE>
+    public class Arguments () {
+      private String filename;
+      private boolean debug = false;
+    
+      /**
+       * @Option
+       * @LongSwitch("-file")
+       * @ShortSwitch("-f")
+       * @SingleArgument
+       * @Required
+       */
+      public void setFilename(String filename) {
+      	this.filename = filename;
+      }
+      
+      /**
+       * @Option
+       * @LongSwitch("-debug")
+       * @ShortSwitch("-d")
+       * @Toggle(true)
+       */
+      public void setDebug(boolean debug) {
+        this.debug = debug;
+      }
+      
+      public String getFilename() {
+        return filename;
+      }
+      
+      public boolean getDebug() {
+        return debug;
+      }
+    }
+    </PRE>
+    
+    The following code actually scans the argument list, and creates an instance of the class
+    
+    <PRE>
+    public class Main {
+      public final static final void main(String[] args) {
+        try {
+          Arguments arguments = CommandLineParser.parse(Arguments.class, args);
+          doSomething(arguments);
+        } catch (InvalidCommandLineException clException) {
+		  ...
+        } catch (InvalidOptionConfigurationException configException) {
+          ...
+        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+          ...
+        }
+      }
+    }
+    </PRE>
+    
+    This will successfully parse the following command line
+    
+    <PRE>
+      java Main -file hello.txt -debug
+    </PRE>
+    
+    
+   <H3>Annotations</H3>
+   
+   <TABLE>
+     <TR><TD>@Option</TD><TD>Specifies that the annotated method represents an option</TD></TR>
+     <TR><TD>@LongSwitch(switchname)</TD><TD>Specifies the long switch used to give this option on the command line</TD></TR>
+     <TR><TD>@ShortSwitch(switchname)</TD><TD>Specifies the short switch used to give this option on the command line</TD></TR>
+     <TR><TD>@LooseArguments</TD><TD>Specifies that this setter handles arguments that are not connected to an option</TD></TR>
+     <TR><TD>@Toggle(value)</TD><TD>Specifies that this option is a toggle. The boolean argument is passed directly to the setter method</TD></TR>
+     <TR><TD>@SingleArbgument</TD><TD>Specifies that this option takes a single String argument</TD></TR>
+     <TR><TD>@AllAvailableArguments</TD><TD>Specifiews that this option takes all the argument available until the next switch or end of the argument list</TD></TR>
+     <TR><TD>@ArgumentsUntilDelimiter(delimiter)</TD><TD>Specifies that the option takes all arguments available until it encounters the delimiter or the end of the argument list. Any switches will be interpreted as regular options</TD></TR>
+     <TR><TD>@SubConfiguration(class)</TD><TD>Specifies that parsing should continue based on the specified class. When that parsing is finnished, parsing will resume for the main configuration</TD></TR>
+     <TR><TD>@Multiple</TD><TD>Specifies that the option migth occur multiple times
+   </TABLE>
+   
+  <H4>Rules</H4>
+  
+  <UL>
+    <LI>@Option must be specifies for all methods that should be processed
+    <LI>For regular options, one of @LongSwitch and @ShortSwitch must be specified, but it's not required to specify both
+    <LI>if @LooseArguments is specified, @ShortSwitch and @LongSwitch cannot be specified
+    <LI>For switches, one of @Toggle, @SingleArgument, @AllAvailableArguments, @ArgumentsUntilDelimiter or @SubConfiguration must be specified
+    <LI>@Multiple can be specified for all option types, including loose arguments
+  </UL>
+  
+  <H4>Subconfigurations</H4>
+  
+  When a sub configuration is specified, the parser creates an instance of the specified class, and starts parsing identical to how it parses
+  for the top level configuration class. It ends when it encounters an unrecognized switch, loose args (if it's not supported) or
+  the end of the argument list. When parsing of the sub configuration ends, the sub configuration class is returned and sent as
+  an argument to the annotated setter.
+  
+  <H4>Types</H4>
+  <UL>
+    <LI>Toggles require the setter argument to be boolean
+    <LI>Single arguments require the setter argument to be a String
+    <LI>Multiple arguments require the setter argument to be a List<String>
+    <LI>SubConfiguration(class) requires the setter argument to be an instance of the specified class
+    <LI>LooseArguments requires the setter argument to be String
+    <LI>When @Multiple is specified, the setter argument needs to be List<T>, where T is the type the setter
+        would have had if @Multiple had not been specified
+  </UL>
+  
+For further examples, please consult the unit tests
+  </UL>
+   
+   
+  </BODY>
+</HTML>

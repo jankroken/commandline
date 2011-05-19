@@ -8,6 +8,7 @@ import commandline.annotations.Option;
 import commandline.annotations.ShortSwitch;
 import commandline.annotations.SingleArgument;
 
+
 public class MultipleArgsConfiguration {
 	
 	private List<String> files;

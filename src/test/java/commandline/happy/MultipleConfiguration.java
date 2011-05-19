@@ -9,6 +9,7 @@ import commandline.annotations.ShortSwitch;
 import commandline.annotations.SingleArgument;
 import commandline.annotations.Toggle;
 
+
 public class MultipleConfiguration {
 	
 	private List<String> files;

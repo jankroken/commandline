@@ -6,6 +6,7 @@ import commandline.CommandLineParser;
 import commandline.domain.InvalidCommandLineException;
 import commandline.domain.UnrecognizedSwitchException;
 
+
 public class InvalidArgumentsTests {
 
 	@Test(expected=InvalidCommandLineException.class)
