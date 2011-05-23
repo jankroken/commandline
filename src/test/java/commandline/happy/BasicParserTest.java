@@ -30,7 +30,7 @@ public class BasicParserTest {
 	}
 	
 	@Test
-	public void testDelimiterConfiguran() throws Exception {
+	public void testDelimiterConfiguration() throws Exception {
 		String[] args = new String[]{"--exec","ls","-l","*.txt",";","--logfile","hello.log"};
 		DelimiterConfiguration config = CommandLineParser.parse(DelimiterConfiguration.class, args);
 		assertThat(config.getCommand(),hasItems("ls","-l","*.txt"));
@@ -59,7 +59,7 @@ public class BasicParserTest {
 	}
 
 	@Test
-	public void testMultipleSubConfiguran() throws Exception {
+	public void testMultipleSubConfiguration() throws Exception {
 		String[] args = new String[]{"--verbose",
 									 "--album","--name","Caustic Grip","--artist","Front Line Assembly","--year","1990","--available",
 									 "--album","--name","Scintilla","--artist","Stendeck","--year","2011","--available",

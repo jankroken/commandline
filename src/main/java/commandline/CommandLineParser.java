@@ -1,9 +1,12 @@
 package commandline;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
 
 import commandline.domain.OptionSet;
 import commandline.domain.OptionSetLevel;
+import commandline.domain.Token;
+import commandline.domain.TokenIterator;
 import commandline.util.ArrayIterator;
 import commandline.util.PeekIterator;
 
@@ -31,7 +34,8 @@ public class CommandLineParser {
 	{
 		T spec = clazz.newInstance();
 		OptionSet optionSet = new OptionSet(spec, OptionSetLevel.MAIN_OPTIONS);
-		optionSet.consumeOptions(new PeekIterator<String>(new ArrayIterator<String>(args)));
+		Iterator<Token> tokenIterator = new TokenIterator(new ArrayIterator<String>(args));
+		optionSet.consumeOptions(new PeekIterator<Token>(tokenIterator));
 		return spec;
 	}
 }

@@ -143,7 +143,7 @@ public class OptionSpecification {
 		return _switch;
 	}
 
-	public void activateAndConsumeArguments(PeekIterator<String> args) 
+	public void activateAndConsumeArguments(PeekIterator<Token> args) 
 		throws InvocationTargetException, IllegalAccessException, InstantiationException
 	{
 		activated = true;
@@ -152,23 +152,23 @@ public class OptionSpecification {
 				handleArguments(argumentConsumption.getToggleValue());
 				break;
 			case SINGLE_ARGUMENT:
-				if (!args.hasNext() || isSwitch(args.peek())) {
+				if (!args.hasNext() || args.peek() instanceof SwitchToken) {
 					throw createInvalidCommandLineException("Missing argument");
 				}
-				String argument = args.next();
+				String argument = args.next().getValue();
 				handleArguments(argument);
 				break;
 			case ALL_AVAILABLE:
 				ArrayList<String> allArguments = new ArrayList<String>();
-				while(args.hasNext() && !isSwitch(args.peek())) {
-					allArguments.add(args.next());
+				while(args.hasNext() && !(args.peek() instanceof SwitchToken)) {
+					allArguments.add(args.next().getValue());
 				}
 				handleArguments(allArguments);
 				break;
 			case UNTIL_DELIMITER:
 				ArrayList<String> delimitedArguments = new ArrayList<String>();
-				while(args.hasNext() && !args.peek().equals(argumentConsumption.getDelimiter())) {
-					delimitedArguments.add(args.next());
+				while(args.hasNext() && !args.peek().getValue().equals(argumentConsumption.getDelimiter())) {
+					delimitedArguments.add(args.next().getValue());
 				}
 				if (args.hasNext()) args.next();
 				handleArguments(delimitedArguments);
@@ -180,15 +180,11 @@ public class OptionSpecification {
 				handleArguments(subset);
 				break;
 			case LOOSE_ARGS:
-				handleArguments(args.next());
+				handleArguments(args.next().getValue());
 				break;
 			default:
 				throw createInternalErrorException("Not implemented: "+argumentConsumption.getType());
 		}
-	}
-	
-	private boolean isSwitch(String arg) {
-		return arg.matches("-.*");
 	}
 	
 	private void handleArguments(Object args) 

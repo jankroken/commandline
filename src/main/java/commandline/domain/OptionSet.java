@@ -17,9 +17,9 @@ public class OptionSet {
 		this.spec = spec;
 	}
 	
-	public OptionSpecification getOptionSpecification(String _switch) {
+	public OptionSpecification getOptionSpecification(SwitchToken _switch) {
 		for (OptionSpecification optionSpecification : options) {
-			if (optionSpecification.getSwitch().matches(_switch)) {
+			if (optionSpecification.getSwitch().matches(_switch.getValue())) {
 				return optionSpecification;
 			}
 		}
@@ -35,16 +35,16 @@ public class OptionSet {
 		return null;
 	}
 	
-	public void consumeOptions(PeekIterator<String> args) 
+	public void consumeOptions(PeekIterator<Token> args) 
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		while (args.hasNext()) {
-			if (isSwitch(args.peek())) {
-				OptionSpecification optionSpecification = getOptionSpecification(args.peek());
+			if (args.peek() instanceof SwitchToken) {
+				OptionSpecification optionSpecification = getOptionSpecification((SwitchToken)args.peek());
 				if (optionSpecification == null) {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
-							throw new UnrecognizedSwitchException(spec.getClass().getName(), args.peek());
+							throw new UnrecognizedSwitchException(spec.getClass().getName(), args.peek().getValue());
 						case SUB_GROUP:
 							validateAndConsolidate();
 							return;
@@ -80,9 +80,5 @@ public class OptionSet {
 	}
 	
 	public void validateAndConsolidate() {
-	}
-	
-	private boolean isSwitch(String arg) {
-		return arg.matches("\\-.*");
 	}
 }
