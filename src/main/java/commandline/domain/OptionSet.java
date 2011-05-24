@@ -35,7 +35,7 @@ public class OptionSet {
 		return null;
 	}
 	
-	public void consumeOptions(PeekIterator<Token> args) 
+	public void consumeOptions(Tokenizer args) 
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		while (args.hasNext()) {

@@ -143,7 +143,7 @@ public class OptionSpecification {
 		return _switch;
 	}
 
-	public void activateAndConsumeArguments(PeekIterator<Token> args) 
+	public void activateAndConsumeArguments(Tokenizer args) 
 		throws InvocationTargetException, IllegalAccessException, InstantiationException
 	{
 		activated = true;
@@ -166,6 +166,7 @@ public class OptionSpecification {
 				handleArguments(allArguments);
 				break;
 			case UNTIL_DELIMITER:
+				args.setArgumentTerminator(argumentConsumption.getDelimiter());
 				ArrayList<String> delimitedArguments = new ArrayList<String>();
 				while(args.hasNext() && !args.peek().getValue().equals(argumentConsumption.getDelimiter())) {
 					delimitedArguments.add(args.next().getArgumentValue());

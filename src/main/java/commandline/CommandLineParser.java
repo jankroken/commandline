@@ -6,7 +6,8 @@ import java.util.Iterator;
 import commandline.domain.OptionSet;
 import commandline.domain.OptionSetLevel;
 import commandline.domain.Token;
-import commandline.domain.TokenIterator;
+import commandline.domain.SimpleTokenizer;
+import commandline.domain.Tokenizer;
 import commandline.util.ArrayIterator;
 import commandline.util.PeekIterator;
 
@@ -34,8 +35,8 @@ public class CommandLineParser {
 	{
 		T spec = clazz.newInstance();
 		OptionSet optionSet = new OptionSet(spec, OptionSetLevel.MAIN_OPTIONS);
-		Iterator<Token> tokenIterator = new TokenIterator(new ArrayIterator<String>(args));
-		optionSet.consumeOptions(new PeekIterator<Token>(tokenIterator));
+		Tokenizer tokenizer = new SimpleTokenizer(new PeekIterator<String>(new ArrayIterator<String>(args)));
+		optionSet.consumeOptions(tokenizer);
 		return spec;
 	}
 }
