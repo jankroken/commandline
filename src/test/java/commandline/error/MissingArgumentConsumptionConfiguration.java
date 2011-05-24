@@ -6,7 +6,7 @@ import commandline.annotations.Option;
 public class MissingArgumentConsumptionConfiguration {
 	
 	@Option
-	@LongSwitch("--filename")
+	@LongSwitch("filename")
 	public void setFilename(String filename) {
 	}
 	

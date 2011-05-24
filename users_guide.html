@@ -68,8 +68,8 @@
     
       /**
        * @Option
-       * @LongSwitch("-file")
-       * @ShortSwitch("-f")
+       * @LongSwitch("file")
+       * @ShortSwitch("f")
        * @SingleArgument
        * @Required
        */
@@ -79,8 +79,8 @@
       
       /**
        * @Option
-       * @LongSwitch("-debug")
-       * @ShortSwitch("-d")
+       * @LongSwitch("debug")
+       * @ShortSwitch("d")
        * @Toggle(true)
        */
       public void setDebug(boolean debug) {
@@ -146,6 +146,7 @@
     <LI>if @LooseArguments is specified, @ShortSwitch and @LongSwitch cannot be specified
     <LI>For switches, one of @Toggle, @SingleArgument, @AllAvailableArguments, @ArgumentsUntilDelimiter or @SubConfiguration must be specified
     <LI>@Multiple can be specified for all option types, including loose arguments
+    <LI>@LongSwitch and @ShortSwitch must be given without leading dashes.
   </UL>
   
   <H4>Subconfigurations</H4>

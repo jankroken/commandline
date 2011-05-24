@@ -8,7 +8,7 @@ import commandline.annotations.Toggle;
 public class MultipleConsumptionsConfiguration {
 	
 	@Option
-	@LongSwitch("--filename")
+	@LongSwitch("filename")
 	@SingleArgument
 	@Toggle(true)
 	public void setFilename(String filename) {

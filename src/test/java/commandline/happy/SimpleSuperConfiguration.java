@@ -15,24 +15,24 @@ public class SimpleSuperConfiguration {
 
 	
 	@Option
-	@LongSwitch("--logfile")
-	@ShortSwitch("-l")
+	@LongSwitch("logfile")
+	@ShortSwitch("l")
 	@SingleArgument
 	public void setFilename(String logfile) {
 		this.logfile = logfile;
 	}
 	
 	@Option
-	@LongSwitch("--verbose")
-	@ShortSwitch("-v")
+	@LongSwitch("verbose")
+	@ShortSwitch("v")
 	@Toggle(true)
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
 	}
 	
 	@Option
-	@LongSwitch("--album")
-	@ShortSwitch("-a")
+	@LongSwitch("album")
+	@ShortSwitch("a")
 	@SubConfiguration(AlbumConfiguration.class)
 	public void setAlbum(AlbumConfiguration album) {
 		this.album = album;

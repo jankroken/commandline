@@ -19,8 +19,8 @@ public class DelimiterConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--exec")
-	@ShortSwitch("-e")
+	@LongSwitch("exec")
+	@ShortSwitch("e")
 	@ArgumentsUntilDelimiter(";")
 	public void setFilename(List<String> command) {
 		this.command = command;
@@ -30,8 +30,8 @@ public class DelimiterConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--logfile")
-	@ShortSwitch("-l")
+	@LongSwitch("logfile")
+	@ShortSwitch("l")
 	@SingleArgument
 	public void setLogfile(String logfile) {
 		this.logfile = logfile;

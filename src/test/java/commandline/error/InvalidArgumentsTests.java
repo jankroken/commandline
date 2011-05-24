@@ -18,7 +18,7 @@ public class InvalidArgumentsTests {
 	@Test(expected=UnrecognizedSwitchException.class) 
 	public void testUnrecognizedSwitch() throws Exception
 	{
-		String[] args = new String[]{"--invalidswitch","--filename","hello.txt"};
+		String[] args = new String[]{"-invalidswitch","-filename","hello.txt"};
 		RequiredConfiguration config = CommandLineParser.parse(RequiredConfiguration.class, args);
 	}
 

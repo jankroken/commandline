@@ -168,7 +168,7 @@ public class OptionSpecification {
 			case UNTIL_DELIMITER:
 				ArrayList<String> delimitedArguments = new ArrayList<String>();
 				while(args.hasNext() && !args.peek().getValue().equals(argumentConsumption.getDelimiter())) {
-					delimitedArguments.add(args.next().getValue());
+					delimitedArguments.add(args.next().getArgumentValue());
 				}
 				if (args.hasNext()) args.next();
 				handleArguments(delimitedArguments);

@@ -22,7 +22,7 @@ public class TokenIterator implements Iterator<Token> {
 			return next();
 		}
 		if (!argumentEscapeEncountered && isSwitch(value)) {
-			return new SwitchToken(value);
+			return new SwitchToken(value.substring(1),value);
 		} else {
 			return new ArgumentToken(value);
 		}
@@ -40,7 +40,5 @@ public class TokenIterator implements Iterator<Token> {
 	private boolean isArgumentEscape(String value) {
 		return ("--".equals(value) && !argumentEscapeEncountered);
 	}
-	
-	
 
 }

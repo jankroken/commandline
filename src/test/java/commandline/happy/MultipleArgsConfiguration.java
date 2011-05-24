@@ -19,8 +19,8 @@ public class MultipleArgsConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--files")
-	@ShortSwitch("-f")
+	@LongSwitch("files")
+	@ShortSwitch("f")
 	@AllAvailableArguments
 	public void setFiles(List<String> files) {
 		this.files = files;
@@ -30,8 +30,8 @@ public class MultipleArgsConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--logfile")
-	@ShortSwitch("-l")
+	@LongSwitch("logfile")
+	@ShortSwitch("l")
 	@SingleArgument
 	public void setLogfile(String logfile) {
 		this.logfile = logfile;

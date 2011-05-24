@@ -7,7 +7,7 @@ import commandline.annotations.SingleArgument;
 public class InvalidTypeConfiguration {
 	
 	@Option
-	@LongSwitch("--filename")
+	@LongSwitch("filename")
 	@SingleArgument
 	public void setFilename(int filename) {
 	}

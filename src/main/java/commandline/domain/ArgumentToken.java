@@ -9,4 +9,8 @@ public class ArgumentToken implements Token {
 	public String getValue() {
 		return value;
 	}
+	
+	public String getArgumentValue() {
+		return value;
+	}
 }

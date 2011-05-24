@@ -16,8 +16,8 @@ public class LooseArgumentsConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--filename")
-	@ShortSwitch("-f")
+	@LongSwitch("filename")
+	@ShortSwitch("f")
 	@SingleArgument
 	public void setFilename(String filename) {
 		this.filename = filename;
@@ -27,8 +27,8 @@ public class LooseArgumentsConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--verbose")
-	@ShortSwitch("-v")
+	@LongSwitch("verbose")
+	@ShortSwitch("v")
 	@Toggle(true)
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;

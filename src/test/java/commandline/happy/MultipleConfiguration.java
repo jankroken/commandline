@@ -17,8 +17,8 @@ public class MultipleConfiguration {
 
 	
 	@Option
-	@LongSwitch("--file")
-	@ShortSwitch("-f")
+	@LongSwitch("file")
+	@ShortSwitch("f")
 	@SingleArgument
 	@Multiple
 	public void setFiles(List<String> files) {
@@ -26,8 +26,8 @@ public class MultipleConfiguration {
 	}
 	
 	@Option
-	@LongSwitch("--verbose")
-	@ShortSwitch("-v")
+	@LongSwitch("verbose")
+	@ShortSwitch("v")
 	@Toggle(true)
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;

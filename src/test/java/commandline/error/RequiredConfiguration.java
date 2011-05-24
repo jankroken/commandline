@@ -8,7 +8,7 @@ import commandline.annotations.SingleArgument;
 public class RequiredConfiguration {
 	
 	@Option
-	@LongSwitch("--filename")
+	@LongSwitch("filename")
 	@SingleArgument
 	@Required
 	public void setFilename(String filename) {

@@ -19,16 +19,16 @@ public class LooseArgsConfiguration {
 
 	
 	@Option
-	@LongSwitch("--logfile")
-	@ShortSwitch("-l")
+	@LongSwitch("logfile")
+	@ShortSwitch("l")
 	@SingleArgument
 	public void setFilename(String logfile) {
 		this.logfile = logfile;
 	}
 	
 	@Option
-	@LongSwitch("--verbose")
-	@ShortSwitch("-v")
+	@LongSwitch("verbose")
+	@ShortSwitch("v")
 	@Toggle(true)
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;

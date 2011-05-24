@@ -13,28 +13,28 @@ public class AlbumConfiguration {
 	private boolean available;
 
 	@Option
-	@LongSwitch("--artist")
+	@LongSwitch("artist")
 	@SingleArgument
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
 	
 	@Option
-	@LongSwitch("--name")
+	@LongSwitch("name")
 	@SingleArgument
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	@Option
-	@LongSwitch("--year")
+	@LongSwitch("year")
 	@SingleArgument
 	public void setYear(String year) {
 		this.year = year;
 	}
 	
 	@Option
-	@LongSwitch("--available")
+	@LongSwitch("available")
 	@Toggle(true)
 	public void setAvailable(boolean available) {
 		this.available = available;

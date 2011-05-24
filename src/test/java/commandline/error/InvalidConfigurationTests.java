@@ -28,7 +28,7 @@ public class InvalidConfigurationTests {
 	
 	@Test(expected=InvalidOptionConfigurationException.class)
 	public void testInvalidType() throws Exception {
-		String[] args = new String[]{"--filename","hello.txt"};
+		String[] args = new String[]{"-filename","hello.txt"};
 		InvalidTypeConfiguration config = CommandLineParser.parse(InvalidTypeConfiguration.class, args);
 	}
 
