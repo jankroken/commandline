@@ -26,7 +26,7 @@ public class OptionSpecification {
 		this.argumentConsumption = argumentConsumption;
 		this.required = required;
 		this.occurences = occurences;
-		validate();
+ 		validate();
 	}
 	
 	public boolean isLooseArgumentsSpecification() {

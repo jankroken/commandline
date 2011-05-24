@@ -91,5 +91,15 @@ public class BasicParserTest {
 		assertThat(config.getLogfile(),is("hello.log"));
 		assertThat(config.getArgs(),hasItems("zombies","ate","my","raptors"));
 	}	
+
+	@Test
+	public void testArgumentEscape() throws Exception {
+		String[] args = new String[]{"--verbose","--logfile","hello.log","--","--zombies","--ate","--my","--","--raptors"};
+		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args);
+		assertThat(config.getVerbose(),is(true));
+		assertThat(config.getLogfile(),is("hello.log"));
+		assertThat(config.getArgs(),hasItems("--zombies","--ate","--my","--","--raptors"));
+	}	
+
 	
 }
