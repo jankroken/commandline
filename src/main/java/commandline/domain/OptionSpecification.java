@@ -146,16 +146,20 @@ public class OptionSpecification {
 	public void activateAndConsumeArguments(Tokenizer args) 
 		throws InvocationTargetException, IllegalAccessException, InstantiationException
 	{
+		System.out.println("activateAndConsumeArguments "+args);
 		activated = true;
+		System.out.println("activateAndConsumeArguments:argumentConsumption.getType() = "+argumentConsumption.getType());
 		switch(argumentConsumption.getType()) {
 			case NO_ARGS:
 				handleArguments(argumentConsumption.getToggleValue());
 				break;
 			case SINGLE_ARGUMENT:
+				System.out.println("activaeAndCopnsumeArguments:SINGLE_ARGUMENT:args.peek() => "+args.peek());
 				if (!args.hasNext() || args.peek() instanceof SwitchToken) {
 					throw createInvalidCommandLineException("Missing argument");
 				}
 				String argument = args.next().getValue();
+				System.out.println("activateAndfConsumeArguments handleArguments("+argument+')');
 				handleArguments(argument);
 				break;
 			case ALL_AVAILABLE:

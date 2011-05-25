@@ -13,4 +13,8 @@ public class ArgumentToken implements Token {
 	public String getArgumentValue() {
 		return value;
 	}
+	
+	public String toString() {
+		return "<ArgumentToken:"+value+">";
+	}
 }

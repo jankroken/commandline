@@ -40,17 +40,20 @@ public class OptionSet {
 	{
 		while (args.hasNext()) {
 			if (args.peek() instanceof SwitchToken) {
+				System.out.println("consumeOptions: args.peek():1 = "+args.peek());
 				OptionSpecification optionSpecification = getOptionSpecification((SwitchToken)args.peek());
+				System.out.println("optionSpecification = "+optionSpecification);
 				if (optionSpecification == null) {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
-							throw new UnrecognizedSwitchException(spec.getClass().getName(), args.peek().getValue());
+							throw new UnrecognizedSwitchException(spec.getClass(), args.peek().getValue());
 						case SUB_GROUP:
 							validateAndConsolidate();
 							return;
 					}
 				} else {
 					args.next();
+					System.out.println("activateAndConsumeArguments");
 					optionSpecification.activateAndConsumeArguments(args);
 				}
 			} else {

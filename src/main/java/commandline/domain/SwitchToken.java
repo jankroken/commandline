@@ -15,4 +15,8 @@ public class SwitchToken implements Token {
 	public String getArgumentValue() {
 		return argumentValue;
 	}
+	
+	public String toString() {
+		return "<SwitchToken:"+value+"("+argumentValue+")>";
+	}
 }

@@ -1,11 +1,10 @@
 package commandline;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 
+import commandline.domain.LongOrCompactTokenizer;
 import commandline.domain.OptionSet;
 import commandline.domain.OptionSetLevel;
-import commandline.domain.Token;
 import commandline.domain.SimpleTokenizer;
 import commandline.domain.Tokenizer;
 import commandline.util.ArrayIterator;
@@ -30,12 +29,17 @@ public class CommandLineParser {
 	 * @throws InvalidOptionConfigurationException This indicates that the annotations of setters in the provided class are not valid
 	 * @throws UnrecognizedSwitchException This indicates that the argument list contains a switch which is not specified by the class annotations
 	 */
-	public static <T extends Object> T parse(Class<T> clazz, String[] args) 
+	public static <T extends Object> T parse(Class<T> clazz, String[] args, OptionStyle style) 
 		throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		T spec = clazz.newInstance();
 		OptionSet optionSet = new OptionSet(spec, OptionSetLevel.MAIN_OPTIONS);
-		Tokenizer tokenizer = new SimpleTokenizer(new PeekIterator<String>(new ArrayIterator<String>(args)));
+		Tokenizer tokenizer;
+			if (style == OptionStyle.SIMPLE) {
+				tokenizer = new SimpleTokenizer(new PeekIterator<String>(new ArrayIterator<String>(args)));
+			} else {
+				tokenizer = new LongOrCompactTokenizer(new PeekIterator<String>(new ArrayIterator<String>(args)));
+			}
 		optionSet.consumeOptions(tokenizer);
 		return spec;
 	}
