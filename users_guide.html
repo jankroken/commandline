@@ -36,12 +36,12 @@
     <LI>A short and long representation of each switch/option
     <LI>Unrecognized arguments will be caught and result in an exception
     <LI>Escaping the rest of the arguments with the GNU style "--" switch
+    <LI>Single letter switches that can be concatenated in one switch/option (as in 'ls -lSr')
     </UL>
     
     Functionality that is currently not supported is
     
     <UL>
-    <LI>Single letter switches that can be concatenated in one switch/option (as in 'ls -lSr')
     <LI>Generating a help text</LI>
     <LI>Built in validation, and automatic validation based on argument types of the annotated methods
     </UL>
@@ -58,8 +58,16 @@
     are added by annotating setter methods. The following example shows a configuration class with
     two arguments, '-file' (with one argumment) and an optional '-debug'. These two arguments have the
     short versions '-f' and '-d'.
+
+	There are two option styles available for the parser. 
+	<UL>
+	<LI>OptionStyle.SIMPLE - All switches have to be standalone. All (both long and short) needs to be prepended with a single dash on the command line. Example: 'findalbum -v -title "Undeveloped" -artist "OhGr"'
+	<LI>OptionStyle.LONG_OR_COMPACT - Long switches are prepended by two dashes. Short switches are prepended with a single dash, and may be concatenated into one switch. Example: 'ls -lSr --color true'
+    </UL>
     
     <H3>A simple example</H3>
+    
+    <P>This example uses the SIMPLE OptionStyle</P>
     
     <PRE>
     public class Arguments () {
@@ -121,6 +129,35 @@
     <PRE>
       java Main -file hello.txt -debug
     </PRE>
+    
+    <H3>The LONG_OR_COMPACT OptionStyle</H3>
+    
+    <P>
+    In the LONG_OR_COMPACT OptionStyle, arguments that are prepended with two dashes are considered regular switches,
+    and are interpreted as such. An argument prepended with only a single dash is parsed as a list of single letter
+    switches.
+    </P>
+   
+    <P>
+    This means that 'ls -lSr' is functionally equivalent to 'ls --l --S --r'.
+   	</P>
+   	
+   	<P>
+   	Note that it is currently possible to combine this with other functionality, to provoke
+   	strange situations. Examples of unsupported scenarios are:
+   	</P>
+   	
+   	<UL>
+   	<LI>Specifying a single letter switch that requires one or more arguments in any other position of 
+   	a shortcut switch than the last
+   	<LI>Supplying a one letter argument that is specified to consume arguments until a delimiter token is encountered.
+   	</UL>
+   	
+    
+   
+
+   
+   
     
     
    <H3>Annotations</H3>
