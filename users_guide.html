@@ -5,9 +5,9 @@
   <BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#0000CC">
     <H1>CommandLine: Users Guide</H1>
   
-    <H2>What is Commandline</H2>
+    <H2>What is CommandLine</H2>
     <P>
-    Commandline is a Java library to parse command line arguments. Most argument parsing
+    CommandLine is a Java library to parse command line arguments. Most argument parsing
     libraries are modelled after the GNU getopt library dominant in the unix C environment
     (Apache commons-cli is a great library based on this model). In contrast, this library
     is based on a mapping from the command line arguments onto objects, by using annotations.
@@ -44,6 +44,8 @@
     <UL>
     <LI>Generating a help text</LI>
     <LI>Built in validation, and automatic validation based on argument types of the annotated methods
+    <LI>Argument separators other than whitespace (a.e. --color=true)
+    <LI>a single argument not separated from the switch (like the GCC -O3)
     </UL>
     
     <H2>Requirements and backwards compatibility</H2>
