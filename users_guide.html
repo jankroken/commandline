@@ -430,13 +430,6 @@
     <LI>@LongSwitch and @ShortSwitch must be given without leading dashes.
   </UL>
   
-  <H4>Subconfigurations</H4>
-  
-  When a sub configuration is specified, the parser creates an instance of the specified class, and starts parsing identical to how it parses
-  for the top level configuration class. It ends when it encounters an unrecognized switch, loose args (if it's not supported) or
-  the end of the argument list. When parsing of the sub configuration ends, the sub configuration class is returned and sent as
-  an argument to the annotated setter.
-  
   <H4>Types</H4>
   <UL>
     <LI>Toggles require the setter argument to be boolean
