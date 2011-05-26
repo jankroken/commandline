@@ -74,23 +74,19 @@
       private String filename;
       private boolean debug = false;
     
-      /**
-       * @Option
-       * @LongSwitch("file")
-       * @ShortSwitch("f")
-       * @SingleArgument
-       * @Required
-       */
+      @Option
+      @LongSwitch("file")
+      @ShortSwitch("f")
+      @SingleArgument
+      @Required
       public void setFilename(String filename) {
       	this.filename = filename;
       }
       
-      /**
-       * @Option
-       * @LongSwitch("debug")
-       * @ShortSwitch("d")
-       * @Toggle(true)
-       */
+      @Option
+      @LongSwitch("debug")
+      @ShortSwitch("d")
+      @Toggle(true)
       public void setDebug(boolean debug) {
         this.debug = debug;
       }
@@ -142,91 +138,91 @@
     
  	<PRE>
 
-	public class AlbumConfiguration {
+    public class AlbumConfiguration {
 		
-		private String artist;
-		private String name;
-		private String year;
+      private String artist;
+      private String name;
+      private String year;
 	
-		@Option
-		@LongSwitch("artist")
-		@SingleArgument
-		public void setArtist(String artist) {
-			this.artist = artist;
-		}
-		
-		@Option
-		@LongSwitch("name")
-		@SingleArgument
-		public void setName(String name) {
-			this.name = name;
-		}
+      @Option
+      @LongSwitch("artist")
+      @SingleArgument
+      public void setArtist(String artist) {
+        this.artist = artist;
+      }
+
+      @Option
+      @LongSwitch("name")
+      @SingleArgument
+      public void setName(String name) {
+        this.name = name;
+      }
+
+      @Option
+      @LongSwitch("year")
+      @SingleArgument
+      public void setYear(String year) {
+        this.year = year;
+      }
+
+      public String getArtist() {
+        return artist;
+      }
+
+      public String getName() {
+        return name;
+      }
 	
-		@Option
-		@LongSwitch("year")
-		@SingleArgument
-		public void setYear(String year) {
-			this.year = year;
-		}
-		
-		public String getArtist() {
-			return artist;
-		}
-	
-		public String getName() {
-			return name;
-		}
-	
-		public String getYear() {
-			return year;
-		}
-	}
+      public String getYear() {
+        return year;
+      }
+    }
 
 
-	public class MusicDatabaseConfiguration {
+    public class MusicDatabaseConfiguration {
 		
-		private String database;
-		private boolean verbose;
-		private List<AlbumConfiguration> albums;
+      private String database;
+      private boolean verbose;
+      private List<AlbumConfiguration> albums;
 	
 		
-		@Option
-		@LongSwitch("database")
-		@ShortSwitch("d")
-		@SingleArgument
-		public void setFilename(String database) {
-			this.database = database;
-		}
+      @Option
+      @LongSwitch("database")
+      @ShortSwitch("d")
+      @SingleArgument
+      public void setFilename(String database) {
+        this.database = database;
+      }
+
+      @Option
+      @LongSwitch("verbose")
+      @ShortSwitch("v")
+      @Toggle(true)
+      public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+      }
 		
-		@Option
-		@LongSwitch("verbose")
-		@ShortSwitch("v")
-		@Toggle(true)
-		public void setVerbose(boolean verbose) {
-			this.verbose = verbose;
-		}
+      @Option
+      @LongSwitch("album")
+      @ShortSwitch("a")
+      @Multiple
+      @SubConfiguration(AlbumConfiguration.class)
+      public void setAlbums(List<AlbumConfiguration> albums) {
+        this.albums = albums;
+      }
+
+      public boolean getVerbose() {
+        return verbose;
+      }
+
+      public String getDatabase() {
+        return database;
+      }
 		
-		@Option
-		@LongSwitch("album")
-		@ShortSwitch("a")
-		@Multiple
-		@SubConfiguration(AlbumConfiguration.class)
-		public void setAlbums(List<AlbumConfiguration> albums) {
-			this.albums = albums;
-		}
-	
-		public boolean getVerbose() {
-			return verbose;
-		}
-	
-		public String getDatabase() {
-			return database;
-		}
-		
-		public List<AlbumConfiguration> getAlbums() {
-			return albums;
-		}
-	}
+      public List<AlbumConfiguration> getAlbums() {
+        return albums;
+      }
+    }
 
 
     public class Main {
@@ -270,46 +266,46 @@
     switches. Although there's separate annotations for short and long switches, they are treated completely alike.
     </P>
    
-    <P>
-	public class MyConfiguration {
-		
-		private boolean verbose;
-		private boolean optimize;
-		private boolean compress;
-		private String name;
-	
-		@Option
-		@LongSwitch("verbose")
-		@ShortSwitch("v")
-		@Toggle(true)
-		public void setVerbose(boolean verbose) {
-			this.verbose = verbose;
-		}
-		
-		@Option
-		@LongSwitch("optimize")
-		@ShortSwitch("o")
-		@Toggle(true)
-		public void setOptimize(boolean optimize) {
-			this.optimize = optimize;
-		}
-		
-		@Option
-		@LongSwitch("compress")
-		@ShortSwitch("c")
-		@Toggle(true)
-		public void setCompress(boolean compress) {
-			this.compress = compress;
-		}
-		
-		@Option
-		@LongSwitch("name")
-		@ShortSwitch("n")
-		@SingleArgument
-		public void setName(String name) {
-			this.name = name;
-		}
-	}
+    <PRE>
+    public class MyConfiguration {
+
+      private boolean verbose;
+      private boolean optimize;
+      private boolean compress;
+      private String name;
+
+      @Option
+      @LongSwitch("verbose")
+      @ShortSwitch("v")
+      @Toggle(true)
+      public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+      }
+
+      @Option
+      @LongSwitch("optimize")
+      @ShortSwitch("o")
+      @Toggle(true)
+      public void setOptimize(boolean optimize) {
+        this.optimize = optimize;
+      }
+
+      @Option
+      @LongSwitch("compress")
+      @ShortSwitch("c")
+      @Toggle(true)
+      public void setCompress(boolean compress) {
+        this.compress = compress;
+      }
+
+      @Option
+      @LongSwitch("name")
+      @ShortSwitch("n")
+      @SingleArgument
+      public void setName(String name) {
+        this.name = name;
+      }
+    }
 	
 	
     public class Main {
@@ -326,7 +322,8 @@
         }
       }
     }	
-   	</P>
+   	</PRE>
+
    	With OptionStyle.SIMPLE you run the application with arguments like
    	<PRE>
    	run.sh -name "Keyser Soze" -verbose -optimize -compress
@@ -372,24 +369,24 @@
 
 	<PRE>
 	
-	class ExecutorConfiguration {
-		...
-		@Option
-		@LongSwitch("verbose")
-		@ShortSwitch("v")
-		@Toggle(true)
-		public void setVerbose(boolean verbose) {
-			this.verbose = verbose;
-		}
+    class ExecutorConfiguration {
+      ...
+      @Option
+      @LongSwitch("verbose")
+      @ShortSwitch("v")
+      @Toggle(true)
+      public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+      }
 
-		@Option
-		@LongSwitch("exec")
-		@ShortSwitch("e")
-		@UntilDelimiter(";")
-		public void setVerbose(boolean verbose) {
-			this.verbose = verbose;
-		}
-	}
+      @Option
+      @LongSwitch("exec")
+      @ShortSwitch("e")
+      @UntilDelimiter(";")
+      public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+      }
+    }
 	</PRE>
 	<P>
 	with this specification, you can use a command line line
