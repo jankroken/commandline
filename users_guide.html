@@ -230,7 +230,7 @@
     public class Main {
       public final static final void main(String[] args) {
         try {
-          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.SIMPLE);
+          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.LONG_OR_COMPACT);
           doSomething(arguments);
         } catch (InvalidCommandLineException clException) {
 		  ...
