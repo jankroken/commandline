@@ -130,35 +130,280 @@
       java Main -file hello.txt -debug
     </PRE>
     
+    <H3></H3>
+    
+    <H3>A more advanced example</H3>
+    
+    <P>
+    Occationally, you might need to parse multiple occurences of a sequence of options.
+    The following example demonstrates both what the hell I'm talking about and how to
+    do exactly that:
+    </P>
+    
+ 	<PRE>
+
+	public class AlbumConfiguration {
+		
+		private String artist;
+		private String name;
+		private String year;
+	
+		@Option
+		@LongSwitch("artist")
+		@SingleArgument
+		public void setArtist(String artist) {
+			this.artist = artist;
+		}
+		
+		@Option
+		@LongSwitch("name")
+		@SingleArgument
+		public void setName(String name) {
+			this.name = name;
+		}
+	
+		@Option
+		@LongSwitch("year")
+		@SingleArgument
+		public void setYear(String year) {
+			this.year = year;
+		}
+		
+		public String getArtist() {
+			return artist;
+		}
+	
+		public String getName() {
+			return name;
+		}
+	
+		public String getYear() {
+			return year;
+		}
+	}
+
+
+	public class MusicDatabaseConfiguration {
+		
+		private String database;
+		private boolean verbose;
+		private List<AlbumConfiguration> albums;
+	
+		
+		@Option
+		@LongSwitch("database")
+		@ShortSwitch("d")
+		@SingleArgument
+		public void setFilename(String database) {
+			this.database = database;
+		}
+		
+		@Option
+		@LongSwitch("verbose")
+		@ShortSwitch("v")
+		@Toggle(true)
+		public void setVerbose(boolean verbose) {
+			this.verbose = verbose;
+		}
+		
+		@Option
+		@LongSwitch("album")
+		@ShortSwitch("a")
+		@Multiple
+		@SubConfiguration(AlbumConfiguration.class)
+		public void setAlbums(List<AlbumConfiguration> albums) {
+			this.albums = albums;
+		}
+	
+		public boolean getVerbose() {
+			return verbose;
+		}
+	
+		public String getDatabase() {
+			return database;
+		}
+		
+		public List<AlbumConfiguration> getAlbums() {
+			return albums;
+		}
+	}
+
+
+    public class Main {
+      public final static final void main(String[] args) {
+        try {
+          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.SIMPLE);
+          doSomething(arguments);
+        } catch (InvalidCommandLineException clException) {
+		  ...
+        } catch (InvalidOptionConfigurationException configException) {
+          ...
+        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+          ...
+        }
+      }
+    }
+ 	</PRE>   
+ 
+	<P>
+	As you notice, this code got two option configurations. AlbumConfiguration represents an album,
+	while MusicDatabaseConfiguration represents information about a music database and a list of albums.
+	If you give the following command line:
+	</P>
+	<P>
+	run.sh -database myalbums.db -verbose 
+		   -album -artist "Access to Arasaka" -name "Void();" -year 2010
+		   -album -artist "Decree" -name "Fateless" -year 2011
+		   -album -artist "Karin Park" -name "Ashes to Gold" -year 2009
+		   -album -artist "The Kick" -name "Metal Heart" -year 2010
+	 </P>
+ 
+ 	You would get an instance of MusicDatabaseConfiguration, containing the values database, verbose
+ 	and a list of AlbumConfiguration with 4 elements, each representing one of the 4 albums specified
+ 	on the command line.
+    
     <H3>The LONG_OR_COMPACT OptionStyle</H3>
     
     <P>
     In the LONG_OR_COMPACT OptionStyle, arguments that are prepended with two dashes are considered regular switches,
     and are interpreted as such. An argument prepended with only a single dash is parsed as a list of single letter
-    switches.
+    switches. Although there's separate annotations for short and long switches, they are treated completely alike.
     </P>
    
     <P>
-    This means that 'ls -lSr' is functionally equivalent to 'ls --l --S --r'.
+	public class MyConfiguration {
+		
+		private boolean verbose;
+		private boolean optimize;
+		private boolean compress;
+		private String name;
+	
+		@Option
+		@LongSwitch("verbose")
+		@ShortSwitch("v")
+		@Toggle(true)
+		public void setVerbose(boolean verbose) {
+			this.verbose = verbose;
+		}
+		
+		@Option
+		@LongSwitch("optimize")
+		@ShortSwitch("o")
+		@Toggle(true)
+		public void setOptimize(boolean optimize) {
+			this.optimize = optimize;
+		}
+		
+		@Option
+		@LongSwitch("compress")
+		@ShortSwitch("c")
+		@Toggle(true)
+		public void setCompress(boolean compress) {
+			this.compress = compress;
+		}
+		
+		@Option
+		@LongSwitch("name")
+		@ShortSwitch("n")
+		@SingleArgument
+		public void setName(String name) {
+			this.name = name;
+		}
+	}
+	
+	
+    public class Main {
+      public final static final void main(String[] args) {
+        try {
+          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.SIMPLE);
+          doSomething(arguments);
+        } catch (InvalidCommandLineException clException) {
+		  ...
+        } catch (InvalidOptionConfigurationException configException) {
+          ...
+        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+          ...
+        }
+      }
+    }	
    	</P>
+   	With OptionStyle.SIMPLE you run the application with arguments like
+   	<PRE>
+   	run.sh -name "Keyser Soze" -verbose -optimize -compress
+   	</PRE>
+   	or the shorter
+   	<PRE>
+   	run.sh -n "Keyser Soze" -v -o -c
+   	</PRE>
    	
-   	<P>
-   	Note that it is currently possible to combine this with other functionality, to provoke
-   	strange situations. Examples of unsupported scenarios are:
-   	</P>
+   	with OptionStyle.LONG_OR_COMPACT, you can specify the options as
    	
-   	<UL>
-   	<LI>Specifying a single letter switch that requires one or more arguments in any other position of 
-   	a shortcut switch than the last
-   	<LI>Supplying a one letter argument that is specified to consume arguments until a delimiter token is encountered.
-   	</UL>
+    <PRE>
+    run.sh --name "Keyser Soze" --verbose --optimize --compress
+    </PRE>
+   	or the shorter
+    <PRE>
+    run.sh --n "Keyser Soze" --v --o --c
+	</PRE>
+	You can also use the even shorter
+    <PRE>
+    run.sh -n "Keyser Soze" -v -o -c
+	</PRE>
+	or even
+    <PRE>
+    run.sh -n "Keyser Soze" -voc
+	</PRE>
+	You can also use
+    <PRE>
+    run.sh -vocn "Keyser Soze"
+    </PRE>
+    but this won't work
+    <PRE>
+    run.sh -nvoc "Keyser Soze"
+    </PRE>
+    as the option n will be interpreted as not having any arguments, but be immediately followed by the option v
    	
-    
-   
+	<H3>Using argument delimiters</H3>
+	<P>
+	Sometimes, an option needs arguments that might be interpreted as arguments themself. The prime
+	example of this is the find -exec argument. To help in situations like that, it is possible to
+	specify that an option will consume arguments following it, until the delimiter is encountered.
+	<P>
 
+	<PRE>
+	
+	class ExecutorConfiguration {
+		...
+		@Option
+		@LongSwitch("verbose")
+		@ShortSwitch("v")
+		@Toggle(true)
+		public void setVerbose(boolean verbose) {
+			this.verbose = verbose;
+		}
+
+		@Option
+		@LongSwitch("exec")
+		@ShortSwitch("e")
+		@UntilDelimiter(";")
+		public void setVerbose(boolean verbose) {
+			this.verbose = verbose;
+		}
+	}
+	</PRE>
+	<P>
+	with this specification, you can use a command line line
+	</P>
+	<PRE>
+	run.sh -exec ls -lSr -- "*.txt" \; -verbose
+	</PRE>
+	<P>
+	and "ls","l","--","*.txt" and ";" are all considered arguments tto the -exec option,
+	while -verbose is interpreted as a second option. Note also that the use of the delimiter
+	overrides the meaning of -- (which is to prevent anything following it from being interpreted
+	as switches.
+	</P>
    
-   
-    
     
    <H3>Annotations</H3>
    
@@ -204,9 +449,7 @@
         would have had if @Multiple had not been specified
   </UL>
   
-For further examples, please consult the unit tests
-  </UL>
-   
+	For further examples, please consult the unit tests
    
   </BODY>
 </HTML>
