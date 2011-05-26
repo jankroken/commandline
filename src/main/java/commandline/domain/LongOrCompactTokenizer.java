@@ -22,14 +22,12 @@ public class LongOrCompactTokenizer implements Tokenizer {
 	}
 	
 	public boolean hasNext() {
-		System.out.println("LOCTOK: hasNext() => "+stringIterator.hasNext());
 		return stringIterator.hasNext();
 	}
 
 	// this is a mess - need to be cleaned up
 	public Token peek() {
 		if (!splitTokens.isEmpty()) {
-			System.out.println("LOCTOK: peek()[splitTokens] =>"+ splitTokens.peek());
 			return splitTokens.peek();
 		}
 		String value = stringIterator.peek();
@@ -63,7 +61,6 @@ public class LongOrCompactTokenizer implements Tokenizer {
 	// this is a mess - needs to be cleaned up
 	public Token next() {
 		if (!splitTokens.isEmpty()) {
-			System.out.println("LOCTOK: peek()[splitTokens] =>"+ splitTokens.peek());
 			return splitTokens.remove();
 		}
 		String value = stringIterator.next();
@@ -83,13 +80,11 @@ public class LongOrCompactTokenizer implements Tokenizer {
 			argumentEscapeEncountered = true;
 			return next();
 		}
-		System.out.println("next: isSwitch("+value+") = >"+isSwitch(value));
 		if (isSwitch(value)) {
 			if (isShortSwitchList(value)) {
 				splitTokens.addAll(splitSwitchTokens(value));
 				return splitTokens.remove();
 			} else {
-				System.out.println("next: returning SwitchToken="+value);
 				return new SwitchToken(value.substring(2),value);
 			}
 		} else {

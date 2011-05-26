@@ -111,7 +111,7 @@
     public class Main {
       public final static final void main(String[] args) {
         try {
-          Arguments arguments = CommandLineParser.parse(Arguments.class, args);
+          Arguments arguments = CommandLineParser.parse(Arguments.class, args, OptionStyle.SIMPLE);
           doSomething(arguments);
         } catch (InvalidCommandLineException clException) {
 		  ...
@@ -200,7 +200,7 @@
     <LI>Multiple arguments require the setter argument to be a List<String>
     <LI>SubConfiguration(class) requires the setter argument to be an instance of the specified class
     <LI>LooseArguments requires the setter argument to be String
-    <LI>When @Multiple is specified, the setter argument needs to be List<T>, where T is the type the setter
+    <LI>When @Multiple is specified, the setter argument needs to be List&lt;T&gt;, where T is the type the setter
         would have had if @Multiple had not been specified
   </UL>
   

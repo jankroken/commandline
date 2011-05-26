@@ -40,9 +40,7 @@ public class OptionSet {
 	{
 		while (args.hasNext()) {
 			if (args.peek() instanceof SwitchToken) {
-				System.out.println("consumeOptions: args.peek():1 = "+args.peek());
 				OptionSpecification optionSpecification = getOptionSpecification((SwitchToken)args.peek());
-				System.out.println("optionSpecification = "+optionSpecification);
 				if (optionSpecification == null) {
 					switch(optionSetLevel) {
 						case MAIN_OPTIONS:
@@ -53,7 +51,6 @@ public class OptionSet {
 					}
 				} else {
 					args.next();
-					System.out.println("activateAndConsumeArguments");
 					optionSpecification.activateAndConsumeArguments(args);
 				}
 			} else {

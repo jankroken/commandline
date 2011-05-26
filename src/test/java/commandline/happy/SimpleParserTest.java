@@ -102,5 +102,12 @@ public class SimpleParserTest {
 		assertThat(config.getArgs(),hasItems("-zombies","-ate","-my","--","-raptors"));
 	}	
 
+	@Test
+	public void testEscapePresendence() throws Exception {
+		String[] args = new String[]{"-exec","ls","--","*.txt",";","-logfile","hello.log"};
+		DelimiterConfiguration config = CommandLineParser.parse(DelimiterConfiguration.class, args, OptionStyle.SIMPLE);
+		assertThat(config.getCommand(),hasItems("ls","--","*.txt"));
+		assertThat(config.getLogfile(),is("hello.log"));
+	}
 	
 }
