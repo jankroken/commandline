@@ -2,6 +2,7 @@ package commandline.happy;
 
 import java.util.List;
 
+import commandline.OptionStyle;
 import org.junit.Test;
 
 import commandline.CommandLineParser;
@@ -16,7 +17,7 @@ public class BasicParserTest {
 	@Test
 	public void testSimpleConfiguration() throws Exception {
 		String[] args = new String[]{"-f","hello.txt","-v"};
-		SimpleConfiguration config = CommandLineParser.parse(SimpleConfiguration.class, args);
+		SimpleConfiguration config = CommandLineParser.parse(SimpleConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getFilename(),is("hello.txt"));
 		assertThat(config.getVerbose(),is(true));
 	}
@@ -24,7 +25,7 @@ public class BasicParserTest {
 	@Test
 	public void testMultipleArgsConfiguration() throws Exception {
 		String[] args = new String[]{"-files","hello.txt","world.txt","bye.txt","-logfile","hello.log"};
-		MultipleArgsConfiguration config = CommandLineParser.parse(MultipleArgsConfiguration.class, args);
+		MultipleArgsConfiguration config = CommandLineParser.parse(MultipleArgsConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getFiles(),hasItems("hello.txt","world.txt","bye.txt"));
 		assertThat(config.getLogfile(),is("hello.log"));
 	}
@@ -32,7 +33,7 @@ public class BasicParserTest {
 	@Test
 	public void testDelimiterConfiguration() throws Exception {
 		String[] args = new String[]{"-exec","ls","-l","*.txt",";","-logfile","hello.log"};
-		DelimiterConfiguration config = CommandLineParser.parse(DelimiterConfiguration.class, args);
+		DelimiterConfiguration config = CommandLineParser.parse(DelimiterConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getCommand(),hasItems("ls","-l","*.txt"));
 		assertThat(config.getLogfile(),is("hello.log"));
 	}
@@ -40,7 +41,7 @@ public class BasicParserTest {
 	@Test
 	public void testMultipleConfiguration() throws Exception {
 		String[] args = new String[]{"-verbose","-file","hello.txt","-file","world.txt"};
-		MultipleConfiguration config = CommandLineParser.parse(MultipleConfiguration.class, args);
+		MultipleConfiguration config = CommandLineParser.parse(MultipleConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getFiles(),hasItems("hello.txt","world.txt"));
 		assertThat(config.getVerbose(),is(true));
 	}
@@ -48,7 +49,7 @@ public class BasicParserTest {
 	@Test
 	public void testSubConfiguration() throws Exception {
 		String[] args = new String[]{"-verbose","-album","-name","Caustic Grip","-artist","Front Line Assembly","-year","1990","-available","-logfile","hello.log"};
-		SimpleSuperConfiguration config = CommandLineParser.parse(SimpleSuperConfiguration.class, args);
+		SimpleSuperConfiguration config = CommandLineParser.parse(SimpleSuperConfiguration.class, args, OptionStyle.SIMPLE);
 		AlbumConfiguration album = config.getAlbum();
 		assertThat(config.getLogfile(),is("hello.log"));
 		assertThat(config.getVerbose(),is(true));
@@ -64,7 +65,7 @@ public class BasicParserTest {
 									 "-album","-name","Caustic Grip","-artist","Front Line Assembly","-year","1990","-available",
 									 "-album","-name","Scintilla","-artist","Stendeck","-year","2011","-available",
 									 "-logfile","hello.log"};
-		MultipleSubconfigsConfiguration config = CommandLineParser.parse(MultipleSubconfigsConfiguration.class, args);
+		MultipleSubconfigsConfiguration config = CommandLineParser.parse(MultipleSubconfigsConfiguration.class, args, OptionStyle.SIMPLE);
 		boolean verbose = config.getVerbose();
 		List<AlbumConfiguration> albums = config.getAlbums();
 		assertThat(albums.size(),is(2));
@@ -86,7 +87,7 @@ public class BasicParserTest {
 	@Test
 	public void testLooseArguments() throws Exception {
 		String[] args = new String[]{"-verbose","zombies","ate","my","-logfile","hello.log","raptors"};
-		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args);
+		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getVerbose(),is(true));
 		assertThat(config.getLogfile(),is("hello.log"));
 		assertThat(config.getArgs(),hasItems("zombies","ate","my","raptors"));
@@ -95,7 +96,7 @@ public class BasicParserTest {
 	@Test
 	public void testArgumentEscape() throws Exception {
 		String[] args = new String[]{"-verbose","-logfile","hello.log","--","-zombies","-ate","-my","--","-raptors"};
-		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args);
+		LooseArgsConfiguration config = CommandLineParser.parse(LooseArgsConfiguration.class, args, OptionStyle.SIMPLE);
 		assertThat(config.getVerbose(),is(true));
 		assertThat(config.getLogfile(),is("hello.log"));
 		assertThat(config.getArgs(),hasItems("-zombies","-ate","-my","--","-raptors"));
