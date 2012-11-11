@@ -5,11 +5,11 @@ import commandline.annotations.Option;
 import commandline.annotations.SingleArgument;
 
 public class InvalidTypeConfiguration {
-	
-	@Option
-	@LongSwitch("filename")
-	@SingleArgument
-	public void setFilename(int filename) {
-	}
-	
+
+    @Option
+    @LongSwitch("filename")
+    @SingleArgument
+    public void setFilename(int filename) {
+    }
+
 }

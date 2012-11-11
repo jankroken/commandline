@@ -6,12 +6,12 @@ import commandline.annotations.SingleArgument;
 import commandline.annotations.Toggle;
 
 public class MultipleConsumptionsConfiguration {
-	
-	@Option
-	@LongSwitch("filename")
-	@SingleArgument
-	@Toggle(true)
-	public void setFilename(String filename) {
-	}
-	
+
+    @Option
+    @LongSwitch("filename")
+    @SingleArgument
+    @Toggle(true)
+    public void setFilename(String filename) {
+    }
+
 }

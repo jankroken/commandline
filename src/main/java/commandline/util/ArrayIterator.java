@@ -17,22 +17,22 @@ public class ArrayIterator<T> implements Iterator<T> {
     }
 
     public T next() {
-    	if (array.length > index) {
+        if (array.length > index) {
             return array[index++];
-    	} else {
-    		throw new NoSuchElementException();
-    	}
+        } else {
+            throw new NoSuchElementException();
+        }
     }
-    
+
     public T peek() {
-    	if (array.length > index) {
+        if (array.length > index) {
             return array[index];
-    	} else {
-    		throw new NoSuchElementException();
-    	}
+        } else {
+            throw new NoSuchElementException();
+        }
     }
-    
+
     public void remove() {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 }

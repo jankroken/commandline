@@ -8,7 +8,7 @@ public class OptionSpecificationBuilder {
 	private String shortSwitch;
 	private ArgumentConsumptionBuilder argumentConsumptionBuilder = new ArgumentConsumptionBuilder();
 	private Method method;
-	private Occurences occurences = Occurences.SINGLE;
+	private Occurrences occurrences = Occurrences.SINGLE;
 	private boolean required = false;
 	private Object spec;
 	
@@ -40,8 +40,8 @@ public class OptionSpecificationBuilder {
 		argumentConsumptionBuilder.addUntilDelimiter(delimiter);
 	}
 	
-	public void addSubset(Class<? extends Object> clazz) {
-		argumentConsumptionBuilder.addSubSet(clazz);
+	public void addSubset(Class<?> optionClass) {
+		argumentConsumptionBuilder.addSubSet(optionClass);
 	}
 	
 	public void addLooseArgs() {
@@ -52,8 +52,8 @@ public class OptionSpecificationBuilder {
 		required = true;
 	}
 	
-	public void addOccurences(Occurences occurences) {
-		this.occurences = occurences;
+	public void addOccurrences(Occurrences occurrences) {
+		this.occurrences = occurrences;
 	}
 
 	public void addConfiguration(Object spec) {
@@ -63,8 +63,7 @@ public class OptionSpecificationBuilder {
 	public OptionSpecification getOptionSpecification() {
 		Switch _switch = new Switch(longSwitch,shortSwitch);
 		ArgumentConsumption argumentConsumption = argumentConsumptionBuilder.getArgumentConsumption();
-		OptionSpecification specification = new OptionSpecification(spec,method,_switch,argumentConsumption, required, occurences);
-		return specification;
+		return new OptionSpecification(spec,method,_switch,argumentConsumption, required, occurrences);
 	}
 
 

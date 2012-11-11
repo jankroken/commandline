@@ -1,6 +1,6 @@
 package commandline.domain;
 
-public enum Occurences {
+public enum Occurrences {
 	SINGLE,
 	MULTIPLE
 }

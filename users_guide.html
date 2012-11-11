@@ -1,18 +1,20 @@
 <HTML>
-  <HEAD>
+<HEAD>
     <TITLE>Commandline: Users Guide</TITLE>
-  </HEAD>
-  <BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#0000CC">
-    <H1>CommandLine: Users Guide</H1>
-  
-    <H2>What is CommandLine</H2>
-    <P>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#0000CC">
+<H1>CommandLine: Users Guide</H1>
+
+<H2>What is CommandLine</H2>
+
+<P>
     CommandLine is a Java library to parse command line arguments. Most argument parsing
     libraries are modelled after the GNU getopt library dominant in the unix C environment
     (Apache commons-cli is a great library based on this model). In contrast, this library
     is based on a mapping from the command line arguments onto objects, by using annotations.
-    </P>
-    <P>
+</P>
+
+<P>
     The reason I wrote this library is that I think using an argument to object mapping in
     most cases is easier and more obvious than parsing arguments the getopt way. Also, by
     using sub configurations, this approach scales a lot better. Note however, that this
@@ -24,9 +26,9 @@
     <PRE>
       find . -name "*.txt" -o '(' -name "*.html" -a -amin 4 ')' -exec ls -l '{}' ';'
     </PRE>
-    
-    The functionality that is currently supported is:
-    <UL>
+
+The functionality that is currently supported is:
+<UL>
     <LI>Options with none, one or multiple arguments
     <LI>Optional and mandatory options
     <LI>Multiple instances of options, without mixing the arguments specified for each occurance
@@ -37,39 +39,41 @@
     <LI>Unrecognized arguments will be caught and result in an exception
     <LI>Escaping the rest of the arguments with the GNU style "--" switch
     <LI>Single letter switches that can be concatenated in one switch/option (as in 'ls -lSr')
-    </UL>
-    
-    Functionality that is currently not supported is
-    
-    <UL>
+</UL>
+
+Functionality that is currently not supported is
+
+<UL>
     <LI>Generating a help text</LI>
     <LI>Built in validation, and automatic validation based on argument types of the annotated methods
     <LI>Argument separators other than whitespace (a.e. --color=true)
     <LI>a single argument not separated from the switch (like the GCC -O3)
-    </UL>
-    
-    <H2>Requirements and backwards compatibility</H2>
-    
-	This library is written with and tested on Java 6. Future versions might require Java 7 or 8,
-	but these requirements will be introduced with new major versions. What fun are new versions of
-	Java if one sticks to ancient ones for endless backwards compatibility? :)
-   
-    <H2>Using the library</H2>
-    
-    To use the library, you must create at least one class with a no argument constructor. Arguments
-    are added by annotating setter methods. The following example shows a configuration class with
-    two arguments, '-file' (with one argumment) and an optional '-debug'. These two arguments have the
-    short versions '-f' and '-d'.
+</UL>
 
-	There are two option styles available for the parser. 
-	<UL>
-	<LI>OptionStyle.SIMPLE - All switches have to be standalone. All (both long and short) needs to be prepended with a single dash on the command line. Example: 'findalbum -v -title "Undeveloped" -artist "OhGr"'
-	<LI>OptionStyle.LONG_OR_COMPACT - Long switches are prepended by two dashes. Short switches are prepended with a single dash, and may be concatenated into one switch. Example: 'ls -lSr --color true'
-    </UL>
-    
-    <H3>A simple example</H3>
-    
-    <P>This example uses the SIMPLE OptionStyle</P>
+<H2>Requirements and backwards compatibility</H2>
+
+This library is written with and tested on Java 6. Future versions might require Java 7 or 8,
+but these requirements will be introduced with new major versions. What fun are new versions of
+Java if one sticks to ancient ones for endless backwards compatibility? :)
+
+<H2>Using the library</H2>
+
+To use the library, you must create at least one class with a no argument constructor. Arguments
+are added by annotating setter methods. The following example shows a configuration class with
+two arguments, '-file' (with one argumment) and an optional '-debug'. These two arguments have the
+short versions '-f' and '-d'.
+
+There are two option styles available for the parser.
+<UL>
+    <LI>OptionStyle.SIMPLE - All switches have to be standalone. All (both long and short) needs to be prepended with a
+        single dash on the command line. Example: 'findalbum -v -title "Undeveloped" -artist "OhGr"'
+    <LI>OptionStyle.LONG_OR_COMPACT - Long switches are prepended by two dashes. Short switches are prepended with a
+        single dash, and may be concatenated into one switch. Example: 'ls -lSr --color true'
+</UL>
+
+<H3>A simple example</H3>
+
+<P>This example uses the SIMPLE OptionStyle</P>
     
     <PRE>
     public class Arguments () {
@@ -102,8 +106,8 @@
       }
     }
     </PRE>
-    
-    The following code actually scans the argument list, and creates an instance of the class
+
+The following code actually scans the argument list, and creates an instance of the class
     
     <PRE>
     public class Main {
@@ -121,22 +125,22 @@
       }
     }
     </PRE>
-    
-    This will successfully parse the following command line
+
+This will successfully parse the following command line
     
     <PRE>
       java Main -file hello.txt -debug
     </PRE>
-    
-    <H3></H3>
-    
-    <H3>A more advanced example</H3>
-    
-    <P>
+
+<H3></H3>
+
+<H3>A more advanced example</H3>
+
+<P>
     Occationally, you might need to parse multiple occurences of a sequence of options.
     The following example demonstrates both what the hell I'm talking about and how to
     do exactly that:
-    </P>
+</P>
     
  	<PRE>
 
@@ -186,87 +190,91 @@
       private String database;
       private boolean verbose;
       private List<AlbumConfiguration> albums;
-	
-		
-      @Option
-      @LongSwitch("database")
-      @ShortSwitch("d")
-      @SingleArgument
-      public void setFilename(String database) {
-        this.database = database;
-      }
-
-      @Option
-      @LongSwitch("verbose")
-      @ShortSwitch("v")
-      @Toggle(true)
-      public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-      }
-		
-      @Option
-      @LongSwitch("album")
-      @ShortSwitch("a")
-      @Multiple
-      @SubConfiguration(AlbumConfiguration.class)
-      public void setAlbums(List<AlbumConfiguration> albums) {
-        this.albums = albums;
-      }
-
-      public boolean getVerbose() {
-        return verbose;
-      }
-
-      public String getDatabase() {
-        return database;
-      }
-		
-      public List<AlbumConfiguration> getAlbums() {
-        return albums;
-      }
-    }
 
 
-    public class Main {
-      public final static final void main(String[] args) {
-        try {
-          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.LONG_OR_COMPACT);
-          doSomething(arguments);
-        } catch (InvalidCommandLineException clException) {
-		  ...
-        } catch (InvalidOptionConfigurationException configException) {
-          ...
-        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
-          ...
-        }
-      }
-    }
- 	</PRE>   
- 
-	<P>
-	As you notice, this code got two option configurations. AlbumConfiguration represents an album,
-	while MusicDatabaseConfiguration represents information about a music database and a list of albums.
-	If you give the following command line:
-	</P>
-	<P>
-	run.sh -database myalbums.db -verbose 
-		   -album -artist "Access to Arasaka" -name "Void();" -year 2010
-		   -album -artist "Decree" -name "Fateless" -year 2011
-		   -album -artist "Karin Park" -name "Ashes to Gold" -year 2009
-		   -album -artist "The Kick" -name "Metal Heart" -year 2010
-	 </P>
- 
- 	You would get an instance of MusicDatabaseConfiguration, containing the values database, verbose
- 	and a list of AlbumConfiguration with 4 elements, each representing one of the 4 albums specified
- 	on the command line.
-    
-    <H3>The LONG_OR_COMPACT OptionStyle</H3>
-    
-    <P>
+         @Option
+         @LongSwitch("database")
+         @ShortSwitch("d")
+         @SingleArgument
+         public void setFilename(String database) {
+         this.database = database;
+         }
+
+         @Option
+         @LongSwitch("verbose")
+         @ShortSwitch("v")
+         @Toggle(true)
+         public void setVerbose(boolean verbose) {
+         this.verbose = verbose;
+         }
+
+         @Option
+         @LongSwitch("album")
+         @ShortSwitch("a")
+         @Multiple
+         @SubConfiguration(AlbumConfiguration.class)
+         public void setAlbums(List
+         <AlbumConfiguration> albums) {
+             this.albums = albums;
+             }
+
+             public boolean getVerbose() {
+             return verbose;
+             }
+
+             public String getDatabase() {
+             return database;
+             }
+
+             public List
+             <AlbumConfiguration> getAlbums() {
+                 return albums;
+                 }
+                 }
+
+
+                 public class Main {
+                 public final static final void main(String[] args) {
+                 try {
+                 MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args,
+                 OptionStyle.LONG_OR_COMPACT);
+                 doSomething(arguments);
+                 } catch (InvalidCommandLineException clException) {
+                 ...
+                 } catch (InvalidOptionConfigurationException configException) {
+                 ...
+                 } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+                 ...
+                 }
+                 }
+                 }
+ 	</PRE>
+
+<P>
+    As you notice, this code got two option configurations. AlbumConfiguration represents an album,
+    while MusicDatabaseConfiguration represents information about a music database and a list of albums.
+    If you give the following command line:
+</P>
+
+<P>
+    run.sh -database myalbums.db -verbose
+    -album -artist "Access to Arasaka" -name "Void();" -year 2010
+    -album -artist "Decree" -name "Fateless" -year 2011
+    -album -artist "Karin Park" -name "Ashes to Gold" -year 2009
+    -album -artist "The Kick" -name "Metal Heart" -year 2010
+</P>
+
+You would get an instance of MusicDatabaseConfiguration, containing the values database, verbose
+and a list of AlbumConfiguration with 4 elements, each representing one of the 4 albums specified
+on the command line.
+
+<H3>The LONG_OR_COMPACT OptionStyle</H3>
+
+<P>
     In the LONG_OR_COMPACT OptionStyle, arguments that are prepended with two dashes are considered regular switches,
     and are interpreted as such. An argument prepended with only a single dash is parsed as a list of single letter
     switches. Although there's separate annotations for short and long switches, they are treated completely alike.
-    </P>
+</P>
    
     <PRE>
     public class MyConfiguration {
@@ -326,48 +334,50 @@
     }	
    	</PRE>
 
-   	With OptionStyle.SIMPLE you run the application with arguments like
+With OptionStyle.SIMPLE you run the application with arguments like
    	<PRE>
    	run.sh -name "Keyser Soze" -verbose -optimize -compress
    	</PRE>
-   	or the shorter
+or the shorter
    	<PRE>
    	run.sh -n "Keyser Soze" -v -o -c
    	</PRE>
-   	
-   	with OptionStyle.LONG_OR_COMPACT, you can specify the options as
+
+with OptionStyle.LONG_OR_COMPACT, you can specify the options as
    	
     <PRE>
     run.sh --name "Keyser Soze" --verbose --optimize --compress
     </PRE>
-   	or the shorter
+or the shorter
     <PRE>
     run.sh --n "Keyser Soze" --v --o --c
 	</PRE>
-	You can also use the even shorter
+You can also use the even shorter
     <PRE>
     run.sh -n "Keyser Soze" -v -o -c
 	</PRE>
-	or even
+or even
     <PRE>
     run.sh -n "Keyser Soze" -voc
 	</PRE>
-	You can also use
+You can also use
     <PRE>
     run.sh -vocn "Keyser Soze"
     </PRE>
-    but this won't work
+but this won't work
     <PRE>
     run.sh -nvoc "Keyser Soze"
     </PRE>
-    as the option n will be interpreted as not having any arguments, but be immediately followed by the option v
-   	
-	<H3>Using argument delimiters</H3>
-	<P>
-	Sometimes, an option needs arguments that might be interpreted as arguments themself. The prime
-	example of this is the find -exec argument. To help in situations like that, it is possible to
-	specify that an option will consume arguments following it, until the delimiter is encountered.
-	<P>
+as the option n will be interpreted as not having any arguments, but be immediately followed by the option v
+
+<H3>Using argument delimiters</H3>
+
+<P>
+    Sometimes, an option needs arguments that might be interpreted as arguments themself. The prime
+    example of this is the find -exec argument. To help in situations like that, it is possible to
+    specify that an option will consume arguments following it, until the delimiter is encountered.
+
+<P>
 
 	<PRE>
 	
@@ -390,58 +400,97 @@
       }
     }
 	</PRE>
-	<P>
-	with this specification, you can use a command line line
-	</P>
+<P>
+    with this specification, you can use a command line line
+</P>
 	<PRE>
 	run.sh -exec ls -lSr -- "*.txt" \; -verbose
 	</PRE>
-	<P>
-	and "ls","l","--","*.txt" and ";" are all considered arguments tto the -exec option,
-	while -verbose is interpreted as a second option. Note also that the use of the delimiter
-	overrides the meaning of -- (which is to prevent anything following it from being interpreted
-	as switches.
-	</P>
-   
-    
-   <H3>Annotations</H3>
-   
-   <TABLE>
-     <TR><TD>@Option</TD><TD>Specifies that the annotated method represents an option</TD></TR>
-     <TR><TD>@LongSwitch(switchname)</TD><TD>Specifies the long switch used to give this option on the command line</TD></TR>
-     <TR><TD>@ShortSwitch(switchname)</TD><TD>Specifies the short switch used to give this option on the command line</TD></TR>
-     <TR><TD>@LooseArguments</TD><TD>Specifies that this setter handles arguments that are not connected to an option</TD></TR>
-     <TR><TD>@Toggle(value)</TD><TD>Specifies that this option is a toggle. The boolean argument is passed directly to the setter method</TD></TR>
-     <TR><TD>@SingleArbgument</TD><TD>Specifies that this option takes a single String argument</TD></TR>
-     <TR><TD>@AllAvailableArguments</TD><TD>Specifiews that this option takes all the argument available until the next switch or end of the argument list</TD></TR>
-     <TR><TD>@ArgumentsUntilDelimiter(delimiter)</TD><TD>Specifies that the option takes all arguments available until it encounters the delimiter or the end of the argument list. Any switches will be interpreted as regular options</TD></TR>
-     <TR><TD>@SubConfiguration(class)</TD><TD>Specifies that parsing should continue based on the specified class. When that parsing is finnished, parsing will resume for the main configuration</TD></TR>
-     <TR><TD>@Multiple</TD><TD>Specifies that the option migth occur multiple times
-   </TABLE>
-   
-  <H4>Rules</H4>
-  
-  <UL>
+<P>
+    and "ls","l","--","*.txt" and ";" are all considered arguments tto the -exec option,
+    while -verbose is interpreted as a second option. Note also that the use of the delimiter
+    overrides the meaning of -- (which is to prevent anything following it from being interpreted
+    as switches.
+</P>
+
+
+<H3>Annotations</H3>
+
+<TABLE>
+    <TR>
+        <TD>@Option</TD>
+        <TD>Specifies that the annotated method represents an option</TD>
+    </TR>
+    <TR>
+        <TD>@LongSwitch(switchname)</TD>
+        <TD>Specifies the long switch used to give this option on the command line</TD>
+    </TR>
+    <TR>
+        <TD>@ShortSwitch(switchname)</TD>
+        <TD>Specifies the short switch used to give this option on the command line</TD>
+    </TR>
+    <TR>
+        <TD>@LooseArguments</TD>
+        <TD>Specifies that this setter handles arguments that are not connected to an option</TD>
+    </TR>
+    <TR>
+        <TD>@Toggle(value)</TD>
+        <TD>Specifies that this option is a toggle. The boolean argument is passed directly to the setter method</TD>
+    </TR>
+    <TR>
+        <TD>@SingleArbgument</TD>
+        <TD>Specifies that this option takes a single String argument</TD>
+    </TR>
+    <TR>
+        <TD>@AllAvailableArguments</TD>
+        <TD>Specifiews that this option takes all the argument available until the next switch or end of the argument
+            list
+        </TD>
+    </TR>
+    <TR>
+        <TD>@ArgumentsUntilDelimiter(delimiter)</TD>
+        <TD>Specifies that the option takes all arguments available until it encounters the delimiter or the end of the
+            argument list. Any switches will be interpreted as regular options
+        </TD>
+    </TR>
+    <TR>
+        <TD>@SubConfiguration(class)</TD>
+        <TD>Specifies that parsing should continue based on the specified class. When that parsing is finnished, parsing
+            will resume for the main configuration
+        </TD>
+    </TR>
+    <TR>
+        <TD>@Multiple</TD>
+        <TD>Specifies that the option migth occur multiple times
+</TABLE>
+
+<H4>Rules</H4>
+
+<UL>
     <LI>@Option must be specifies for all methods that should be processed
-    <LI>For regular options, one of @LongSwitch and @ShortSwitch must be specified, but it's not required to specify both
+    <LI>For regular options, one of @LongSwitch and @ShortSwitch must be specified, but it's not required to specify
+        both
     <LI>if @LooseArguments is specified, @ShortSwitch and @LongSwitch cannot be specified
-    <LI>For switches, one of @Toggle, @SingleArgument, @AllAvailableArguments, @ArgumentsUntilDelimiter or @SubConfiguration must be specified
+    <LI>For switches, one of @Toggle, @SingleArgument, @AllAvailableArguments, @ArgumentsUntilDelimiter or
+        @SubConfiguration must be specified
     <LI>@Multiple can be specified for all option types, including loose arguments
     <LI>@LongSwitch and @ShortSwitch must be given without leading dashes.
-  </UL>
-  
-  <H4>Types</H4>
-  <UL>
+</UL>
+
+<H4>Types</H4>
+<UL>
     <LI>Toggles require the setter argument to be boolean
     <LI>Single arguments require the setter argument to be a String
-    <LI>Multiple arguments require the setter argument to be a List<String>
-    <LI>SubConfiguration(class) requires the setter argument to be an instance of the specified class
-    <LI>LooseArguments requires the setter argument to be String
-    <LI>When @Multiple is specified, the setter argument needs to be List&lt;T&gt;, where T is the type the setter
-        would have had if @Multiple had not been specified
-  </UL>
-  
-	For further examples, please consult the unit tests
-   
-  </BODY>
+    <LI>Multiple arguments require the setter argument to be a List
+        <String>
+            <LI>SubConfiguration(class) requires the setter argument to be an instance of the specified class
+            <LI>LooseArguments requires the setter argument to be String
+            <LI>When @Multiple is specified, the setter argument needs to be List&lt;T&gt;, where T is the type the
+                setter
+                would have had if @Multiple had not been specified
+</UL>
+
+For further examples, please consult the unit tests
+
+</BODY>
 </HTML>
