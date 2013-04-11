@@ -50,6 +50,7 @@ public class OptionSpecification {
         verifyType(listLevel, getInnerArgumentType(), type, type);
     }
 
+    @SuppressWarnings("unchecked")
     private void verifyType(int listLevel, Class<?> innerClass, Type type, Type fullType) {
         if (listLevel > 0) {
             if (!((toClass(type)).isAssignableFrom(List.class))) {
