@@ -39,12 +39,18 @@ Functionality that is currently not supported is
 * Argument separators other than whitespace (a.e. --color=true)
 * A single argument not separated from the switch (like the GCC -O3)
 
-Requirements and backwards compatibility
-----------------------------------------
+Versioning and required Java version
+------------------------------------
 
-This library is written with and tested on Java 6. Future versions might require Java 7 or 8,
-but these requirements will be introduced with new major versions. What fun are new versions of
-Java if one sticks to ancient ones for endless backwards compatibility? :)
+The version number of this module indicates backwards compatibility and required java version.
+It is in the form major.minor.patch. The major version is increased when backwards compatibility
+is broken. The minor number indicates the minimum required Java version, and the patch number
+is increased when a new fully backwards compatible version is released.
+
+At the time of writing, the current version of command line is 1.7.0, which indicates that
+Java 7 is needed to use the library. When the library is rewritten for java 8, the version
+will likely be 2.8.0, where 2 indicates that the interface to the library has been modified,
+8 indicates that Java SE version 8 is required, and 0 indicates that it's the first 2.8 release.
 
 Using the library
 -----------------
