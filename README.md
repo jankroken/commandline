@@ -25,7 +25,7 @@ The functionality that is currently supported is:
 * Optional and mandatory options
 * Multiple instances of options, without mixing the arguments specified for each occurance
 * Option arguments with a delimiter (similar to the '-exec' option of 'find')
-* Option groups (and multiple occurences of option groups)
+* Option groups (and multiple occurrences of option groups)
 * Support for arguments not connected to an option
 * A short and long representation of each switch/option
 * Unrecognized arguments will be caught and result in an exception
@@ -370,7 +370,7 @@ with this specification, you can use a command line line
 
 	run.sh -exec ls -lSr -- "*.txt" \; -verbose
 
-and "ls","l","--","*.txt" and ";" are all considered arguments tto the -exec option,
+and "ls","l","--","*.txt" and ";" are all considered arguments to the -exec option,
 while -verbose is interpreted as a second option. Note also that the use of the delimiter
 overrides the meaning of -- (which is to prevent anything following it from being interpreted
 as switches.
@@ -399,12 +399,12 @@ as switches.
         <TD>Specifies that this option is a toggle. The boolean argument is passed directly to the setter method</TD>
     </TR>
     <TR>
-        <TD>@SingleArbgument</TD>
+        <TD>@SingleArgument</TD>
         <TD>Specifies that this option takes a single String argument</TD>
     </TR>
     <TR>
         <TD>@AllAvailableArguments</TD>
-        <TD>Specifiews that this option takes all the argument available until the next switch or end of the argument
+        <TD>Specifies that this option takes all the argument available until the next switch or end of the argument
             list
         </TD>
     </TR>
@@ -422,7 +422,7 @@ as switches.
     </TR>
     <TR>
         <TD>@Multiple</TD>
-        <TD>Specifies that the option migth occur multiple times
+        <TD>Specifies that the option might occur multiple times
 </TABLE>
 
 #### Rules ####
