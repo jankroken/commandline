@@ -16,8 +16,8 @@ approach does not work for all cases. Specifically, this library
 (and object mapping of arguments in general) does not maintain order of arguments. One
 example of that is the unix 'find' command, where the command line arguments makes out
 a domain specific language. An example of a command is
-    
-      find . -name "*.txt" -o '(' -name "*.html" -a -amin 4 ')' -exec ls -l '{}' ';'
+
+    find . -name "*.txt" -o '(' -name "*.html" -a -amin 4 ')' -exec ls -l '{}' ';'
 
 The functionality that is currently supported is:
 
@@ -72,55 +72,55 @@ There are two option styles available for the parser.
 This example uses the SIMPLE OptionStyle
     
     public class Arguments () {
-      private String filename;
-      private boolean debug = false;
+        private String filename;
+        private boolean debug = false;
     
-      @Option
-      @LongSwitch("file")
-      @ShortSwitch("f")
-      @SingleArgument
-      @Required
-      public void setFilename(String filename) {
-      	this.filename = filename;
-      }
+        @Option
+        @LongSwitch("file")
+        @ShortSwitch("f")
+        @SingleArgument
+        @Required
+        public void setFilename(String filename) {
+      	    this.filename = filename;
+        }
       
-      @Option
-      @LongSwitch("debug")
-      @ShortSwitch("d")
-      @Toggle(true)
-      public void setDebug(boolean debug) {
-        this.debug = debug;
-      }
+        @Option
+        @LongSwitch("debug")
+        @ShortSwitch("d")
+        @Toggle(true)
+        public void setDebug(boolean debug) {
+            this.debug = debug;
+        }
       
-      public String getFilename() {
-        return filename;
-      }
+        public String getFilename() {
+            return filename;
+        }
       
-      public boolean getDebug() {
-        return debug;
-      }
+        public boolean getDebug() {
+            return debug;
+        }
     }
 
 The following code actually scans the argument list, and creates an instance of the class
     
     public class Main {
-      public final static final void main(String[] args) {
-        try {
-          Arguments arguments = CommandLineParser.parse(Arguments.class, args, OptionStyle.SIMPLE);
-          doSomething(arguments);
-        } catch (InvalidCommandLineException clException) {
-		  ...
-        } catch (InvalidOptionConfigurationException configException) {
-          ...
-        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
-          ...
+        public final static final void main(String[] args) {
+            try {
+                Arguments arguments = CommandLineParser.parse(Arguments.class, args, OptionStyle.SIMPLE);
+                    doSomething(arguments);
+            } catch (InvalidCommandLineException clException) {
+		        ...
+            } catch (InvalidOptionConfigurationException configException) {
+                ...
+            } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+                ...
+            }
         }
-      }
     }
 
 This will successfully parse the following command line
     
-      java Main -file hello.txt -debug
+    java Main -file hello.txt -debug
 
 ### A more advanced example ###
 
@@ -130,108 +130,106 @@ do exactly that:
 
     public class AlbumConfiguration {
 		
-      private String artist;
-      private String name;
-      private String year;
+        private String artist;
+        private String name;
+        private String year;
 	
-      @Option
-      @LongSwitch("artist")
-      @SingleArgument
-      public void setArtist(String artist) {
-        this.artist = artist;
-      }
+        @Option
+        @LongSwitch("artist")
+        @SingleArgument
+        public void setArtist(String artist) {
+            this.artist = artist;
+        }
 
-      @Option
-      @LongSwitch("name")
-      @SingleArgument
-      public void setName(String name) {
-        this.name = name;
-      }
+        @Option
+        @LongSwitch("name")
+        @SingleArgument
+        public void setName(String name) {
+            this.name = name;
+        }
 
-      @Option
-      @LongSwitch("year")
-      @SingleArgument
-      public void setYear(String year) {
-        this.year = year;
-      }
+        @Option
+        @LongSwitch("year")
+        @SingleArgument
+        public void setYear(String year) {
+            this.year = year;
+        }
 
-      public String getArtist() {
-        return artist;
-      }
+        public String getArtist() {
+            return artist;
+        }
 
-      public String getName() {
-        return name;
-      }
+        public String getName() {
+            return name;
+        }
 	
-      public String getYear() {
-        return year;
-      }
+        public String getYear() {
+            return year;
+        }
     }
 
 
     public class MusicDatabaseConfiguration {
 		
-      private String database;
-      private boolean verbose;
-      private List<AlbumConfiguration> albums;
+        private String database;
+        private boolean verbose;
+        private List<AlbumConfiguration> albums;
 
 
-         @Option
-         @LongSwitch("database")
-         @ShortSwitch("d")
-         @SingleArgument
-         public void setFilename(String database) {
-         this.database = database;
-         }
+        @Option
+        @LongSwitch("database")
+        @ShortSwitch("d")
+        @SingleArgument
+        public void setFilename(String database) {
+            this.database = database;
+        }
 
-         @Option
-         @LongSwitch("verbose")
-         @ShortSwitch("v")
-         @Toggle(true)
-         public void setVerbose(boolean verbose) {
-         this.verbose = verbose;
-         }
+        @Option
+        @LongSwitch("verbose")
+        @ShortSwitch("v")
+        @Toggle(true)
+        public void setVerbose(boolean verbose) {
+            this.verbose = verbose;
+        }
 
-         @Option
-         @LongSwitch("album")
-         @ShortSwitch("a")
-         @Multiple
-         @SubConfiguration(AlbumConfiguration.class)
-         public void setAlbums(List
-         <AlbumConfiguration> albums) {
-             this.albums = albums;
-             }
+        @Option
+        @LongSwitch("album")
+        @ShortSwitch("a")
+        @Multiple
+        @SubConfiguration(AlbumConfiguration.class)
+        public void setAlbums(List<AlbumConfiguration> albums) {
+            this.albums = albums;
+        }
 
-             public boolean getVerbose() {
-             return verbose;
-             }
+        public boolean getVerbose() {
+            return verbose;
+        }
 
-             public String getDatabase() {
-             return database;
-             }
+        public String getDatabase() {
+            return database;
+        }
 
-             public List
-             <AlbumConfiguration> getAlbums() {
-                 return albums;
-                 }
-                 }
+        public List<AlbumConfiguration> getAlbums() {
+            return albums;
+        }
+    }
 
 
-                 public class Main {
-                 public final static final void main(String[] args) {
-                 try {
-                 MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args,
-                 OptionStyle.LONG_OR_COMPACT);
-                 doSomething(arguments);
-                 } catch (InvalidCommandLineException clException) {
+    public class Main {
+        public final static final void main(String[] args) {
+            try {
+                MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args,
+                OptionStyle.LONG_OR_COMPACT);
+                doSomething(arguments);
+            } catch (InvalidCommandLineException clException) {
                  ...
-                 } catch (InvalidOptionConfigurationException configException) {
+            } catch (InvalidOptionConfigurationException configException) {
                  ...
-                 } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+            } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
                  ...
-                 }
-                 }
-                 }
+            }
+        }
+    }
 
 As you notice, this code got two option configurations. AlbumConfiguration represents an album,
 while MusicDatabaseConfiguration represents information about a music database and a list of albums.
@@ -255,58 +253,58 @@ switches. Although there's separate annotations for short and long switches, the
 
     public class MyConfiguration {
 
-      private boolean verbose;
-      private boolean optimize;
-      private boolean compress;
-      private String name;
+        private boolean verbose;
+        private boolean optimize;
+        private boolean compress;
+        private String name;
 
-      @Option
-      @LongSwitch("verbose")
-      @ShortSwitch("v")
-      @Toggle(true)
-      public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-      }
+        @Option
+        @LongSwitch("verbose")
+        @ShortSwitch("v")
+        @Toggle(true)
+        public void setVerbose(boolean verbose) {
+            this.verbose = verbose;
+        }
 
-      @Option
-      @LongSwitch("optimize")
-      @ShortSwitch("o")
-      @Toggle(true)
-      public void setOptimize(boolean optimize) {
-        this.optimize = optimize;
-      }
+        @Option
+        @LongSwitch("optimize")
+        @ShortSwitch("o")
+        @Toggle(true)
+        public void setOptimize(boolean optimize) {
+            this.optimize = optimize;
+        }
 
-      @Option
-      @LongSwitch("compress")
-      @ShortSwitch("c")
-      @Toggle(true)
-      public void setCompress(boolean compress) {
-        this.compress = compress;
-      }
+        @Option
+        @LongSwitch("compress")
+        @ShortSwitch("c")
+        @Toggle(true)
+        public void setCompress(boolean compress) {
+            this.compress = compress;
+        }
 
-      @Option
-      @LongSwitch("name")
-      @ShortSwitch("n")
-      @SingleArgument
-      public void setName(String name) {
-        this.name = name;
-      }
+        @Option
+        @LongSwitch("name")
+        @ShortSwitch("n")
+        @SingleArgument
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 	
 	
     public class Main {
-      public final static final void main(String[] args) {
-        try {
-          MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.SIMPLE);
-          doSomething(arguments);
-        } catch (InvalidCommandLineException clException) {
-		  ...
-        } catch (InvalidOptionConfigurationException configException) {
-          ...
-        } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
-          ...
+        public final static final void main(String[] args) {
+            try {
+                MusicDatabaseConfiguration dbConfig = CommandLineParser.parse(MusicDatabaseConfiguration.class, args, OptionStyle.SIMPLE);
+                doSomething(arguments);
+            } catch (InvalidCommandLineException clException) {
+		        ...
+            } catch (InvalidOptionConfigurationException configException) {
+                ...
+            } catch (UnrecognizedSwitchException unrecognizedSwitchException) {
+                ...
+            }
         }
-      }
     }	
 
 With OptionStyle.SIMPLE you run the application with arguments like
@@ -350,22 +348,22 @@ example of this is the find -exec argument. To help in situations like that, it 
 specify that an option will consume arguments following it, until the delimiter is encountered.
 
     class ExecutorConfiguration {
-      ...
-      @Option
-      @LongSwitch("verbose")
-      @ShortSwitch("v")
-      @Toggle(true)
-      public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-      }
+        ...
+        @Option
+        @LongSwitch("verbose")
+        @ShortSwitch("v")
+        @Toggle(true)
+        public void setVerbose(boolean verbose) {
+            this.verbose = verbose;
+        }
 
-      @Option
-      @LongSwitch("exec")
-      @ShortSwitch("e")
-      @UntilDelimiter(";")
-      public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-      }
+        @Option
+        @LongSwitch("exec")
+        @ShortSwitch("e")
+        @UntilDelimiter(";")
+        public void setVerbose(boolean verbose) {
+            this.verbose = verbose;
+        }
     }
 
 with this specification, you can use a command line line
