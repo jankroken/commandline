@@ -1,10 +1,9 @@
 package com.github.jankroken.commandline.error;
 
-import com.zerolegacy.commandline.CommandLineParser;
-import com.zerolegacy.commandline.OptionStyle;
-import com.zerolegacy.commandline.domain.InvalidCommandLineException;
-import com.zerolegacy.commandline.domain.UnrecognizedSwitchException;
-import com.zerolegacy.commandline.error.RequiredConfiguration;
+import com.github.jankroken.commandline.CommandLineParser;
+import com.github.jankroken.commandline.OptionStyle;
+import com.github.jankroken.commandline.domain.InvalidCommandLineException;
+import com.github.jankroken.commandline.domain.UnrecognizedSwitchException;
 import org.junit.Test;
 
 

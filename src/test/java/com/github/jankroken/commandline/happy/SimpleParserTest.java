@@ -1,7 +1,7 @@
 package com.github.jankroken.commandline.happy;
 
-import com.zerolegacy.commandline.CommandLineParser;
-import com.zerolegacy.commandline.OptionStyle;
+import com.github.jankroken.commandline.CommandLineParser;
+import com.github.jankroken.commandline.OptionStyle;
 import org.junit.Test;
 
 import java.util.List;

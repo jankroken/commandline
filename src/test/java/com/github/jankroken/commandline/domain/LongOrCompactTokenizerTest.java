@@ -1,8 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
-import com.zerolegacy.commandline.domain.LongOrCompactTokenizer;
-import com.zerolegacy.commandline.util.ArrayIterator;
-import com.zerolegacy.commandline.util.PeekIterator;
+import com.github.jankroken.commandline.util.ArrayIterator;
+import com.github.jankroken.commandline.util.PeekIterator;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

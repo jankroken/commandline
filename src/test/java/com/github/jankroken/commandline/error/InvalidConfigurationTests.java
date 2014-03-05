@@ -1,8 +1,8 @@
 package com.github.jankroken.commandline.error;
 
-import com.zerolegacy.commandline.CommandLineParser;
-import com.zerolegacy.commandline.OptionStyle;
-import com.zerolegacy.commandline.domain.InvalidOptionConfigurationException;
+import com.github.jankroken.commandline.CommandLineParser;
+import com.github.jankroken.commandline.OptionStyle;
+import com.github.jankroken.commandline.domain.InvalidOptionConfigurationException;
 import org.junit.Test;
 
 

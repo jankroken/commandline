@@ -1,8 +1,7 @@
 package com.github.jankroken.commandline.util;
 
-import com.zerolegacy.commandline.annotations.Option;
+import com.github.jankroken.commandline.annotations.Option;
 import com.github.jankroken.commandline.happy.SimpleConfiguration;
-import com.zerolegacy.commandline.util.Methods;
 import org.junit.Test;
 
 import java.lang.reflect.Method;

@@ -1,6 +1,6 @@
 package com.github.jankroken.commandline.domain;
 
-import com.zerolegacy.commandline.util.PeekIterator;
+import com.github.jankroken.commandline.util.PeekIterator;
 
 public class SimpleTokenizer implements Tokenizer {
 

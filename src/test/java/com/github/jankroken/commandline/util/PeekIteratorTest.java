@@ -1,7 +1,5 @@
 package com.github.jankroken.commandline.util;
 
-import com.zerolegacy.commandline.util.ArrayIterator;
-import com.zerolegacy.commandline.util.PeekIterator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

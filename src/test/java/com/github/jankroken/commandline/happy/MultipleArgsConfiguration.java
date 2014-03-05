@@ -1,6 +1,6 @@
 package com.github.jankroken.commandline.happy;
 
-import com.zerolegacy.commandline.annotations.*;
+import com.github.jankroken.commandline.annotations.*;
 
 import java.util.List;
 

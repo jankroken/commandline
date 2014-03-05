@@ -1,8 +1,6 @@
 package com.github.jankroken.commandline.domain;
 
-import com.zerolegacy.commandline.domain.OptionSpecification;
-import com.zerolegacy.commandline.domain.OptionSpecificationFactory;
-import com.zerolegacy.commandline.happy.SimpleConfiguration;
+import com.github.jankroken.commandline.happy.SimpleConfiguration;
 import org.junit.Test;
 
 import java.util.List;

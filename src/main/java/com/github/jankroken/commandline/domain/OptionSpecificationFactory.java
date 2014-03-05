@@ -1,7 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
 import com.github.jankroken.commandline.annotations.*;
-import com.zerolegacy.commandline.util.Methods;
+import com.github.jankroken.commandline.util.Methods;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

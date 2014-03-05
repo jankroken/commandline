@@ -1,6 +1,5 @@
 package com.github.jankroken.commandline.util;
 
-import com.zerolegacy.commandline.util.ArrayIterator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

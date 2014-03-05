@@ -1,7 +1,6 @@
 package com.github.jankroken.commandline.happy;
 
-import com.github.jankroken.commandline.happy.AlbumConfiguration;
-import com.zerolegacy.commandline.annotations.*;
+import com.github.jankroken.commandline.annotations.*;
 
 public class SimpleSuperConfiguration {
 

@@ -1,8 +1,8 @@
 package com.github.jankroken.commandline.error;
 
-import com.zerolegacy.commandline.annotations.LongSwitch;
-import com.zerolegacy.commandline.annotations.Option;
-import com.zerolegacy.commandline.annotations.SingleArgument;
+import com.github.jankroken.commandline.annotations.LongSwitch;
+import com.github.jankroken.commandline.annotations.Option;
+import com.github.jankroken.commandline.annotations.SingleArgument;
 
 public class InvalidTypeConfiguration {
 

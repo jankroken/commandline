@@ -1,9 +1,8 @@
 package com.github.jankroken.commandline;
 
-import com.zerolegacy.commandline.OptionStyle;
-import com.zerolegacy.commandline.domain.*;
-import com.zerolegacy.commandline.util.ArrayIterator;
-import com.zerolegacy.commandline.util.PeekIterator;
+import com.github.jankroken.commandline.domain.*;
+import com.github.jankroken.commandline.util.ArrayIterator;
+import com.github.jankroken.commandline.util.PeekIterator;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -21,10 +20,10 @@ public class CommandLineParser {
 	 * @throws IllegalAccessException May be thrown when invoking the setters in the specified class
 	 * @throws InstantiationException May be thrown when creating an instance of the specified class
 	 * @throws InvocationTargetException May be thrown when invoking the setters in the specified class
-	 * @throws com.zerolegacy.commandline.domain.InternalErrorException This indicates an internal error in the parser, and will not normally be thrown
-	 * @throws com.zerolegacy.commandline.domain.InvalidCommandLineException This indicates that the command line specified does not match the annotations in the provided class
-	 * @throws com.zerolegacy.commandline.domain.InvalidOptionConfigurationException This indicates that the annotations of setters in the provided class are not valid
-	 * @throws com.zerolegacy.commandline.domain.UnrecognizedSwitchException This indicates that the argument list contains a switch which is not specified by the class annotations
+	 * @throws com.github.jankroken.commandline.domain.InternalErrorException This indicates an internal error in the parser, and will not normally be thrown
+	 * @throws com.github.jankroken.commandline.domain.InvalidCommandLineException This indicates that the command line specified does not match the annotations in the provided class
+	 * @throws com.github.jankroken.commandline.domain.InvalidOptionConfigurationException This indicates that the annotations of setters in the provided class are not valid
+	 * @throws com.github.jankroken.commandline.domain.UnrecognizedSwitchException This indicates that the argument list contains a switch which is not specified by the class annotations
 	 */
 	public static <T> T parse(Class<T> optionClass, String[] args, OptionStyle style)
 		throws IllegalAccessException, InstantiationException, InvocationTargetException
