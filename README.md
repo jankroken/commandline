@@ -52,6 +52,21 @@ Java 7 is needed to use the library. When the library is rewritten for java 8, t
 will likely be 2.8.0, where 2 indicates that the interface to the library has been modified,
 8 indicates that Java SE version 8 is required, and 0 indicates that it's the first 2.8 release.
 
+Installation
+------------
+
+To use the library in a maven project, add the following maven dependency to your pom.xml:
+
+    <dependency>
+    	<groupId>com.github.jankroken</groupId>
+    	<artifactId>commandline</artifactId>
+    	<version>1.7.0</version>
+    </dependency>
+
+If you just want to download the jar file and add it to the project by hand, you can download the jar
+file from the maven central repository, a.e.
+http://search.maven.org/remotecontent?filepath=com/github/jankroken/commandline/1.7.0/commandline-1.7.0.jar
+
 Using the library
 -----------------
 
