@@ -1,9 +1,11 @@
 package com.github.jankroken.commandline.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import java.util.NoSuchElementException;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayIteratorTest {
 
@@ -56,27 +58,27 @@ public class ArrayIteratorTest {
     }
 
 
-    @Test(expected = java.util.NoSuchElementException.class)
+    @Test
     public void testReadPastEmpty() {
         String[] empty = new String[0];
         ArrayIterator<String> ai = new ArrayIterator<>(empty);
-        ai.next();
+        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
     }
 
-    @Test(expected = java.util.NoSuchElementException.class)
+    @Test
     public void testPeekPastEmpty() {
         String[] empty = new String[0];
         ArrayIterator<String> ai = new ArrayIterator<>(empty);
-        ai.peek();
+        assertThatThrownBy(() -> ai.peek()).isInstanceOf(NoSuchElementException.class);
     }
 
-    @Test(expected = java.util.NoSuchElementException.class)
+    @Test
     public void testReadPastTwo() {
         String[] elements = new String[]{"hello", "world"};
         ArrayIterator<String> ai = new ArrayIterator<>(elements);
         assertEquals(ai.next(), "hello");
         assertEquals(ai.next(), "world");
-        ai.next();
+        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
     }
 
 

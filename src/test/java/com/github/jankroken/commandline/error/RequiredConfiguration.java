@@ -11,7 +11,7 @@ public class RequiredConfiguration {
     @LongSwitch("filename")
     @SingleArgument
     @Required
-    public void setFilename(String filename) {
+    public void setFilename(@SuppressWarnings("unused") String filename) {
     }
 
 }

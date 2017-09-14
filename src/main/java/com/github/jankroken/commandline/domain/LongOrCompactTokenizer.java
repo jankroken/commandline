@@ -11,7 +11,7 @@ public class LongOrCompactTokenizer implements Tokenizer {
     private PeekIterator<String> stringIterator;
     private boolean argumentEscapeEncountered = false;
     private String argumentTerminator = null;
-    private LinkedList<SwitchToken> splitTokens = new LinkedList<SwitchToken>();
+    private LinkedList<SwitchToken> splitTokens = new LinkedList<>();
 
     public LongOrCompactTokenizer(PeekIterator<String> stringIterator) {
         this.stringIterator = stringIterator;

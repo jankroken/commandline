@@ -1,20 +1,20 @@
 package com.github.jankroken.commandline.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import java.util.NoSuchElementException;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PeekIteratorTest {
 
 	private PeekIterator<String> createIterator(String[] args) {
-		ArrayIterator<String> ai = new ArrayIterator<String>(args);
-		return new PeekIterator<String>(ai);
-	}
-	
-	@Test
+        ArrayIterator<String> ai = new ArrayIterator<>(args);
+        return new PeekIterator<>(ai);
+    }
+
+    @Test
     public void testEmpty() {
         String[] empty = new String[0];
         PeekIterator<String> ai = createIterator(empty);
@@ -62,28 +62,28 @@ public class PeekIteratorTest {
         assertFalse(ai.hasNext());
     }
 
-    
-    @Test(expected=java.util.NoSuchElementException.class)
+
+    @Test
     public void testReadPastEmpty() {
         String[] empty = new String[0];
         PeekIterator<String> ai = createIterator(empty);
-        ai.next();
+        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
     }
 
-    @Test(expected=java.util.NoSuchElementException.class)
+    @Test
     public void testPeekPastEmpty() {
         String[] empty = new String[0];
         PeekIterator<String> ai = createIterator(empty);
-        ai.peek();
+        assertThatThrownBy(() -> ai.peek()).isInstanceOf(NoSuchElementException.class);
     }
-    
-    @Test(expected=java.util.NoSuchElementException.class)
+
+    @Test
     public void testReadPastTwo() {
     	String[] elements = new String[]{"hello","world"};
     	PeekIterator<String> ai = createIterator(elements);
         assertEquals(ai.next(),"hello");
         assertEquals(ai.next(),"world");
-        ai.next();
+        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
     }
 
 }

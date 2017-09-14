@@ -1,35 +1,41 @@
 package com.github.jankroken.commandline.error;
 
-import com.github.jankroken.commandline.CommandLineParser;
-import com.github.jankroken.commandline.OptionStyle;
 import com.github.jankroken.commandline.domain.InvalidOptionConfigurationException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static com.github.jankroken.commandline.CommandLineParser.parse;
+import static com.github.jankroken.commandline.OptionStyle.SIMPLE;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 public class InvalidConfigurationTests {
 
-    @Test(expected = InvalidOptionConfigurationException.class)
+    private String[] EMPTY_ARGS = new String[]{};
+
+
+    @Test
     public void testMissingSwitches() throws Exception {
-        String[] args = new String[]{};
-        MissingSwitchesConfiguration config = CommandLineParser.parse(MissingSwitchesConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(MissingSwitchesConfiguration.class, EMPTY_ARGS, SIMPLE))
+                .isInstanceOf(InvalidOptionConfigurationException.class);
     }
 
-    @Test(expected = InvalidOptionConfigurationException.class)
+    @Test
     public void testMissingArgumentConsumption() throws Exception {
-        String[] args = new String[]{};
-        MissingArgumentConsumptionConfiguration config = CommandLineParser.parse(MissingArgumentConsumptionConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(MissingArgumentConsumptionConfiguration.class, EMPTY_ARGS, SIMPLE))
+                .isInstanceOf(InvalidOptionConfigurationException.class);
     }
 
-    @Test(expected = InvalidOptionConfigurationException.class)
+    @Test
     public void testMultipleArgumentConsumptions() throws Exception {
-        String[] args = new String[]{};
-        MultipleConsumptionsConfiguration config = CommandLineParser.parse(MultipleConsumptionsConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(MultipleConsumptionsConfiguration.class, EMPTY_ARGS, SIMPLE))
+                .isInstanceOf(InvalidOptionConfigurationException.class);
     }
 
-    @Test(expected = InvalidOptionConfigurationException.class)
+    @Test
     public void testInvalidType() throws Exception {
         String[] args = new String[]{"-filename", "hello.txt"};
-        InvalidTypeConfiguration config = CommandLineParser.parse(InvalidTypeConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(InvalidTypeConfiguration.class, args, SIMPLE))
+                .isInstanceOf(InvalidOptionConfigurationException.class);
     }
 
 }

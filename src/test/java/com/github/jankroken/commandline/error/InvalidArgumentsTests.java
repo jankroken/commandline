@@ -1,24 +1,28 @@
 package com.github.jankroken.commandline.error;
 
-import com.github.jankroken.commandline.CommandLineParser;
-import com.github.jankroken.commandline.OptionStyle;
 import com.github.jankroken.commandline.domain.InvalidCommandLineException;
 import com.github.jankroken.commandline.domain.UnrecognizedSwitchException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static com.github.jankroken.commandline.CommandLineParser.parse;
+import static com.github.jankroken.commandline.OptionStyle.SIMPLE;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 
 public class InvalidArgumentsTests {
 
-    @Test(expected = InvalidCommandLineException.class)
+    @Test
     public void testMissingSwitches() throws Exception {
         String[] args = new String[]{};
-        RequiredConfiguration config = CommandLineParser.parse(RequiredConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(RequiredConfiguration.class, args, SIMPLE))
+                .isInstanceOf(InvalidCommandLineException.class);
     }
 
-    @Test(expected = UnrecognizedSwitchException.class)
+    @Test
     public void testUnrecognizedSwitch() throws Exception {
         String[] args = new String[]{"-invalidswitch", "-filename", "hello.txt"};
-        RequiredConfiguration config = CommandLineParser.parse(RequiredConfiguration.class, args, OptionStyle.SIMPLE);
+        assertThatThrownBy(() -> parse(RequiredConfiguration.class, args, SIMPLE))
+                .isInstanceOf(UnrecognizedSwitchException.class);
     }
 
 }

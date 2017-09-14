@@ -9,7 +9,7 @@ public class InvalidTypeConfiguration {
     @Option
     @LongSwitch("filename")
     @SingleArgument
-    public void setFilename(int filename) {
+    public void setFilename(@SuppressWarnings("unused") int filename) {
     }
 
 }

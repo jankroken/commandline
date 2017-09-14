@@ -2,22 +2,21 @@ package com.github.jankroken.commandline.domain;
 
 import com.github.jankroken.commandline.util.ArrayIterator;
 import com.github.jankroken.commandline.util.PeekIterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LongOrCompactTokenizerTest {
 
     @Test
     public void simpleArgumentSplit() {
         String[] args = new String[]{"-abcf", "hello.txt"};
-        PeekIterator<String> peekIterator = new PeekIterator<String>(new ArrayIterator<String>(args));
+        PeekIterator<String> peekIterator = new PeekIterator<>(new ArrayIterator<>(args));
         LongOrCompactTokenizer tokenizer = new LongOrCompactTokenizer(peekIterator);
-        assertThat(tokenizer.next().getValue(), is("a"));
-        assertThat(tokenizer.next().getValue(), is("b"));
-        assertThat(tokenizer.next().getValue(), is("c"));
-        assertThat(tokenizer.next().getValue(), is("f"));
-        assertThat(tokenizer.next().getValue(), is("hello.txt"));
+        assertThat(tokenizer.next().getValue()).isEqualTo("a");
+        assertThat(tokenizer.next().getValue()).isEqualTo("b");
+        assertThat(tokenizer.next().getValue()).isEqualTo("c");
+        assertThat(tokenizer.next().getValue()).isEqualTo("f");
+        assertThat(tokenizer.next().getValue()).isEqualTo("hello.txt");
     }
 }

@@ -7,7 +7,7 @@ public class MissingSwitchesConfiguration {
 
     @Option
     @SingleArgument
-    public void setFilename(String filename) {
+    public void setFilename(@SuppressWarnings("unused") String filename) {
     }
 
 }

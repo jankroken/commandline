@@ -11,7 +11,7 @@ public class MultipleConsumptionsConfiguration {
     @LongSwitch("filename")
     @SingleArgument
     @Toggle(true)
-    public void setFilename(String filename) {
+    public void setFilename(@SuppressWarnings("unused") String filename) {
     }
 
 }
