@@ -62,14 +62,14 @@ public class ArrayIteratorTest {
     public void testReadPastEmpty() {
         String[] empty = new String[0];
         ArrayIterator<String> ai = new ArrayIterator<>(empty);
-        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testPeekPastEmpty() {
         String[] empty = new String[0];
         ArrayIterator<String> ai = new ArrayIterator<>(empty);
-        assertThatThrownBy(() -> ai.peek()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::peek).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class ArrayIteratorTest {
         ArrayIterator<String> ai = new ArrayIterator<>(elements);
         assertEquals(ai.next(), "hello");
         assertEquals(ai.next(), "world");
-        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
 

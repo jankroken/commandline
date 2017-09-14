@@ -67,14 +67,14 @@ public class PeekIteratorTest {
     public void testReadPastEmpty() {
         String[] empty = new String[0];
         PeekIterator<String> ai = createIterator(empty);
-        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testPeekPastEmpty() {
         String[] empty = new String[0];
         PeekIterator<String> ai = createIterator(empty);
-        assertThatThrownBy(() -> ai.peek()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::peek).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PeekIteratorTest {
     	PeekIterator<String> ai = createIterator(elements);
         assertEquals(ai.next(),"hello");
         assertEquals(ai.next(),"world");
-        assertThatThrownBy(() -> ai.next()).isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
 }
