@@ -1,5 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
+import static com.github.jankroken.commandline.domain.ArgumentConsumptionType.*;
+
 public class ArgumentConsumptionBuilder {
     private boolean no_arguments = false;
     private boolean toggle_value = false;
@@ -54,22 +56,22 @@ public class ArgumentConsumptionBuilder {
         }
 
         if (no_arguments) {
-            return new ArgumentConsumption(ArgumentConsumptionType.NO_ARGS, toggle_value);
+            return new ArgumentConsumption(NO_ARGS, toggle_value);
         }
         if (single_argument) {
-            return new ArgumentConsumption(ArgumentConsumptionType.SINGLE_ARGUMENT);
+            return new ArgumentConsumption(SINGLE_ARGUMENT);
         }
         if (until_delimiter) {
-            return new ArgumentConsumption(ArgumentConsumptionType.UNTIL_DELIMITER, delimiter);
+            return new ArgumentConsumption(UNTIL_DELIMITER, delimiter);
         }
         if (all_available) {
-            return new ArgumentConsumption(ArgumentConsumptionType.ALL_AVAILABLE);
+            return new ArgumentConsumption(ALL_AVAILABLE);
         }
         if (sub_set) {
-            return new ArgumentConsumption(ArgumentConsumptionType.SUB_SET, subsetClass);
+            return new ArgumentConsumption(SUB_SET, subsetClass);
         }
         if (loose_args) {
-            return new ArgumentConsumption(ArgumentConsumptionType.LOOSE_ARGS);
+            return new ArgumentConsumption(LOOSE_ARGS);
         }
         throw new InternalErrorException("Internal error: no matching argument consumption types");
     }

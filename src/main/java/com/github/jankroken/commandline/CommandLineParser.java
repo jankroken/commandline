@@ -1,10 +1,16 @@
 package com.github.jankroken.commandline;
 
-import com.github.jankroken.commandline.domain.*;
+import com.github.jankroken.commandline.domain.LongOrCompactTokenizer;
+import com.github.jankroken.commandline.domain.OptionSet;
+import com.github.jankroken.commandline.domain.SimpleTokenizer;
+import com.github.jankroken.commandline.domain.Tokenizer;
 import com.github.jankroken.commandline.util.ArrayIterator;
 import com.github.jankroken.commandline.util.PeekIterator;
 
 import java.lang.reflect.InvocationTargetException;
+
+import static com.github.jankroken.commandline.OptionStyle.SIMPLE;
+import static com.github.jankroken.commandline.domain.OptionSetLevel.MAIN_OPTIONS;
 
 
 public class CommandLineParser {
@@ -29,9 +35,9 @@ public class CommandLineParser {
 		throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		T spec = optionClass.newInstance();
-		OptionSet optionSet = new OptionSet(spec, OptionSetLevel.MAIN_OPTIONS);
+		OptionSet optionSet = new OptionSet(spec, MAIN_OPTIONS);
 		Tokenizer tokenizer;
-			if (style == OptionStyle.SIMPLE) {
+		if (style == SIMPLE) {
 				tokenizer = new SimpleTokenizer(new PeekIterator<>(new ArrayIterator<>(args)));
 			} else {
 				tokenizer = new LongOrCompactTokenizer(new PeekIterator<>(new ArrayIterator<>(args)));

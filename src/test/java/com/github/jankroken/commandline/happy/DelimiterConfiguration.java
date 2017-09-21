@@ -1,12 +1,8 @@
 package com.github.jankroken.commandline.happy;
 
-import java.util.List;
+import com.github.jankroken.commandline.annotations.*;
 
-import com.github.jankroken.commandline.annotations.ArgumentsUntilDelimiter;
-import com.github.jankroken.commandline.annotations.LongSwitch;
-import com.github.jankroken.commandline.annotations.Option;
-import com.github.jankroken.commandline.annotations.ShortSwitch;
-import com.github.jankroken.commandline.annotations.SingleArgument;
+import java.util.List;
 
 
 public class DelimiterConfiguration {

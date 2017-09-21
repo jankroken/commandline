@@ -4,13 +4,13 @@ import java.util.Iterator;
 
 public interface Tokenizer extends Iterator<Token> {
 
-    public void setArgumentTerminator(String argumentTerminator);
+    void setArgumentTerminator(String argumentTerminator);
 
-    public boolean hasNext();
+    boolean hasNext();
 
-    public Token peek();
+    Token peek();
 
-    public Token next();
+    Token next();
 
-    public void remove();
+    void remove();
 }
