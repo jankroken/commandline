@@ -34,8 +34,13 @@ public class CommandLineParser {
 	public static <T> T parse(Class<T> optionClass, String[] args, OptionStyle style)
 		throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
-		T spec = optionClass.newInstance();
-		OptionSet optionSet = new OptionSet(spec, MAIN_OPTIONS);
+        T spec;
+        try {
+            spec = optionClass.getConstructor().newInstance();
+        } catch (NoSuchMethodException noSuchMethodException) {
+            throw new RuntimeException(noSuchMethodException);
+        }
+        OptionSet optionSet = new OptionSet(spec, MAIN_OPTIONS);
 		Tokenizer tokenizer;
 		if (style == SIMPLE) {
 				tokenizer = new SimpleTokenizer(new PeekIterator<>(new ArrayIterator<>(args)));

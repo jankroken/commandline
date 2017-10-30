@@ -174,7 +174,12 @@ public class OptionSpecification {
                 handleArguments(delimitedArguments);
                 break;
             case SUB_SET:
-                Object subset = argumentConsumption.getSubsetClass().newInstance();
+                Object subset;
+                try {
+                    subset = argumentConsumption.getSubsetClass().getConstructor().newInstance();
+                } catch (NoSuchMethodException noSuchMethodException) {
+                    throw new RuntimeException(noSuchMethodException);
+                }
                 OptionSet subsetOptions = new OptionSet(subset, OptionSetLevel.SUB_GROUP);
                 subsetOptions.consumeOptions(args);
                 handleArguments(subset);
