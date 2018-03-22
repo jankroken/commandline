@@ -4,9 +4,9 @@ import com.github.jankroken.commandline.util.PeekIterator;
 
 public class SimpleTokenizer implements Tokenizer {
 
-    private PeekIterator<String> stringIterator;
-    private boolean argumentEscapeEncountered = false;
-    private String argumentTerminator = null;
+    private final PeekIterator<String> stringIterator;
+    private boolean argumentEscapeEncountered;
+    private String argumentTerminator;
 
     public SimpleTokenizer(PeekIterator<String> stringIterator) {
         this.stringIterator = stringIterator;
@@ -21,12 +21,12 @@ public class SimpleTokenizer implements Tokenizer {
     }
 
     public Token peek() {
-        String value = stringIterator.peek();
+        var value = stringIterator.peek();
         return makeToken(value);
     }
 
     public Token next() {
-        String value = stringIterator.next();
+        var value = stringIterator.next();
         return makeToken(value);
     }
 

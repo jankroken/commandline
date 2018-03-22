@@ -1,8 +1,8 @@
 package com.github.jankroken.commandline.domain;
 
 public class SwitchToken implements Token {
-    String value;
-    String argumentValue;
+    private final String value;
+    private final String argumentValue;
 
     public SwitchToken(String value, String argumentValue) {
         this.value = value;

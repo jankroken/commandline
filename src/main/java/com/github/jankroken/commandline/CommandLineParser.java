@@ -40,7 +40,7 @@ public class CommandLineParser {
         } catch (NoSuchMethodException noSuchMethodException) {
             throw new RuntimeException(noSuchMethodException);
         }
-        OptionSet optionSet = new OptionSet(spec, MAIN_OPTIONS);
+        var optionSet = new OptionSet(spec, MAIN_OPTIONS);
 		Tokenizer tokenizer;
 		if (style == SIMPLE) {
 				tokenizer = new SimpleTokenizer(new PeekIterator<>(new ArrayIterator<>(args)));

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class TokenQueue {
 
     private PeekIterator<String> iterator;
-    private LinkedList<Token> tokens = new LinkedList<>();
+    private final LinkedList<Token> tokens = new LinkedList<>();
     private PeekIterator<String> stringIterator;
     private boolean argumentEscapeEncountered = false;
     private String argumentTerminator = null;

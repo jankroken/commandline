@@ -5,15 +5,16 @@ import com.github.jankroken.commandline.util.PeekIterator;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class LongOrCompactTokenizer implements Tokenizer {
 
-    private PeekIterator<String> stringIterator;
-    private boolean argumentEscapeEncountered = false;
-    private String argumentTerminator = null;
-    private LinkedList<SwitchToken> splitTokens = new LinkedList<>();
+    private final PeekIterator<String> stringIterator;
+    private boolean argumentEscapeEncountered;
+    private String argumentTerminator;
+    private final LinkedList<SwitchToken> splitTokens = new LinkedList<>();
 
-    public LongOrCompactTokenizer(PeekIterator<String> stringIterator) {
+    public LongOrCompactTokenizer(final PeekIterator<String> stringIterator) {
         this.stringIterator = stringIterator;
     }
 
@@ -30,13 +31,13 @@ public class LongOrCompactTokenizer implements Tokenizer {
         if (!splitTokens.isEmpty()) {
             return splitTokens.peek();
         }
-        String value = stringIterator.peek();
+        final var value = stringIterator.peek();
 
         if (argumentEscapeEncountered) {
             return new ArgumentToken(value);
         }
 
-        if (value.equals(argumentTerminator)) {
+        if (Objects.equals(value, argumentTerminator)) {
             return new ArgumentToken(value);
         }
         if (argumentTerminator != null) {
@@ -48,7 +49,7 @@ public class LongOrCompactTokenizer implements Tokenizer {
         }
         if (isSwitch(value)) {
             if (isShortSwitchList(value)) {
-                List<SwitchToken> tokens = splitSwitchTokens(value);
+                var tokens = splitSwitchTokens(value);
                 return tokens.get(0);
             } else {
                 return new SwitchToken(value.substring(2), value);
@@ -63,7 +64,7 @@ public class LongOrCompactTokenizer implements Tokenizer {
         if (!splitTokens.isEmpty()) {
             return splitTokens.remove();
         }
-        String value = stringIterator.next();
+        var value = stringIterator.next();
 
         if (argumentEscapeEncountered) {
             return new ArgumentToken(value);
@@ -96,25 +97,25 @@ public class LongOrCompactTokenizer implements Tokenizer {
         stringIterator.remove();
     }
 
-    private boolean isSwitch(String argument) {
+    private boolean isSwitch(final String argument) {
         return argument.matches("-.*");
     }
 
-    private boolean isArgumentEscape(String value) {
+    private boolean isArgumentEscape(final String value) {
         return ("--".equals(value) && !argumentEscapeEncountered);
     }
 
-    private boolean isLongSwitch(String value) {
+    private boolean isLongSwitch(final String value) {
         return value.matches("--..*");
     }
 
-    private boolean isShortSwitchList(String value) {
+    private boolean isShortSwitchList(final String value) {
         return value.matches("-[^-].*");
     }
 
-    private List<SwitchToken> splitSwitchTokens(String value) {
-        ArrayList<SwitchToken> tokens = new ArrayList<>();
-        for (int i = 1; i < value.length(); i++) {
+    private List<SwitchToken> splitSwitchTokens(final String value) {
+        final var tokens = new ArrayList<SwitchToken>();
+        for (var i = 1; i < value.length(); i++) {
             tokens.add(new SwitchToken(String.valueOf(value.charAt(i)), value));
         }
         return tokens;

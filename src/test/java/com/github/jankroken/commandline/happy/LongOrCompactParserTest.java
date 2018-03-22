@@ -2,8 +2,6 @@ package com.github.jankroken.commandline.happy;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static com.github.jankroken.commandline.CommandLineParser.parse;
 import static com.github.jankroken.commandline.OptionStyle.LONG_OR_COMPACT;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,41 +10,41 @@ public class LongOrCompactParserTest {
 
     @Test
     public void testSimpleConfiguration() throws Exception {
-        String[] args = new String[]{"-vf", "hello.txt"};
-        SimpleConfiguration config = parse(SimpleConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"-vf", "hello.txt"};
+        var config = parse(SimpleConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getFilename()).isEqualTo("hello.txt");
         assertThat(config.getVerbose()).isTrue();
     }
 
     @Test
     public void testMultipleArgsConfiguration() throws Exception {
-        String[] args = new String[]{"--files", "hello.txt", "world.txt", "bye.txt", "--logfile", "hello.log"};
-        MultipleArgsConfiguration config = parse(MultipleArgsConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"--files", "hello.txt", "world.txt", "bye.txt", "--logfile", "hello.log"};
+        var config = parse(MultipleArgsConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getFiles()).containsExactly("hello.txt", "world.txt", "bye.txt");
         assertThat(config.getLogfile()).isEqualTo("hello.log");
     }
 
     @Test
     public void testDelimiterConfiguration() throws Exception {
-        String[] args = new String[]{"--exec", "ls", "-l", "*.txt", ";", "--logfile", "hello.log"};
-        DelimiterConfiguration config = parse(DelimiterConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"--exec", "ls", "-l", "*.txt", ";", "--logfile", "hello.log"};
+        var config = parse(DelimiterConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getCommand()).containsExactly("ls", "-l", "*.txt");
         assertThat(config.getLogfile()).isEqualTo("hello.log");
     }
 
     @Test
     public void testMultipleConfiguration() throws Exception {
-        String[] args = new String[]{"-v", "-f", "hello.txt", "-f", "world.txt"};
-        MultipleConfiguration config = parse(MultipleConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"-v", "-f", "hello.txt", "-f", "world.txt"};
+        var config = parse(MultipleConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getFiles()).containsExactly("hello.txt", "world.txt");
         assertThat(config.getVerbose()).isTrue();
     }
 
     @Test
     public void testSubConfiguration() throws Exception {
-        String[] args = new String[]{"--verbose", "--album", "--name", "Caustic Grip", "--artist", "Front Line Assembly", "--year", "1990", "--available", "--logfile", "hello.log"};
-        SimpleSuperConfiguration config = parse(SimpleSuperConfiguration.class, args, LONG_OR_COMPACT);
-        AlbumConfiguration album = config.getAlbum();
+        var args = new String[]{"--verbose", "--album", "--name", "Caustic Grip", "--artist", "Front Line Assembly", "--year", "1990", "--available", "--logfile", "hello.log"};
+        var config = parse(SimpleSuperConfiguration.class, args, LONG_OR_COMPACT);
+        var album = config.getAlbum();
         assertThat(config.getLogfile()).isEqualTo("hello.log");
         assertThat(config.getVerbose()).isTrue();
         assertThat(album.getName()).isEqualTo("Caustic Grip");
@@ -57,16 +55,16 @@ public class LongOrCompactParserTest {
 
     @Test
     public void testMultipleSubConfiguration() throws Exception {
-        String[] args = new String[]{"--verbose",
+        var args = new String[]{"--verbose",
                 "--album", "--name", "Caustic Grip", "--artist", "Front Line Assembly", "--year", "1990", "--available",
                 "--album", "--name", "Scintilla", "--artist", "Stendeck", "--year", "2011", "--available",
                 "--logfile", "hello.log"};
-        MultipleSubconfigsConfiguration config = parse(MultipleSubconfigsConfiguration.class, args, LONG_OR_COMPACT);
-        boolean verbose = config.getVerbose();
-        List<AlbumConfiguration> albums = config.getAlbums();
+        var config = parse(MultipleSubconfigsConfiguration.class, args, LONG_OR_COMPACT);
+        var verbose = config.getVerbose();
+        var albums = config.getAlbums();
         assertThat(albums.size()).isEqualTo(2);
-        AlbumConfiguration causticGrip = albums.get(0);
-        AlbumConfiguration scintilla = albums.get(1);
+        var causticGrip = albums.get(0);
+        var scintilla = albums.get(1);
         assertThat(causticGrip.getName()).isEqualTo("Caustic Grip");
         assertThat(causticGrip.getArtist()).isEqualTo("Front Line Assembly");
         assertThat(causticGrip.getYear()).isEqualTo("1990");
@@ -82,8 +80,8 @@ public class LongOrCompactParserTest {
 
     @Test
     public void testLooseArguments() throws Exception {
-        String[] args = new String[]{"--verbose", "zombies", "ate", "my", "--logfile", "hello.log", "raptors"};
-        LooseArgsConfiguration config = parse(LooseArgsConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"--verbose", "zombies", "ate", "my", "--logfile", "hello.log", "raptors"};
+        var config = parse(LooseArgsConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getVerbose()).isTrue();
         assertThat(config.getLogfile()).isEqualTo("hello.log");
         assertThat(config.getArgs()).containsExactly("zombies", "ate", "my", "raptors");
@@ -91,8 +89,8 @@ public class LongOrCompactParserTest {
 
     @Test
     public void testArgumentEscape() throws Exception {
-        String[] args = new String[]{"--verbose", "--logfile", "hello.log", "--", "-zombies", "-ate", "-my", "--", "-raptors"};
-        LooseArgsConfiguration config = parse(LooseArgsConfiguration.class, args, LONG_OR_COMPACT);
+        var args = new String[]{"--verbose", "--logfile", "hello.log", "--", "-zombies", "-ate", "-my", "--", "-raptors"};
+        var config = parse(LooseArgsConfiguration.class, args, LONG_OR_COMPACT);
         assertThat(config.getVerbose()).isTrue();
         assertThat(config.getLogfile()).isEqualTo("hello.log");
         assertThat(config.getArgs()).contains("-zombies", "-ate", "-my", "--", "-raptors");

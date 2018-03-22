@@ -1,8 +1,8 @@
 package com.github.jankroken.commandline.domain;
 
 public class Switch {
-    private String longSwitch;
-    private String shortSwitch;
+    private final String longSwitch;
+    private final String shortSwitch;
 
     public Switch(String longSwitch, String shortSwitch) {
         this.longSwitch = longSwitch;

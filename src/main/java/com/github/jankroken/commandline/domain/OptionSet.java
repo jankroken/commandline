@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class OptionSet {
-    private List<OptionSpecification> options;
-    private OptionSetLevel optionSetLevel;
-    private Object spec;
+    private final List<OptionSpecification> options;
+    private final OptionSetLevel optionSetLevel;
+    private final Object spec;
 
     public OptionSet(Object spec, OptionSetLevel optionSetLevel) {
         options = OptionSpecificationFactory.getOptionSpecifications(spec, spec.getClass());
@@ -15,7 +15,7 @@ public class OptionSet {
     }
 
     public OptionSpecification getOptionSpecification(SwitchToken _switch) {
-        for (OptionSpecification optionSpecification : options) {
+        for (var optionSpecification : options) {
             if (optionSpecification.getSwitch().matches(_switch.getValue())) {
                 return optionSpecification;
             }
@@ -24,7 +24,7 @@ public class OptionSet {
     }
 
     public OptionSpecification getLooseArgsOptionSpecification() {
-        for (OptionSpecification optionSpecification : options) {
+        for (var optionSpecification : options) {
             if (optionSpecification.isLooseArgumentsSpecification()) {
                 return optionSpecification;
             }
@@ -36,7 +36,7 @@ public class OptionSet {
             throws IllegalAccessException, InvocationTargetException, InstantiationException {
         while (args.hasNext()) {
             if (args.peek() instanceof SwitchToken) {
-                OptionSpecification optionSpecification = getOptionSpecification((SwitchToken) args.peek());
+                var optionSpecification = getOptionSpecification((SwitchToken) args.peek());
                 if (optionSpecification == null) {
                     switch (optionSetLevel) {
                         case MAIN_OPTIONS:
@@ -50,7 +50,7 @@ public class OptionSet {
                     optionSpecification.activateAndConsumeArguments(args);
                 }
             } else {
-                OptionSpecification looseArgsOptionSpecification = getLooseArgsOptionSpecification();
+                var looseArgsOptionSpecification = getLooseArgsOptionSpecification();
                 if (looseArgsOptionSpecification != null) {
                     looseArgsOptionSpecification.activateAndConsumeArguments(args);
                 } else {
@@ -69,7 +69,7 @@ public class OptionSet {
 
     private void flush()
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        for (OptionSpecification option : options) {
+        for (var option : options) {
             option.flush();
         }
     }

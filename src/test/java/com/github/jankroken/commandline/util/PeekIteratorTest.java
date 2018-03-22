@@ -4,37 +4,37 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
+import static com.github.jankroken.commandline.util.Constants.EMPTY_STRING_ARRAY;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PeekIteratorTest {
 
 	private PeekIterator<String> createIterator(String[] args) {
-        ArrayIterator<String> ai = new ArrayIterator<>(args);
+        var ai = new ArrayIterator<>(args);
         return new PeekIterator<>(ai);
     }
 
     @Test
     public void testEmpty() {
-        String[] empty = new String[0];
-        PeekIterator<String> ai = createIterator(empty);
+        var ai = createIterator(EMPTY_STRING_ARRAY);
         assertFalse(ai.hasNext());
     }
 
     @Test
     public void testOneElement() {
-        String[] oneElement = new String[]{"hello"};
-        PeekIterator<String> ai = createIterator(oneElement);
+        var oneElement = new String[]{"hello"};
+        var ai = createIterator(oneElement);
         assertTrue(ai.hasNext());
-        String hello = ai.next();
+        var hello = ai.next();
         assertEquals(hello,"hello");
         assertFalse(ai.hasNext());
     }
     
     @Test
     public void testTwoElements() {
-    	String[] elements = new String[]{"hello","world"};
-    	PeekIterator<String> ai = createIterator(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = createIterator(elements);
         assertTrue(ai.hasNext());
         assertEquals(ai.next(),"hello");
         assertTrue(ai.hasNext());
@@ -44,8 +44,8 @@ public class PeekIteratorTest {
    
     @Test
     public void testTwoElementsNoReadAhead() {
-    	String[] elements = new String[]{"hello","world"};
-    	PeekIterator<String> ai = createIterator(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = createIterator(elements);
         assertEquals(ai.next(),"hello");
         assertEquals(ai.next(),"world");
         assertFalse(ai.hasNext());
@@ -53,8 +53,8 @@ public class PeekIteratorTest {
 
     @Test
     public void testTwoElementsPeek() {
-    	String[] elements = new String[]{"hello","world"};
-    	PeekIterator<String> ai = createIterator(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = createIterator(elements);
         assertEquals(ai.peek(),"hello");
         assertEquals(ai.next(),"hello");
         assertEquals(ai.peek(),"world");
@@ -65,22 +65,22 @@ public class PeekIteratorTest {
 
     @Test
     public void testReadPastEmpty() {
-        String[] empty = new String[0];
-        PeekIterator<String> ai = createIterator(empty);
+        var empty = EMPTY_STRING_ARRAY;
+        var ai = createIterator(empty);
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testPeekPastEmpty() {
-        String[] empty = new String[0];
-        PeekIterator<String> ai = createIterator(empty);
+        var empty = EMPTY_STRING_ARRAY;
+        var ai = createIterator(empty);
         assertThatThrownBy(ai::peek).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testReadPastTwo() {
-    	String[] elements = new String[]{"hello","world"};
-    	PeekIterator<String> ai = createIterator(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = createIterator(elements);
         assertEquals(ai.next(),"hello");
         assertEquals(ai.next(),"world");
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);

@@ -1,7 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
 public class ArgumentConsumption {
-    private ArgumentConsumptionType type;
+    private final ArgumentConsumptionType type;
     private String delimiter;
     private boolean toggleValue;
     private Class<?> subsetClass;

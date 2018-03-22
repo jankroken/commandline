@@ -10,9 +10,9 @@ public class LongOrCompactTokenizerTest {
 
     @Test
     public void simpleArgumentSplit() {
-        String[] args = new String[]{"-abcf", "hello.txt"};
-        PeekIterator<String> peekIterator = new PeekIterator<>(new ArrayIterator<>(args));
-        LongOrCompactTokenizer tokenizer = new LongOrCompactTokenizer(peekIterator);
+        var args = new String[]{"-abcf", "hello.txt"};
+        var peekIterator = new PeekIterator<>(new ArrayIterator<>(args));
+        var tokenizer = new LongOrCompactTokenizer(peekIterator);
         assertThat(tokenizer.next().getValue()).isEqualTo("a");
         assertThat(tokenizer.next().getValue()).isEqualTo("b");
         assertThat(tokenizer.next().getValue()).isEqualTo("c");

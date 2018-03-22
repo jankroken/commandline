@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class PeekIterator<T> implements Iterator<T> {
 
     private T nextValue;
-    private Iterator<T> iterator = null;
+    private final Iterator<T> iterator;
 
     public PeekIterator(Iterator<T> iterator) {
         this.iterator = iterator;
@@ -17,7 +17,7 @@ public class PeekIterator<T> implements Iterator<T> {
 
     public T next() {
         if (nextValue != null) {
-            T value = nextValue;
+            var value = nextValue;
             nextValue = null;
             return value;
         } else {

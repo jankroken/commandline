@@ -23,7 +23,7 @@ The functionality that is currently supported is:
 
 * Options with none, one or multiple arguments
 * Optional and mandatory options
-* Multiple instances of options, without mixing the arguments specified for each occurance
+* Multiple instances of options, without mixing the arguments specified for each occurrence
 * Option arguments with a delimiter (similar to the '-exec' option of 'find')
 * Option groups (and multiple occurrences of option groups)
 * Support for arguments not connected to an option
@@ -139,7 +139,7 @@ This will successfully parse the following command line
 
 ### A more advanced example ###
 
-Occationally, you might need to parse multiple occurences of a sequence of options.
+Occasionally, you might need to parse multiple occurrences of a sequence of options.
 The following example demonstrates both what the hell I'm talking about and how to
 do exactly that:
 
@@ -358,7 +358,7 @@ as the option n will be interpreted as not having any arguments, but be immediat
 
 ### Using argument delimiters ###
 
-Sometimes, an option needs arguments that might be interpreted as arguments themself. The prime
+Sometimes, an option needs arguments that might be interpreted as arguments themselves. The prime
 example of this is the find -exec argument. To help in situations like that, it is possible to
 specify that an option will consume arguments following it, until the delimiter is encountered.
 

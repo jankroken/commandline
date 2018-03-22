@@ -6,10 +6,10 @@ public class OptionSpecificationBuilder {
 	
 	private String longSwitch;
 	private String shortSwitch;
-	private ArgumentConsumptionBuilder argumentConsumptionBuilder = new ArgumentConsumptionBuilder();
+    private final ArgumentConsumptionBuilder argumentConsumptionBuilder = new ArgumentConsumptionBuilder();
 	private Method method;
 	private Occurrences occurrences = Occurrences.SINGLE;
-	private boolean required = false;
+    private boolean required;
 	private Object spec;
 	
 	public void addMethod(Method method) {
@@ -61,8 +61,8 @@ public class OptionSpecificationBuilder {
 	}
 	
 	public OptionSpecification getOptionSpecification() {
-		Switch _switch = new Switch(longSwitch,shortSwitch);
-		ArgumentConsumption argumentConsumption = argumentConsumptionBuilder.getArgumentConsumption();
+        var _switch = new Switch(longSwitch, shortSwitch);
+        var argumentConsumption = argumentConsumptionBuilder.getArgumentConsumption();
 		return new OptionSpecification(spec,method,_switch,argumentConsumption, required, occurrences);
 	}
 

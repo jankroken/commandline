@@ -5,7 +5,7 @@ public class UnrecognizedSwitchException extends RuntimeException {
     private String _switch;
 
     public UnrecognizedSwitchException(Class<?> configurationClass, String _switch) {
-        super("" + configurationClass + ": " + _switch);
+        super(configurationClass + ": " + _switch);
     }
 
     public String getSwitch() {

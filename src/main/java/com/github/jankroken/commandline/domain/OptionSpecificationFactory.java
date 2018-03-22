@@ -3,7 +3,6 @@ package com.github.jankroken.commandline.domain;
 import com.github.jankroken.commandline.annotations.*;
 import com.github.jankroken.commandline.util.Methods;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,10 @@ public class OptionSpecificationFactory {
 
 
     public static OptionSpecification getOptionSpecification(Object spec, Method method) {
-        OptionSpecificationBuilder builder = new OptionSpecificationBuilder();
+        var builder = new OptionSpecificationBuilder();
         builder.addMethod(method);
         builder.addConfiguration(spec);
-        for (Annotation annotation : method.getAnnotations()) {
+        for (var annotation : method.getAnnotations()) {
             if (annotation instanceof Option) {
             } else if (annotation instanceof LongSwitch) {
                 builder.addLongSwitch(((LongSwitch) annotation).value());
@@ -48,9 +47,9 @@ public class OptionSpecificationFactory {
     }
 
     public static List<OptionSpecification> getOptionSpecifications(Object spec, Class<?> optionClass) {
-        List<Method> methods = new Methods(optionClass).byAnnotation(Option.class);
+        var methods = new Methods(optionClass).byAnnotation(Option.class);
         List<OptionSpecification> optionSpecifications = new ArrayList<>();
-        for (Method method : methods) {
+        for (var method : methods) {
             optionSpecifications.add(getOptionSpecification(spec, method));
         }
         return optionSpecifications;

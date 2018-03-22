@@ -15,5 +15,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @param value The class that should be instantiated and used to parse the option value
  */
 public @interface SubConfiguration {
-	Class<? extends Object> value();
+    Class<?> value();
 }

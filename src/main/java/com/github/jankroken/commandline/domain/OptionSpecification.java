@@ -6,24 +6,25 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OptionSpecification {
-    private Method method;
-    private boolean activated = false;
-    private Switch _switch;
-    private ArgumentConsumption argumentConsumption;
-    private boolean required;
-    private Occurrences occurrences;
-    private Object spec;
-    private ArrayList<Object> argumentBuffer = new ArrayList<>();
+    private final Method method;
+    private boolean activated;
+    private final Switch _switch;
+    private final ArgumentConsumption argumentConsumption;
+    private final boolean required;
+    private final Occurrences occurrences;
+    private final Object spec;
+    private final ArrayList<Object> argumentBuffer = new ArrayList<>();
 
-    public OptionSpecification(Object spec, Method method, Switch _switch, ArgumentConsumption argumentConsumption, boolean required, Occurrences occurences) {
+    public OptionSpecification(Object spec, Method method, Switch _switch, ArgumentConsumption argumentConsumption, boolean required, Occurrences occurrences) {
         this.spec = spec;
         this._switch = _switch;
         this.method = method;
         this.argumentConsumption = argumentConsumption;
         this.required = required;
-        this.occurrences = occurences;
+        this.occurrences = occurrences;
         validate();
     }
 
@@ -34,19 +35,19 @@ public class OptionSpecification {
     public void validate() {
         if (argumentConsumption.getType() != ArgumentConsumptionType.LOOSE_ARGS) {
             if (_switch == null || (_switch.getShortSwitch() == null && _switch.getLongSwitch() == null)) {
-                throw createInvalidOptionSpecificationException("Option specified without switchess");
+                throw createInvalidOptionSpecificationException("Option specified without switches");
             }
         }
         validateType();
     }
 
     private void validateType() {
-        Type[] types = method.getGenericParameterTypes();
+        var types = method.getGenericParameterTypes();
         if (types == null || types.length != 1) {
             throw createInvalidOptionSpecificationException("Wrong number of arguments, expecting exactly one");
         }
-        Type type = types[0];
-        int listLevel = getListLevel();
+        var type = types[0];
+        var listLevel = getListLevel();
         verifyType(listLevel, getInnerArgumentType(), type, type);
     }
 
@@ -56,7 +57,7 @@ public class OptionSpecification {
             if (!((toClass(type)).isAssignableFrom(List.class))) {
                 wrongType(fullType);
             } else {
-                Type innerType = ((ParameterizedType) type).getActualTypeArguments()[0];
+                var innerType = ((ParameterizedType) type).getActualTypeArguments()[0];
                 verifyType(listLevel - 1, innerClass, innerType, fullType);
             }
         } else {
@@ -66,11 +67,11 @@ public class OptionSpecification {
         }
     }
 
-    private Class toClass(Type type) {
+    private Class<?> toClass(Type type) {
         if (type instanceof ParameterizedType) {
-            return (Class) ((ParameterizedType) type).getRawType();
+            return (Class<?>) ((ParameterizedType) type).getRawType();
         } else if (type instanceof Class) {
-            return (Class) type;
+            return (Class<?>) type;
         } else {
             throw createInternalErrorException("Don't know how to get the class from type " + type);
         }
@@ -90,20 +91,20 @@ public class OptionSpecification {
     }
 
     private String getExpectedTypeDescription() {
-        StringBuilder sb = new StringBuilder();
-        int listLevel = getListLevel();
-        for (int i = 0; i < listLevel; i++) {
+        var sb = new StringBuilder();
+        var listLevel = getListLevel();
+        for (var i = 0; i < listLevel; i++) {
             sb.append("List<");
         }
         sb.append(getInnerArgumentType());
-        for (int i = 0; i < listLevel; i++) {
+        for (var i = 0; i < listLevel; i++) {
             sb.append(">");
         }
         return sb.toString();
     }
 
     private int getListLevel() {
-        int listLevel = 0;
+        var listLevel = 0;
         if (occurrences == Occurrences.MULTIPLE) {
             listLevel++;
         }
@@ -154,7 +155,7 @@ public class OptionSpecification {
                 if (!args.hasNext() || args.peek() instanceof SwitchToken) {
                     throw createInvalidCommandLineException("Missing argument");
                 }
-                String argument = args.next().getValue();
+                var argument = args.next().getValue();
                 handleArguments(argument);
                 break;
             case ALL_AVAILABLE:
@@ -166,8 +167,8 @@ public class OptionSpecification {
                 break;
             case UNTIL_DELIMITER:
                 args.setArgumentTerminator(argumentConsumption.getDelimiter());
-                ArrayList<String> delimitedArguments = new ArrayList<>();
-                while (args.hasNext() && !args.peek().getValue().equals(argumentConsumption.getDelimiter())) {
+                final var delimitedArguments = new ArrayList<String>();
+                while (args.hasNext() && !Objects.equals(args.peek().getValue(), argumentConsumption.getDelimiter())) {
                     delimitedArguments.add(args.next().getArgumentValue());
                 }
                 if (args.hasNext()) args.next();
@@ -180,7 +181,7 @@ public class OptionSpecification {
                 } catch (NoSuchMethodException noSuchMethodException) {
                     throw new RuntimeException(noSuchMethodException);
                 }
-                OptionSet subsetOptions = new OptionSet(subset, OptionSetLevel.SUB_GROUP);
+                var subsetOptions = new OptionSet(subset, OptionSetLevel.SUB_GROUP);
                 subsetOptions.consumeOptions(args);
                 handleArguments(subset);
                 break;
@@ -225,13 +226,11 @@ public class OptionSpecification {
     }
 
     public String getOptionId() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[")
-                .append(spec.getClass().getName())
-                .append(":")
-                .append(method.getName())
-                .append("]");
-        return sb.toString();
+        return "[" +
+                spec.getClass().getName() +
+                ":" +
+                method.getName() +
+                "]";
     }
 
 }

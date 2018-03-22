@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
+import static com.github.jankroken.commandline.util.Constants.EMPTY_STRING_ARRAY;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,25 +12,24 @@ public class ArrayIteratorTest {
 
     @Test
     public void testEmpty() {
-        String[] empty = new String[0];
-        ArrayIterator<String> ai = new ArrayIterator<>(empty);
+        var ai = new ArrayIterator<>(EMPTY_STRING_ARRAY);
         assertFalse(ai.hasNext());
     }
 
     @Test
     public void testOneElement() {
-        String[] oneElement = new String[]{"hello"};
-        ArrayIterator<String> ai = new ArrayIterator<>(oneElement);
+        var oneElement = new String[]{"hello"};
+        var ai = new ArrayIterator<>(oneElement);
         assertTrue(ai.hasNext());
-        String hello = ai.next();
+        var hello = ai.next();
         assertEquals(hello, "hello");
         assertFalse(ai.hasNext());
     }
 
     @Test
     public void testTwoElements() {
-        String[] elements = new String[]{"hello", "world"};
-        ArrayIterator<String> ai = new ArrayIterator<>(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = new ArrayIterator<>(elements);
         assertTrue(ai.hasNext());
         assertEquals(ai.next(), "hello");
         assertTrue(ai.hasNext());
@@ -39,8 +39,8 @@ public class ArrayIteratorTest {
 
     @Test
     public void testTwoElementsNoReadAhead() {
-        String[] elements = new String[]{"hello", "world"};
-        ArrayIterator<String> ai = new ArrayIterator<>(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = new ArrayIterator<>(elements);
         assertEquals(ai.next(), "hello");
         assertEquals(ai.next(), "world");
         assertFalse(ai.hasNext());
@@ -48,8 +48,8 @@ public class ArrayIteratorTest {
 
     @Test
     public void testTwoElementsPeek() {
-        String[] elements = new String[]{"hello", "world"};
-        ArrayIterator<String> ai = new ArrayIterator<>(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = new ArrayIterator<>(elements);
         assertEquals(ai.peek(), "hello");
         assertEquals(ai.next(), "hello");
         assertEquals(ai.peek(), "world");
@@ -60,22 +60,20 @@ public class ArrayIteratorTest {
 
     @Test
     public void testReadPastEmpty() {
-        String[] empty = new String[0];
-        ArrayIterator<String> ai = new ArrayIterator<>(empty);
+        var ai = new ArrayIterator<>(EMPTY_STRING_ARRAY);
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testPeekPastEmpty() {
-        String[] empty = new String[0];
-        ArrayIterator<String> ai = new ArrayIterator<>(empty);
+        var ai = new ArrayIterator<>(EMPTY_STRING_ARRAY);
         assertThatThrownBy(ai::peek).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testReadPastTwo() {
-        String[] elements = new String[]{"hello", "world"};
-        ArrayIterator<String> ai = new ArrayIterator<>(elements);
+        var elements = new String[]{"hello", "world"};
+        var ai = new ArrayIterator<>(elements);
         assertEquals(ai.next(), "hello");
         assertEquals(ai.next(), "world");
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);

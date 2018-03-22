@@ -1,7 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
 public class ArgumentToken implements Token {
-    private String value;
+    private final String value;
 
     public ArgumentToken(String value) {
         this.value = value;
