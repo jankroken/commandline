@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class LongOrCompactTokenizer implements Tokenizer {
 
+    private static final Pattern SWITCH_PATTERN = Pattern.compile("-.*");
+    private static final Pattern LONG_STYLE_SWITCH_PATTERN = Pattern.compile("--..*");
+    private static final Pattern SHORT_STYLE_SWITCH_PATTERN = Pattern.compile("-[^-].*");
     private final PeekIterator<String> stringIterator;
     private boolean argumentEscapeEncountered;
     private String argumentTerminator;
@@ -97,8 +101,8 @@ public class LongOrCompactTokenizer implements Tokenizer {
         stringIterator.remove();
     }
 
-    private boolean isSwitch(final String argument) {
-        return argument.matches("-.*");
+    private static boolean isSwitch(final String argument) {
+        return SWITCH_PATTERN.matcher(argument).matches();
     }
 
     private boolean isArgumentEscape(final String value) {
@@ -106,11 +110,11 @@ public class LongOrCompactTokenizer implements Tokenizer {
     }
 
     private boolean isLongSwitch(final String value) {
-        return value.matches("--..*");
+        return LONG_STYLE_SWITCH_PATTERN.matcher(value).matches();
     }
 
     private boolean isShortSwitchList(final String value) {
-        return value.matches("-[^-].*");
+        return SHORT_STYLE_SWITCH_PATTERN.matcher(value).matches();
     }
 
     private List<SwitchToken> splitSwitchTokens(final String value) {

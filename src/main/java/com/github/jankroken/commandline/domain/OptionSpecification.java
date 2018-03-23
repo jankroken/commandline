@@ -78,7 +78,7 @@ public class OptionSpecification {
     }
 
     @SuppressWarnings("unchecked")
-    private Class<?> box(Class<?> rawClass) {
+    private static Class<?> box(Class<?> rawClass) {
         if (rawClass == boolean.class) {
             return Boolean.class;
         } else {

@@ -15,7 +15,7 @@ public class ArgumentConsumptionBuilder {
 
     public void addNoArgs(boolean value) {
         no_arguments = true;
-        this.toggle_value = value;
+        toggle_value = value;
     }
 
     public void addSingleArgument() {

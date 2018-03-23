@@ -54,7 +54,7 @@ public class SimpleTokenizer implements Tokenizer {
     }
 
 
-    private boolean isSwitch(String argument) {
+    private static boolean isSwitch(String argument) {
         return argument.matches("-.*");
     }
 

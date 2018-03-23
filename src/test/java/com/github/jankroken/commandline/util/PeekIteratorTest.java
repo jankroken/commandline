@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PeekIteratorTest {
 
-	private PeekIterator<String> createIterator(String[] args) {
+    private static PeekIterator<String> createIterator(String[] args) {
         var ai = new ArrayIterator<>(args);
         return new PeekIterator<>(ai);
     }
@@ -65,15 +65,13 @@ public class PeekIteratorTest {
 
     @Test
     public void testReadPastEmpty() {
-        var empty = EMPTY_STRING_ARRAY;
-        var ai = createIterator(empty);
+        var ai = createIterator(EMPTY_STRING_ARRAY);
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     public void testPeekPastEmpty() {
-        var empty = EMPTY_STRING_ARRAY;
-        var ai = createIterator(empty);
+        var ai = createIterator(EMPTY_STRING_ARRAY);
         assertThatThrownBy(ai::peek).isInstanceOf(NoSuchElementException.class);
     }
 
