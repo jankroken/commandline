@@ -27,27 +27,27 @@ public class PeekIteratorTest {
         var ai = createIterator(oneElement);
         assertTrue(ai.hasNext());
         var hello = ai.next();
-        assertEquals(hello,"hello");
+        assertEquals(hello, "hello");
         assertFalse(ai.hasNext());
     }
-    
+
     @Test
     public void testTwoElements() {
         var elements = new String[]{"hello", "world"};
         var ai = createIterator(elements);
         assertTrue(ai.hasNext());
-        assertEquals(ai.next(),"hello");
+        assertEquals(ai.next(), "hello");
         assertTrue(ai.hasNext());
-        assertEquals(ai.next(),"world");
+        assertEquals(ai.next(), "world");
         assertFalse(ai.hasNext());
     }
-   
+
     @Test
     public void testTwoElementsNoReadAhead() {
         var elements = new String[]{"hello", "world"};
         var ai = createIterator(elements);
-        assertEquals(ai.next(),"hello");
-        assertEquals(ai.next(),"world");
+        assertEquals(ai.next(), "hello");
+        assertEquals(ai.next(), "world");
         assertFalse(ai.hasNext());
     }
 
@@ -55,10 +55,10 @@ public class PeekIteratorTest {
     public void testTwoElementsPeek() {
         var elements = new String[]{"hello", "world"};
         var ai = createIterator(elements);
-        assertEquals(ai.peek(),"hello");
-        assertEquals(ai.next(),"hello");
-        assertEquals(ai.peek(),"world");
-        assertEquals(ai.next(),"world");
+        assertEquals(ai.peek(), "hello");
+        assertEquals(ai.next(), "hello");
+        assertEquals(ai.peek(), "world");
+        assertEquals(ai.next(), "world");
         assertFalse(ai.hasNext());
     }
 
@@ -79,8 +79,8 @@ public class PeekIteratorTest {
     public void testReadPastTwo() {
         var elements = new String[]{"hello", "world"};
         var ai = createIterator(elements);
-        assertEquals(ai.next(),"hello");
-        assertEquals(ai.next(),"world");
+        assertEquals(ai.next(), "hello");
+        assertEquals(ai.next(), "world");
         assertThatThrownBy(ai::next).isInstanceOf(NoSuchElementException.class);
     }
 

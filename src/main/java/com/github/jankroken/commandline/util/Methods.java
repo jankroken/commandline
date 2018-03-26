@@ -15,8 +15,8 @@ public class Methods {
 
 	public List<Method> byAnnotation(Class<? extends Annotation> searchAnnotation) {
 		List<Method> methods = new ArrayList<>();
-	methodLoop:
-	for (final var method : annotatedClass.getMethods()) {
+		methodLoop:
+		for (final var method : annotatedClass.getMethods()) {
 			if (method.isAnnotationPresent(searchAnnotation)) {
 				methods.add(method);
 				continue methodLoop;

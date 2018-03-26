@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Specifies a complex argument type, represented by a full annotation option specification
- * 
+ *
  * @param value The class that should be instantiated and used to parse the option value
  */
 public @interface SubConfiguration {
