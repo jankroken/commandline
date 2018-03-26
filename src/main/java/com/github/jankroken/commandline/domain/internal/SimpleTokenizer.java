@@ -1,6 +1,12 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
 
+import com.github.jankroken.commandline.domain.ArgumentToken;
+import com.github.jankroken.commandline.domain.SwitchToken;
+import com.github.jankroken.commandline.domain.Token;
+import com.github.jankroken.commandline.domain.Tokenizer;
 import com.github.jankroken.commandline.util.PeekIterator;
+
+import java.util.Objects;
 
 public class SimpleTokenizer implements Tokenizer {
 
@@ -21,17 +27,17 @@ public class SimpleTokenizer implements Tokenizer {
     }
 
     public Token peek() {
-        var value = stringIterator.peek();
+        final var value = stringIterator.peek();
         return makeToken(value);
     }
 
     public Token next() {
-        var value = stringIterator.next();
+        final var value = stringIterator.next();
         return makeToken(value);
     }
 
     private Token makeToken(String value) {
-        if (value.equals(argumentTerminator)) {
+        if (Objects.equals(value, argumentTerminator)) {
             argumentTerminator = null;
             return new ArgumentToken(value);
         }

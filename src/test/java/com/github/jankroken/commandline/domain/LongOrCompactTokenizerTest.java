@@ -1,5 +1,6 @@
 package com.github.jankroken.commandline.domain;
 
+import com.github.jankroken.commandline.domain.internal.LongOrCompactTokenizer;
 import com.github.jankroken.commandline.util.ArrayIterator;
 import com.github.jankroken.commandline.util.PeekIterator;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,9 @@ public class LongOrCompactTokenizerTest {
 
     @Test
     public void simpleArgumentSplit() {
-        var args = new String[]{"-abcf", "hello.txt"};
-        var peekIterator = new PeekIterator<>(new ArrayIterator<>(args));
-        var tokenizer = new LongOrCompactTokenizer(peekIterator);
+        final var args = new String[]{"-abcf", "hello.txt"};
+        final var peekIterator = new PeekIterator<>(new ArrayIterator<>(args));
+        final var tokenizer = new LongOrCompactTokenizer(peekIterator);
         assertThat(tokenizer.next().getValue()).isEqualTo("a");
         assertThat(tokenizer.next().getValue()).isEqualTo("b");
         assertThat(tokenizer.next().getValue()).isEqualTo("c");

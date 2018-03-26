@@ -1,9 +1,9 @@
 package com.github.jankroken.commandline;
 
-import com.github.jankroken.commandline.domain.LongOrCompactTokenizer;
 import com.github.jankroken.commandline.domain.OptionSet;
-import com.github.jankroken.commandline.domain.SimpleTokenizer;
 import com.github.jankroken.commandline.domain.Tokenizer;
+import com.github.jankroken.commandline.domain.internal.LongOrCompactTokenizer;
+import com.github.jankroken.commandline.domain.internal.SimpleTokenizer;
 import com.github.jankroken.commandline.util.ArrayIterator;
 import com.github.jankroken.commandline.util.PeekIterator;
 
