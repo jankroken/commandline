@@ -159,11 +159,11 @@ public class OptionSpecification {
                 if (!args.hasNext() || args.peek() instanceof SwitchToken) {
                     throw createInvalidCommandLineException("Missing argument");
                 }
-                var argument = args.next().getValue();
+                final var argument = args.next().getValue();
                 handleArguments(argument);
                 break;
             case ALL_AVAILABLE:
-                ArrayList<String> allArguments = new ArrayList<>();
+                final ArrayList<String> allArguments = new ArrayList<>();
                 while (args.hasNext() && !(args.peek() instanceof SwitchToken)) {
                     allArguments.add(args.next().getValue());
                 }
@@ -179,13 +179,13 @@ public class OptionSpecification {
                 handleArguments(delimitedArguments);
                 break;
             case SUB_SET:
-                Object subset;
+                final Object subset;
                 try {
                     subset = argumentConsumption.getSubsetClass().getConstructor().newInstance();
                 } catch (NoSuchMethodException noSuchMethodException) {
                     throw new RuntimeException(noSuchMethodException);
                 }
-                var subsetOptions = new OptionSet(subset, OptionSetLevel.SUB_GROUP);
+                final var subsetOptions = new OptionSet(subset, OptionSetLevel.SUB_GROUP);
                 subsetOptions.consumeOptions(args);
                 handleArguments(subset);
                 break;

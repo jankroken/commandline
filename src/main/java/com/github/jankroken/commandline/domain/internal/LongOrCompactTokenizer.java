@@ -75,7 +75,7 @@ public class LongOrCompactTokenizer implements Tokenizer {
             return new ArgumentToken(value);
         }
 
-        if (value.equals(argumentTerminator)) {
+        if (Objects.equals(value, argumentTerminator)) {
             argumentTerminator = null;
             return new ArgumentToken(value);
         }
