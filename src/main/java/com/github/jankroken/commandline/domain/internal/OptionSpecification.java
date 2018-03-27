@@ -1,4 +1,8 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
+
+import com.github.jankroken.commandline.domain.InternalErrorException;
+import com.github.jankroken.commandline.domain.InvalidCommandLineException;
+import com.github.jankroken.commandline.domain.InvalidOptionConfigurationException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -92,7 +96,7 @@ public class OptionSpecification {
 
     private String getExpectedTypeDescription() {
         var sb = new StringBuilder();
-        var listLevel = getListLevel();
+        final var listLevel = getListLevel();
         for (var i = 0; i < listLevel; i++) {
             sb.append("List<");
         }

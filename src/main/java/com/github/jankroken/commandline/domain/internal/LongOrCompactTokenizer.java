@@ -1,9 +1,6 @@
 package com.github.jankroken.commandline.domain.internal;
 
 import com.github.jankroken.commandline.domain.ArgumentToken;
-import com.github.jankroken.commandline.domain.SwitchToken;
-import com.github.jankroken.commandline.domain.Token;
-import com.github.jankroken.commandline.domain.Tokenizer;
 import com.github.jankroken.commandline.util.PeekIterator;
 
 import java.util.ArrayList;

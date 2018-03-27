@@ -1,4 +1,4 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
 
 public class SwitchToken implements Token {
     private final String value;

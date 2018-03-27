@@ -1,16 +1,16 @@
 package com.github.jankroken.commandline;
 
-import com.github.jankroken.commandline.domain.OptionSet;
-import com.github.jankroken.commandline.domain.Tokenizer;
 import com.github.jankroken.commandline.domain.internal.LongOrCompactTokenizer;
+import com.github.jankroken.commandline.domain.internal.OptionSet;
 import com.github.jankroken.commandline.domain.internal.SimpleTokenizer;
+import com.github.jankroken.commandline.domain.internal.Tokenizer;
 import com.github.jankroken.commandline.util.ArrayIterator;
 import com.github.jankroken.commandline.util.PeekIterator;
 
 import java.lang.reflect.InvocationTargetException;
 
 import static com.github.jankroken.commandline.OptionStyle.SIMPLE;
-import static com.github.jankroken.commandline.domain.OptionSetLevel.MAIN_OPTIONS;
+import static com.github.jankroken.commandline.domain.internal.OptionSetLevel.MAIN_OPTIONS;
 
 
 public class CommandLineParser {

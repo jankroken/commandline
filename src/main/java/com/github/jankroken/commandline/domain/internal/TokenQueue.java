@@ -1,4 +1,4 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
 
 import com.github.jankroken.commandline.util.PeekIterator;
 

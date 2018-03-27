@@ -1,5 +1,6 @@
 package com.github.jankroken.commandline.domain;
 
+import com.github.jankroken.commandline.domain.internal.OptionSpecificationFactory;
 import com.github.jankroken.commandline.happy.SimpleConfiguration;
 import org.junit.jupiter.api.Test;
 

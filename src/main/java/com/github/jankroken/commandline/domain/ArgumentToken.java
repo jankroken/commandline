@@ -1,5 +1,7 @@
 package com.github.jankroken.commandline.domain;
 
+import com.github.jankroken.commandline.domain.internal.Token;
+
 public class ArgumentToken implements Token {
     private final String value;
 

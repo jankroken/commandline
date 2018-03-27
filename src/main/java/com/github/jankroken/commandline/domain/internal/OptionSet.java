@@ -1,4 +1,7 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
+
+import com.github.jankroken.commandline.domain.InvalidCommandLineException;
+import com.github.jankroken.commandline.domain.UnrecognizedSwitchException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -15,7 +18,7 @@ public class OptionSet {
     }
 
     public OptionSpecification getOptionSpecification(SwitchToken _switch) {
-        for (var optionSpecification : options) {
+        for (final var optionSpecification : options) {
             if (optionSpecification.getSwitch().matches(_switch.getValue())) {
                 return optionSpecification;
             }
@@ -24,7 +27,7 @@ public class OptionSet {
     }
 
     public OptionSpecification getLooseArgsOptionSpecification() {
-        for (var optionSpecification : options) {
+        for (final var optionSpecification : options) {
             if (optionSpecification.isLooseArgumentsSpecification()) {
                 return optionSpecification;
             }
@@ -69,7 +72,7 @@ public class OptionSet {
 
     private void flush()
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        for (var option : options) {
+        for (final var option : options) {
             option.flush();
         }
     }

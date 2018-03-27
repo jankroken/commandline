@@ -1,6 +1,9 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
 
-import static com.github.jankroken.commandline.domain.ArgumentConsumptionType.*;
+import com.github.jankroken.commandline.domain.InternalErrorException;
+import com.github.jankroken.commandline.domain.InvalidOptionConfigurationException;
+
+import static com.github.jankroken.commandline.domain.internal.ArgumentConsumptionType.*;
 
 public class ArgumentConsumptionBuilder {
     private boolean no_arguments = false;

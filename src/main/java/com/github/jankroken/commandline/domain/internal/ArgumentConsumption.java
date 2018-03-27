@@ -1,4 +1,4 @@
-package com.github.jankroken.commandline.domain;
+package com.github.jankroken.commandline.domain.internal;
 
 public class ArgumentConsumption {
     private final ArgumentConsumptionType type;
