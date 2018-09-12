@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.jankroken</groupId>
     <artifactId>commandline</artifactId>
-    <version>1.11rc1-SNAPSHOT</version>
+    <version>1.11rc1</version>
     <packaging>jar</packaging>
     <name>commandline</name>
     <description>An annotation based command line parser</description>
