@@ -1,6 +1,8 @@
 Commandline: Users Guide
 ========================
 
+See [a href="RELEASE.md"]RELEASE.md[/a] for release notes
+
 What is CommandLine
 -------------------
 
@@ -81,6 +83,9 @@ There are two option styles available for the parser.
   single dash on the command line. Example: 'findalbum -v -title "Undeveloped" -artist "OhGr"'
 * OptionStyle.LONG_OR_COMPACT - Long switches are prepended by two dashes. Short switches are prepended with a
   single dash, and may be concatenated into one switch. Example: 'ls -lSr --color true'
+
+Note that it is recommended to create a dedicated class hierarchy to represent the command line, to maintain the
+a strong separation between the domain model and infrastructure/surroundings.
 
 ### A simple example ###
 
@@ -462,3 +467,4 @@ as switches.
   setter would have had if @Multiple had not been specified
 
 For further examples, please consult the unit tests
+

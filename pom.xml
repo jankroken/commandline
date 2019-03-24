@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.jankroken</groupId>
     <artifactId>commandline</artifactId>
-    <version>1.11rc1</version>
+    <version>1.11rc2</version>
     <packaging>jar</packaging>
     <name>commandline</name>
     <description>An annotation based command line parser</description>
@@ -46,13 +46,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.11.1</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -70,7 +70,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>6.2.1</version>
+                        <version>7.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -102,7 +102,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <configuration>
                     <additionalOptions>
                         <additionalOption>-html5</additionalOption>
@@ -121,12 +121,12 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>6.2.1</version>
+                        <version>7.1</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.commons</groupId>
                         <artifactId>commons-lang3</artifactId>
-                        <version>3.8</version>
+                        <version>3.8.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -145,5 +145,7 @@
     </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.4.0</junit.version>
+        <assertj.version>3.12.1</assertj.version>
     </properties>
 </project>

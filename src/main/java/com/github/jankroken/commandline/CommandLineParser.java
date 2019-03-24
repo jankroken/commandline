@@ -1,5 +1,6 @@
 package com.github.jankroken.commandline;
 
+import com.github.jankroken.commandline.domain.CommandLineException;
 import com.github.jankroken.commandline.domain.internal.LongOrCompactTokenizer;
 import com.github.jankroken.commandline.domain.internal.OptionSet;
 import com.github.jankroken.commandline.domain.internal.SimpleTokenizer;
@@ -49,5 +50,13 @@ public class CommandLineParser {
         }
         optionSet.consumeOptions(tokenizer);
         return spec;
+    }
+
+    public static <T> ParseResult<T> tryParse(Class<T> optionClass, String[] args, OptionStyle style) {
+        try {
+            return new ParseResult(parse(optionClass, args, style));
+        } catch(CommandLineException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            return new ParseResult(e);
+        }
     }
 }
