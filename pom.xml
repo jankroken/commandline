@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.jankroken</groupId>
     <artifactId>commandline</artifactId>
-    <version>1.11rc2</version>
+    <version>1.11rc3</version>
     <packaging>jar</packaging>
     <name>commandline</name>
     <description>An annotation based command line parser</description>
@@ -145,7 +145,7 @@
     </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.4.0</junit.version>
-        <assertj.version>3.12.1</assertj.version>
+        <junit.version>5.4.1</junit.version>
+        <assertj.version>3.12.2</assertj.version>
     </properties>
 </project>
